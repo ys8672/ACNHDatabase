@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 
 const TITLE = 'AC:NH Villagers'
@@ -26,88 +26,152 @@ class Villagers extends React.Component {
         function imageFormatter(cell, row) {
             return (
                 <img className="img" src={cell} alt={"Image Not Found"}
-                     style={{maxHeight: '100%', maxWidth: '100%'}}/>
+                     style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }
+
+
+		function imageFormatter2(column, colIndex) {
+			return (
+				<h3><strong>{ column.text }</strong></h3>
+			);
+		}
+		
+		const defaultSorted = [{
+			dataField: 'id',
+			order: 'asce'
+		}];
+		
+		const selectPersonality= {
+			Cranky: 'Cranky',
+			Jock: 'Jock',
+			Lazy: 'Lazy',
+			Normal: 'Normal',
+			Peppy: 'Peppy',
+			Smug: 'Smug',
+			Snooty: 'Snooty',
+			Uchi: 'Uchi'	
+		};
+		
+		const selectSpecies= {
+			Alligator: 'Alligator',
+			Anteater: 'Anteater',
+			Bear: 'Bear',
+			Bird: 'Bird',
+			Bull: 'Bull',
+			Cat: 'Cat',
+			Chicken: 'Chicken',
+			Cow: 'Cow',
+			Cub: 'Cub',
+			Deer: 'Deer',
+			Dog: 'Dog',
+			Duck: 'Duck',
+			Eagle: 'Eagle',
+			Elephant: 'Elephant',
+			Frog: 'Frog',
+			Goat: 'Goat',
+			Gorilla: 'Gorilla',
+			Hamster: 'Hamster',
+			Hippo: 'Hippo',
+			Horse: 'Horse',
+			Kangaroo: 'Kangaroo',
+			Koala: 'Koala',
+			Lion: 'Lion',
+			Monkey: 'Monkey',
+			Mouse: 'Mouse',
+			Octopus: 'Octopus',
+			Ostrich: 'Ostrich',
+			Penguin: 'Penguin',
+			Pig: 'Pig',
+			Rabbit: 'Rabbit',
+			Rhino: 'Rhino',
+			Sheep: 'Sheep',
+			Squirrel: 'Squirrel',
+			Tiger: 'Tiger',
+			Wolf: 'Wolf'
+		};
 
         const {villagers} = this.state
         const {columns} = {
             columns: [{
-                dataField: 'name',
-                text: 'Villager Name',
-                sort: true,
-            }, {
                 dataField: 'image',
                 text: 'Villager Photo',
                 sort: false,
                 formatter: imageFormatter,
-				searchable: false
-            }, {
+				searchable: false,
+				align: "center",
+				headerAlign: 'center',
+				headerFormatter: imageFormatter2
+            },{
+                dataField: 'name',
+                text: 'Villager Name',
+                sort: true,
+				align: "center",
+				headerAlign: 'center',
+				filter: textFilter()
+            },  {
                 dataField: 'personality',
                 text: 'Personality',
                 sort: true,
-				searchable: false
+				align: "center",
+				headerAlign: 'center',
+				formatter: cell => selectPersonality[cell],
+				filter: selectFilter({
+					options: selectPersonality
+				})
             }, {
                 dataField: 'birthday',
                 text: 'Birthday',
                 sort: true,
-				searchable: false
+				align: "center",
+				headerAlign: 'center',
+				filter: textFilter()
             }, {
                 dataField: 'species',
                 text: 'Species',
                 sort: true,
-				searchable: false
+				align: "center",
+				headerAlign: 'center',
+				formatter: cell => selectSpecies[cell],
+				filter: selectFilter({
+					options: selectSpecies
+				})
             }, {
                 dataField: 'catchPhrase',
                 text: 'Catch Phrase',
                 sort: true,
-				searchable: false
+				align: "center",
+				headerAlign: 'center',
+				filter: textFilter()
             }, {
                 dataField: 'id',
                 text: 'ID',
                 sort: true,
                 hidden: true,
-				searchable: false
             }
             ]
         }
-		const { SearchBar, ClearSearchButton } = Search
-
+	
         return (
-            <div>
+            <div class='tablepad'>
 				<Helmet>
 				  <title>{ TITLE }</title>
 				</Helmet>
 
                 <h1 className="text-center">Villagers</h1>
-                <h5 className="text-center">Hint: You can click on the column names to sort by that column information
-                    up or down alphanumerically.</h5>
 
-				<ToolkitProvider
-				  keyField="id"
-				  data={ villagers }
-				  columns={ columns }
-				  search
-				  >
-				  {
-					props => (
-					  <div>
-						<div style={{display: 'flex', justifyContent: 'center'}}>
-							<SearchBar { ...props.searchProps }/>
-							<ClearSearchButton { ...props.searchProps } />
-						</div> 
-						<hr/>
-						<BootstrapTable
-							{...props.baseProps }
-							striped
-							pagination={ paginationFactory() }
-						/>
-					  </div>
-					)
-				  }
-				</ToolkitProvider>
-				
-            </div>
+				<div>
+					<BootstrapTable
+						keyField = "id"
+						data={ villagers }
+						columns={ columns }
+						striped
+						pagination={ paginationFactory() }
+						defaultSorted={ defaultSorted } 
+						filter={ filterFactory() }
+					/>
+				</div>
+			</div>
         )
     }
 }
