@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Villagers from "./Villagers";
 import FrontPage from "./FrontPage";
+import Songs from "./Songs";
 
 class App extends React.Component{
 	render() {
@@ -13,6 +14,7 @@ class App extends React.Component{
 				<BrowserRouter>
 					<Switch>
 						<Route path="/villagers" component={Villagers}/>
+						<Route path="/songs" component={Songs}/>
 						<Route path="/" component={FrontPage}/>
 					</Switch>
 				</BrowserRouter>

@@ -5,19 +5,19 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 
-const TITLE = 'AC:NH Villagers'
+const TITLE = 'AC:NH Songs'
 
-class Villagers extends React.Component {
+class Songs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            villagers: []
+            songs: []
         }
     }
 
     componentDidMount() {
-        fetch('/api/villagers/').then(r => r.json()).then(villager_data => {
-            this.setState({villagers: villager_data.villagers})
+        fetch('/api/songs/').then(r => r.json()).then(song_data => {
+            this.setState({songs: song_data.songs})
         })
 
     }
@@ -30,11 +30,26 @@ class Villagers extends React.Component {
             );
         }
 
+		function orderableFormatter(cell, row) {
+			if(cell === true){
+				return ("Yes")
+			}
+			return ("No")
+		}
 
-		function imageFormatter2(column, colIndex) {
+		function buyPriceFormatter(cell, row) {
+			if(cell === -1){
+				return "Not Purchasable"
+			}
+			return cell
+		}
+		
+		function musicFormatter(cell, row) {
 			return (
-				<h3><strong>{ column.text }</strong></h3>
-			);
+				<audio src={cell} controls>
+					Your browser does not support the audio element.
+				</audio>
+			)
 		}
 		
 		const defaultSorted = [{
@@ -42,107 +57,74 @@ class Villagers extends React.Component {
 			order: 'asce'
 		}];
 		
-		const selectPersonality= {
-			Cranky: 'Cranky',
-			Jock: 'Jock',
-			Lazy: 'Lazy',
-			Normal: 'Normal',
-			Peppy: 'Peppy',
-			Smug: 'Smug',
-			Snooty: 'Snooty',
-			Uchi: 'Uchi'	
+		const selectPurchasable= {
+			true: 'Yes',
+			false: 'No'
 		};
 		
-		const selectSpecies= {
-			Alligator: 'Alligator',
-			Anteater: 'Anteater',
-			Bear: 'Bear',
-			Bird: 'Bird',
-			Bull: 'Bull',
-			Cat: 'Cat',
-			Chicken: 'Chicken',
-			Cow: 'Cow',
-			Cub: 'Cub',
-			Deer: 'Deer',
-			Dog: 'Dog',
-			Duck: 'Duck',
-			Eagle: 'Eagle',
-			Elephant: 'Elephant',
-			Frog: 'Frog',
-			Goat: 'Goat',
-			Gorilla: 'Gorilla',
-			Hamster: 'Hamster',
-			Hippo: 'Hippo',
-			Horse: 'Horse',
-			Kangaroo: 'Kangaroo',
-			Koala: 'Koala',
-			Lion: 'Lion',
-			Monkey: 'Monkey',
-			Mouse: 'Mouse',
-			Octopus: 'Octopus',
-			Ostrich: 'Ostrich',
-			Penguin: 'Penguin',
-			Pig: 'Pig',
-			Rabbit: 'Rabbit',
-			Rhino: 'Rhino',
-			Sheep: 'Sheep',
-			Squirrel: 'Squirrel',
-			Tiger: 'Tiger',
-			Wolf: 'Wolf'
+		const selectBuyPrice= {
+			'3200': '3200',
+			'-1': 'Not Purchasable'			
+		};
+		
+		const selectSellPrice= {
+			'800': '800'
 		};
 
-        const {villagers} = this.state
+        const {songs} = this.state
         const {columns} = {
             columns: [{
                 dataField: 'image',
-                text: 'Villager Photo',
+                text: 'Song Cover Photo',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
 				align: "center",
-				headerAlign: 'center',
-				headerFormatter: imageFormatter2
+				headerAlign: 'center'
             },{
                 dataField: 'name',
-                text: 'Villager Name',
+                text: 'Song Name',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				filter: textFilter()
             },  {
-                dataField: 'personality',
-                text: 'Personality',
+                dataField: 'isOrderable',
+                text: 'Purchasable?',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				formatter: cell => selectPersonality[cell],
+				formatter: orderableFormatter,
 				filter: selectFilter({
-					options: selectPersonality
+					options: selectPurchasable
 				})
             }, {
-                dataField: 'birthday',
-                text: 'Birthday',
+                dataField: 'buyPrice',
+                text: 'Purchase Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
-            }, {
-                dataField: 'species',
-                text: 'Species',
-                sort: true,
-				align: "center",
-				headerAlign: 'center',
-				formatter: cell => selectSpecies[cell],
+				formatter: buyPriceFormatter,
 				filter: selectFilter({
-					options: selectSpecies
+					options: selectBuyPrice
 				})
             }, {
-                dataField: 'catchPhrase',
-                text: 'Catch Phrase',
+                dataField: 'sellPrice',
+                text: 'Sell Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				formatter: cell => selectSellPrice[cell],
+				filter: selectFilter({
+					options: selectSellPrice
+				})
+            }, {
+                dataField: 'music',
+                text: 'Music',
+                sort: false,
+				align: "center",
+				headerAlign: 'center',
+				formatter: musicFormatter
             }, {
                 dataField: 'id',
                 text: 'ID',
@@ -158,17 +140,19 @@ class Villagers extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Villagers</h1>
+                <h1 className="text-center">Songs</h1>
 
 				<div>
+
 					<BootstrapTable
 						keyField = "id"
-						data={ villagers }
+						data={ songs }
 						columns={ columns }
 						striped
 						pagination={ paginationFactory() }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
+						
 					/>
 				</div>
 			</div>
@@ -177,4 +161,4 @@ class Villagers extends React.Component {
 }
 
 
-export default Villagers;
+export default Songs;

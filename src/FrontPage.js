@@ -8,9 +8,14 @@ class FrontPage extends React.Component{
 	
 	render(){
 		return(
-			<div style={{display: 'flex', justifyContent: 'center'}}>
-				<a href="/villagers">Villagers</a>
-			</div> 
+			<div>
+				<div style={{display: 'flex', justifyContent: 'center'}}>
+					<a href="/villagers">Villagers</a>
+				</div> 
+				<div style={{display: 'flex', justifyContent: 'center'}}>
+					<a href="/songs">Songs</a>
+				</div> 
+			</div>
 		)
 	}
 }

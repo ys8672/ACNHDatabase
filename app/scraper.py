@@ -1,7 +1,7 @@
 import requests
 import json
 
-#Creates JSON file for each catego
+#Creates JSON file for each category available in the URL
 def makeJsonFile(files):
     for string in files:
         URL = "https://acnhapi.com/v1/"
