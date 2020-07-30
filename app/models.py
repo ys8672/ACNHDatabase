@@ -17,6 +17,7 @@ class Villagers(db.Model):
     gender      (the villager's gender)
     catchPhrase (the vilager's greeting to the player)
     image       (the villager's photo)
+    icon        (the villager's face)
     id          (the id of the villager in the database)
     """
     __tablename__ = 'villagers'
@@ -28,6 +29,7 @@ class Villagers(db.Model):
     gender = db.Column(db.String(256), nullable = False)
     catchPhrase = db.Column(db.String(256), nullable = False)
     image = db.Column(db.String(256), nullable = False)
+    icon = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
 class Songs(db.Model):

@@ -20,7 +20,7 @@ def index():
 
 def get_villager_dict(villager):
     return {"name": villager.name, "personality": villager.personality, "birthday": villager.birthday, "species": villager.species,
-            "gender": villager.gender, "catchPhrase": villager.catchPhrase, "image": villager.image, "id": villager.id}
+            "gender": villager.gender, "catchPhrase": villager.catchPhrase, "image": villager.image, "icon": villager.icon, "id": villager.id}
     
 @app.route('/api/villagers/')
 def villager_data():

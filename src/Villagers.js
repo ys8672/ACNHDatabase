@@ -29,13 +29,19 @@ class Villagers extends React.Component {
                      style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }
-
-
-		function imageFormatter2(column, colIndex) {
-			return (
-				<h3><strong>{ column.text }</strong></h3>
-			);
-		}
+		
+		function imageFormatter2(cell, row) {
+            return (
+                <img className="img" src={cell} alt={"Image Not Found"}
+                     style={{maxHeight: '100%', maxWidth: '100%'}}/>
+            );
+        }
+		
+		function villagerFormatter(cell, row) {
+            return (
+                <b> {cell} </b>
+            );
+        }
 		
 		const defaultSorted = [{
 			dataField: 'id',
@@ -94,21 +100,29 @@ class Villagers extends React.Component {
         const {villagers} = this.state
         const {columns} = {
             columns: [{
+                dataField: 'name',
+                text: 'Villager Name',
+                sort: true,
+				formatter: villagerFormatter,
+				align: "center",
+				headerAlign: 'center',
+				filter: textFilter()
+            },{
+                dataField: 'icon',
+                text: 'Villager Icon',
+                sort: false,
+                formatter: imageFormatter2,
+				searchable: false,
+				align: "center",
+				headerAlign: 'center'
+            },{
                 dataField: 'image',
                 text: 'Villager Photo',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
 				align: "center",
-				headerAlign: 'center',
-				headerFormatter: imageFormatter2
-            },{
-                dataField: 'name',
-                text: 'Villager Name',
-                sort: true,
-				align: "center",
-				headerAlign: 'center',
-				filter: textFilter()
+				headerAlign: 'center'
             },  {
                 dataField: 'personality',
                 text: 'Personality',
@@ -151,7 +165,7 @@ class Villagers extends React.Component {
             }
             ]
         }
-	
+				
         return (
             <div class='tablepad'>
 				<Helmet>
