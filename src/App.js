@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navigation from "./Navigation";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Villagers from "./Villagers";
 import FrontPage from "./FrontPage";
@@ -12,6 +13,7 @@ class App extends React.Component{
         return (
             <div>
 				<BrowserRouter>
+				<Navigation/>
 					<Switch>
 						<Route path="/villagers" component={Villagers}/>
 						<Route path="/songs" component={Songs}/>
