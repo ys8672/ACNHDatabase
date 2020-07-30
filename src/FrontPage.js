@@ -15,6 +15,9 @@ class FrontPage extends React.Component{
 				<div style={{display: 'flex', justifyContent: 'center'}}>
 					<a href="/songs">Songs</a>
 				</div> 
+				<div style={{display: 'flex', justifyContent: 'center'}}>
+					<a href="/sea">Sea Creatures</a>
+				</div> 
 			</div>
 		)
 	}

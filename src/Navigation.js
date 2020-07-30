@@ -24,16 +24,19 @@ export default class Navigation extends React.Component {
 					<a class="nav-link disabled" href="/fish">Fish</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link disabled" href="/fish">Fossils</a>
+					<a class="nav-link disabled" href="/fossils">Fossils</a>
 				  </li>
 				  <li class="nav-item">
-					<a class="nav-link disabled" href="/sea">Sea</a>
+					<a class="nav-link" href="/sea">Sea</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link" href="/songs">Songs</a>
 				  </li>
 				  <li class="nav-item">
 					<a class="nav-link" href="/villagers">Villagers</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link disabled" href="/about">About</a>
 				  </li>
 				</ul>
 			  </div>

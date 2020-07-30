@@ -52,5 +52,37 @@ class Songs(db.Model):
     image = db.Column(db.String(256), nullable = False)
     music = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
+    
+class Sea(db.Model):
+    '''
+    Sea have the following attributes
+    name        (the sea creature's name)
+    monthNorth  (what months the sea creature is available in the Northern Hemisphere)
+    monthSouth  (what months the sea creature is available in the Southern Hemisphere)
+    time        (what time the sea creature can be found)
+    speed       (how fast the sea creature swims)
+    shadow      (size of sea creature shadow)
+    price       (bells acquired from selling sea creature at Nook's Cranny)
+    catchPhrase (game phrase when you acquired this sea creature)
+    museumPhrase(museum plack describing sea creature)
+    image       (URL to image of sea creature)
+    icon        (URL to image of sea creature in your inventory)
+    id          (the id of the sea creatuer in the database)
+    '''
+    __tablename__= 'sea'
+    
+    name = db.Column(db.String(256), nullable = False)
+    monthNorth = db.Column(db.String(256), nullable = False)
+    monthSouth = db.Column(db.String(256), nullable = False)
+    time = db.Column(db.String(256), nullable = False)
+    speed = db.Column(db.String(256), nullable = False)
+    shadow = db.Column(db.String(256), nullable = False)
+    price = db.Column(db.Integer, nullable = False)
+    catchPhrase = db.Column(db.String(256), nullable = False)
+    museumPhrase = db.Column(db.String(65536), nullable = False)
+    image = db.Column(db.String(256), nullable = False)
+    icon = db.Column(db.String(256), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
+    
 
 db.create_all()

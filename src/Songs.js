@@ -74,6 +74,13 @@ class Songs extends React.Component {
         const {songs} = this.state
         const {columns} = {
             columns: [{
+                dataField: 'name',
+                text: 'Song Name',
+                sort: true,
+				align: "center",
+				headerAlign: 'center',
+				filter: textFilter()
+            },{
                 dataField: 'image',
                 text: 'Song Cover Photo',
                 sort: false,
@@ -81,14 +88,7 @@ class Songs extends React.Component {
 				searchable: false,
 				align: "center",
 				headerAlign: 'center'
-            },{
-                dataField: 'name',
-                text: 'Song Name',
-                sort: true,
-				align: "center",
-				headerAlign: 'center',
-				filter: textFilter()
-            },  {
+			},{
                 dataField: 'isOrderable',
                 text: 'Purchasable?',
                 sort: true,
