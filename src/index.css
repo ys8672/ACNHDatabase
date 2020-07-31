@@ -20,6 +20,10 @@ body {
      vertical-align: middle;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -105,6 +105,21 @@ class Villagers extends React.Component {
 			return month + " " + day
 		}		
 		
+		function birthdaySort(a, b, order, dataField, rowA, rowB) {
+			var aFields = a.split('/');
+			var aMonth = parseInt(aFields[1]);
+			var aDay = parseInt(aFields[0]);
+			var bFields = b.split('/');
+			var bMonth = parseInt(bFields[1]);
+			var bDay = parseInt(bFields[0]);
+			var time1 = new Date(2020, aMonth, aDay); // year, month, day
+			var time2 = new Date(2020, bMonth, bDay);
+			if (order === 'asc') {
+				return time1 - time2;
+			}
+			return time2 - time1;
+		}
+		
 		const defaultSorted = [{
 			dataField: 'id',
 			order: 'asc'
@@ -229,20 +244,7 @@ class Villagers extends React.Component {
 				filter: textFilter(),
 				filterValue: birthdayFormatter,
 				formatter: birthdayFormatter,
-				sortFunc: (a, b, order, dataField, rowA, rowB) => {
-					var aFields = a.split('/');
-					var aMonth = parseInt(aFields[1]);
-					var aDay = parseInt(aFields[0]);
-					var bFields = b.split('/');
-					var bMonth = parseInt(bFields[1]);
-					var bDay = parseInt(bFields[0]);
-					var time1 = new Date(2020, aMonth, aDay); // year, month, day
-					var time2 = new Date(2020, bMonth, bDay);
-					if (order === 'asc') {
-						return time1 - time2;
-					}
-					return time2 - time1;
-				}
+				sortFunc: birthdaySort
             }, {
                 dataField: 'catchPhrase',
                 text: 'Catch Phrase',

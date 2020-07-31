@@ -23,6 +23,12 @@ class Songs extends React.Component {
     }
 
     render() {
+		function nameFormatter(cell, row) {
+            return (
+                <b className="capitalize">{cell} </b> 
+            );
+        }
+		
         function imageFormatter(cell, row) {
             return (
                 <img className="img" src={cell}
@@ -77,6 +83,7 @@ class Songs extends React.Component {
                 dataField: 'name',
                 text: 'Song Name',
                 sort: true,
+				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
 				filter: textFilter()
