@@ -1,9 +1,9 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 
 const TITLE = 'AC:NH Songs'
 
@@ -25,7 +25,7 @@ class Songs extends React.Component {
     render() {
         function imageFormatter(cell, row) {
             return (
-                <img className="img" src={cell} alt={"Image Not Found"}
+                <img className="img" src={cell}
                      style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }
@@ -135,7 +135,7 @@ class Songs extends React.Component {
         }
 	
         return (
-            <div class='tablepad'>
+            <div>
 				<Helmet>
 				  <title>{ TITLE }</title>
 				</Helmet>
@@ -145,6 +145,7 @@ class Songs extends React.Component {
 				<div>
 
 					<BootstrapTable
+						bootstrap4
 						keyField = "id"
 						data={ songs }
 						columns={ columns }

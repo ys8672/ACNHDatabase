@@ -15,7 +15,7 @@ def create_villagers():
     for (k, villager) in villagers.items():
         name = villager['name']['name-USen']
         personality = villager['personality']
-        birthday = villager['birthday-string']
+        birthday = villager['birthday']
         species = villager['species']
         gender = villager['gender']
         catchPhrase = villager['catch-phrase']

@@ -1,8 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter, selectFilter} from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 
@@ -22,18 +21,18 @@ class Villagers extends React.Component {
         })
 
     }
-
+	
     render() {
         function imageFormatter(cell, row) {
             return (
-                <img className="img" src={cell} alt={"Image Not Found"}
+                <img className="img" src={cell}
                      style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }
 		
 		function imageFormatter2(cell, row) {
             return (
-                <img className="img" src={cell} alt={"Image Not Found"}
+                <img className="img" src={cell}
                      style={{maxHeight: '100%', maxWidth: '100%'}}/>
             );
         }
@@ -44,10 +43,77 @@ class Villagers extends React.Component {
             );
         }
 		
+		function ordinal_suffix_of(i) {
+			var j = i % 10,
+				k = i % 100;
+			if (j === 1 && k !== 11) {
+				return i + "st";
+			}
+			if (j === 2 && k !== 12) {
+				return i + "nd";
+			}
+			if (j === 3 && k !== 13) {
+				return i + "rd";
+			}
+			return i + "th";
+		}
+		
+		function birthdayFormatter(cell, row) {
+			var fields = cell.split('/');
+			var month = parseInt(fields[1]);
+			var day = parseInt(fields[0]);
+			
+			switch(month){
+				case 1:
+					month = "January";
+					break;
+				case 2:
+					month = "February";
+					break;
+				case 3:
+					month = "March";
+					break;
+				case 4:
+					month = "April";
+					break;
+				case 5:
+					month = "May";
+					break;
+				case 6:
+					month = "June";
+					break;
+				case 7:
+					month = "July";
+					break;
+				case 8:
+					month = "August";
+					break;
+				case 9:
+					month = "September";
+					break;
+				case 10:
+					month = "October";
+					break;
+				case 11:
+					month = "November";
+					break;
+				case 12:
+					month = "December";
+			}
+			day = ordinal_suffix_of(day)
+			
+			return month + " " + day
+		}		
+		
 		const defaultSorted = [{
 			dataField: 'id',
-			order: 'asce'
+			order: 'asc'
 		}];
+		
+		const selectGender={
+			Male: 'Male',
+			Female: 'Female'
+		}
 		
 		const selectPersonality= {
 			Cranky: 'Cranky',
@@ -144,13 +210,39 @@ class Villagers extends React.Component {
 				filter: selectFilter({
 					options: selectPersonality
 				})
+            },{
+                dataField: 'gender',
+                text: 'Gender',
+                sort: true,
+				align: "center",
+				headerAlign: 'center',
+				formatter: cell => selectGender[cell],
+				filter: selectFilter({
+					options: selectGender
+				})
             }, {
                 dataField: 'birthday',
                 text: 'Birthday',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter(),
+				filterValue: birthdayFormatter,
+				formatter: birthdayFormatter,
+				sortFunc: (a, b, order, dataField, rowA, rowB) => {
+					var aFields = a.split('/');
+					var aMonth = parseInt(aFields[1]);
+					var aDay = parseInt(aFields[0]);
+					var bFields = b.split('/');
+					var bMonth = parseInt(bFields[1]);
+					var bDay = parseInt(bFields[0]);
+					var time1 = new Date(2020, aMonth, aDay); // year, month, day
+					var time2 = new Date(2020, bMonth, bDay);
+					if (order === 'asc') {
+						return time1 - time2;
+					}
+					return time2 - time1;
+				}
             }, {
                 dataField: 'catchPhrase',
                 text: 'Catch Phrase',
@@ -168,7 +260,7 @@ class Villagers extends React.Component {
         }
 				
         return (
-            <div class='tablepad'>
+            <div>
 				<Helmet>
 				  <title>{ TITLE }</title>
 				</Helmet>
