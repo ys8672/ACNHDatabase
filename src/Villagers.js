@@ -4,6 +4,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 
 const TITLE = 'AC:NH Villagers'
 
@@ -123,7 +124,17 @@ class Villagers extends React.Component {
 				searchable: false,
 				align: "center",
 				headerAlign: 'center'
-            },  {
+            }, {
+                dataField: 'species',
+                text: 'Species',
+                sort: true,
+				align: "center",
+				headerAlign: 'center',
+				formatter: cell => selectSpecies[cell],
+				filter: selectFilter({
+					options: selectSpecies
+				})
+            },{
                 dataField: 'personality',
                 text: 'Personality',
                 sort: true,
@@ -140,16 +151,6 @@ class Villagers extends React.Component {
 				align: "center",
 				headerAlign: 'center',
 				filter: textFilter()
-            }, {
-                dataField: 'species',
-                text: 'Species',
-                sort: true,
-				align: "center",
-				headerAlign: 'center',
-				formatter: cell => selectSpecies[cell],
-				filter: selectFilter({
-					options: selectSpecies
-				})
             }, {
                 dataField: 'catchPhrase',
                 text: 'Catch Phrase',
@@ -176,6 +177,7 @@ class Villagers extends React.Component {
 
 				<div>
 					<BootstrapTable
+						bootstrap4
 						keyField = "id"
 						data={ villagers }
 						columns={ columns }

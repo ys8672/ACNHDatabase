@@ -16,6 +16,10 @@ body {
   width: 100%
 }
 
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
