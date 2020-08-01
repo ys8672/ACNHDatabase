@@ -15,9 +15,9 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/villagers/')
 @app.route('/songs/')
 @app.route('/sea/')
+@app.route('/seadetail/')
 def index():
     return app.send_static_file('index.html')
-    
 
 def get_villager_dict(villager):
     return {"name": villager.name, "personality": villager.personality, "birthday": villager.birthday, "species": villager.species,
