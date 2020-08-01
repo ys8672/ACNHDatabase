@@ -7,6 +7,7 @@ import Villagers from "./Villagers";
 import FrontPage from "./FrontPage";
 import Songs from "./Songs";
 import Sea from "./Sea";
+//import SeaMuseum from "./SeaMuseum";
 
 class App extends React.Component{
 	render() {
@@ -18,6 +19,7 @@ class App extends React.Component{
 						<Route path="/villagers" component={Villagers}/>
 						<Route path="/songs" component={Songs}/>
 						<Route path="/sea" component={Sea}/>
+
 						<Route path="/" component={FrontPage}/>
 					</Switch>
 				</BrowserRouter>
@@ -27,3 +29,5 @@ class App extends React.Component{
 }
 
 export default App;
+
+/* <Route path="/seadetail" component={SeaMuseum}/> */

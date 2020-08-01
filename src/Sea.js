@@ -107,6 +107,123 @@ class Sea extends React.Component {
 			return cell;
 		}
 		
+		function monthSort(a, b, order, dataField, rowA, rowB){
+			if (a === ""){
+				a = "1-1";
+			}
+			if (b === ""){
+				b = "1-1";
+			}
+			
+			if(a.includes("&") && b.includes("&")){
+				//If sorted a and b both are double dates do this.
+				var aField = a.split("&");
+				var aMonth1 = (aField[0]).split("-");
+				var aMonth2 = (aField[1]).split("-");
+				var aMonth1Begin = parseInt(aMonth1[0]);
+				var aMonth1End = parseInt(aMonth1[1]);
+				if (aMonth1Begin > aMonth1End){
+					aMonth1End += 12;
+				}
+				var aMonth2Begin = parseInt(aMonth2[0]);
+				var aMonth2End = parseInt(aMonth2[1]);
+				if (aMonth2Begin > aMonth2End){
+					aMonth2End += 12;
+				}
+				var bField = b.split("&");
+				var bMonth1 = (bField[0]).split("-");
+				var bMonth2 = (bField[1]).split("-");
+				var bMonth1Begin = parseInt(bMonth1[0]);
+				var bMonth1End = parseInt(bMonth1[1]);
+				if (bMonth1Begin > bMonth1End){
+					bMonth1End += 12;
+				}
+				var bMonth2Begin = parseInt(bMonth2[0]);
+				var bMonth2End = parseInt(bMonth2[1]);
+				if (bMonth2Begin > bMonth2End){
+					bMonth2End += 12;
+				}
+				if (order === 'asc') {
+					return aMonth1Begin - bMonth1Begin || aMonth1End - bMonth1End
+						|| aMonth2Begin - bMonth2Begin || aMonth2End - bMonth2End;
+				}
+				return bMonth1Begin - aMonth1Begin || bMonth1End - aMonth1End
+					|| bMonth2Begin - aMonth2Begin || bMonth2End - aMonth2End;
+			}
+			
+			var aField = a.split("-");
+			var bField = b.split("-");
+			if(a.includes("&")){
+				var oneField = a.split("&");
+				aField = (oneField[0]).split("-");
+			}
+			if(b.includes("&")){
+				var twoField = b.split("&");
+				bField = (twoField[0]).split("-");
+			}
+			var aMonthBegin = parseInt(aField[0]);
+			var aMonthEnd = parseInt(aField[1]);
+			var bMonthBegin= parseInt(bField[0]);
+			var bMonthEnd = parseInt(bField[1]);
+			if (aMonthBegin > aMonthEnd){
+				aMonthEnd += 12;
+			}
+			if (bMonthBegin > bMonthEnd){
+				bMonthEnd += 12;
+			}
+			if (order === 'asc') {
+				return aMonthBegin - bMonthBegin || aMonthEnd - bMonthEnd;
+			}
+			return bMonthBegin - aMonthBegin || bMonthEnd - aMonthEnd;
+		}
+		
+		function timeSort(a, b, order, dataField, rowA, rowB){
+			if (a === ""){
+				a = "0am - 0am";
+			}
+			if (b === ""){
+				b = "0am - 0am";
+			}
+			
+			var aField = a.split("-");
+			var bField = b.split("-");
+			if(a.includes("&")){
+				var oneField = a.split("&");
+				aField = (oneField[0]).split("-");
+			}
+			if(b.includes("&")){
+				var twoField = b.split("&");
+				bField = (twoField[0]).split("-");
+			}
+			
+			var aTimeBegin = parseInt(aField[0].replace(/\D/g,''));
+			var aTimeEnd = parseInt(aField[1].replace(/\D/g,''));
+			var bTimeBegin= parseInt(bField[0].replace(/\D/g,''));
+			var bTimeEnd = parseInt(bField[1].replace(/\D/g,''));
+			if(aField[0].includes('pm')){
+				aTimeBegin += 12;
+			}
+			if(aField[1].includes('pm')){
+				aTimeEnd += 12;
+			}
+			if(aTimeEnd < aTimeBegin){
+				aTimeBegin += 24;
+			}
+			if(bField[0].includes('pm')){
+				bTimeBegin += 12;
+			}
+			if(bField[1].includes('pm')){
+				bTimeEnd += 12;
+			}
+			if(bTimeEnd < bTimeBegin){
+				bTimeBegin += 24;
+			}
+			if (order === 'asc') {
+				return aTimeBegin - bTimeBegin || aTimeEnd - bTimeEnd;
+			}
+			return bTimeBegin - aTimeBegin || bTimeEnd - aTimeEnd;
+		}
+		
 		function speedSort(a, b, order, dataField, rowA, rowB) {
 			var sortOrder = ['Stationary', 'Very slow', 'Slow', 'Medium', 'Fast', 'Very fast'];
 			if (order === 'asc') {
@@ -147,7 +264,11 @@ class Sea extends React.Component {
 			
 		function truncate(cell, row) {
 		   if (cell.length > 64) {
-			  return cell.substring(0, 64) + '...';
+			    /* var link = <Link to={{pathname:`/seadetail`, state: {cell}}}>...</Link>;
+				return (
+					<div> {cell.substring(0, 64)}{link} </div>
+				) */
+				return cell.substring(0, 64) + "...";
 		   }
 		   return cell;
 		};
@@ -180,26 +301,26 @@ class Sea extends React.Component {
                 dataField: 'monthNorth',
                 text: 'Months Available in the Northern Hemisphere',
                 sort: true,
+				sortFunc: monthSort,
 				formatter: monthFormatter,
 				align: "center",
-				headerAlign: 'center',
-				filter: textFilter()
+				headerAlign: 'center'
             }, {
                 dataField: 'monthSouth',
                 text: 'Months Available in the Southern Hemisphere',
                 sort: true,
+				sortFunc: monthSort,
 				formatter: monthFormatter,
 				align: "center",
-				headerAlign: 'center',
-				filter: textFilter()
+				headerAlign: 'center'
             }, {
                 dataField: 'time',
                 text: 'Time Available',
                 sort: true,
+				sortFunc: timeSort,
 				formatter: timeFormatter,
 				align: "center",
-				headerAlign: 'center',
-				filter: textFilter()
+				headerAlign: 'center'
             }, {
                 dataField: 'speed',
                 text: 'Movement Speed',
