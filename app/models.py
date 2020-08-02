@@ -67,7 +67,7 @@ class Sea(db.Model):
     museumPhrase(museum plack describing sea creature)
     image       (URL to image of sea creature)
     icon        (URL to image of sea creature in your inventory)
-    id          (the id of the sea creatuer in the database)
+    id          (the id of the sea creature in the database)
     '''
     __tablename__= 'sea'
     
@@ -84,5 +84,21 @@ class Sea(db.Model):
     icon = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
+class Fossils(db.Model):
+    '''
+    Fossils has the following attributes
+    name            (the fossil's name)
+    price           (the sale price of the fossil at Nook's Cranny)
+    museumphrase    (the museum description of the fossil)
+    image           (picture of the fossil)
+    id              (id of the fossil)
+    '''
+    __tablename__ = 'fossils'
+    
+    name = db.Column(db.String(256), nullable = False)
+    price = db.Column(db.Integer, nullable = False)
+    museumPhrase = db.Column(db.String(65536), nullable = False)
+    image = db.Column(db.String(256), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
 
 db.create_all()
