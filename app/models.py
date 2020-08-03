@@ -100,5 +100,38 @@ class Fossils(db.Model):
     museumPhrase = db.Column(db.String(65536), nullable = False)
     image = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
+    
+class Fishes(db.Model):
+    '''
+    Sea have the following attributes
+    name        (the fish's name)
+    monthNorth  (what months the fish is available in the Northern Hemisphere)
+    monthSouth  (what months the fish is available in the Southern Hemisphere)
+    time        (what time fish can be found)
+    location    (where the fish can be found)
+    rarity      (how often you can find the fish)
+    shadow      (size of sea creature shadow)
+    price       (bells acquired from selling fish at Nook's Cranny)
+    catchPhrase (game phrase when you catch this fish)
+    museumPhrase(museum plack describing fish)
+    image       (URL to image of fish)
+    icon        (URL to image of fishin your inventory)
+    id          (the id of the fish in the database)
+    '''
+    __tablename__ = 'fishes'
+    
+    name = db.Column(db.String(256), nullable = False)
+    monthNorth = db.Column(db.String(256), nullable = False)
+    monthSouth = db.Column(db.String(256), nullable = False)
+    time = db.Column(db.String(256), nullable = False)
+    location = db.Column(db.String(256), nullable = False)
+    rarity = db.Column(db.String(256), nullable = False)
+    shadow = db.Column(db.String(256), nullable = False)
+    price = db.Column(db.Integer, nullable = False)
+    catchPhrase = db.Column(db.String(256), nullable = False)
+    museumPhrase = db.Column(db.String(65536), nullable = False)
+    image = db.Column(db.String(256), nullable = False)
+    icon = db.Column(db.String(256), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
 
 db.create_all()

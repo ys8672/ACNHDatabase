@@ -1,5 +1,5 @@
 import json
-from models import app, db, Villagers, Songs, Sea, Fossils
+from models import app, db, Villagers, Songs, Sea, Fossils, Fishes
 
 #Loads JSON file 
 def load_json(filename):
@@ -82,6 +82,28 @@ def create_fossils():
         db.session.commit()
         index += 1
         
+def create_fishes():
+    db.session.query(Fishes).delete()
+    fishes = load_json('fish.json')
+    for (k, fish) in fishes.items():
+        name = fish['name']['name-USen']
+        monthNorth = fish['availability']['month-northern']
+        monthSouth = fish['availability']['month-southern']
+        time = fish['availability']['time']
+        location = fish['availability']['location']
+        rarity = fish['availability']['rarity']
+        shadow = fish['shadow']
+        price = fish['price']
+        catchPhrase = fish['catch-phrase']
+        museumPhrase = fish['museum-phrase']
+        image = fish['image_uri']
+        icon = fish['icon_uri']
+        id = fish['id']
+        new_fish = Fishes(name = name, monthNorth = monthNorth, monthSouth = monthSouth, time = time,
+            location = location, rarity = rarity, shadow = shadow, price = price, catchPhrase = catchPhrase, 
+            museumPhrase = museumPhrase, image = image, icon = icon, id = id)
+        db.session.add(new_fish)
+        db.session.commit()
 
 #Create all databases
 def create_database():
@@ -89,5 +111,6 @@ def create_database():
     create_songs()
     create_sea()
     create_fossils()
+    create_fishes()
 
 create_database()

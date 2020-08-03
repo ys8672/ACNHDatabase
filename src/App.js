@@ -7,8 +7,10 @@ import Villagers from "./Villagers";
 import FrontPage from "./FrontPage";
 import Songs from "./Songs";
 import Sea from "./Sea";
-import Fossils from "./Fossils";
 import SeaMuseum from "./SeaMuseum";
+import Fossils from "./Fossils";
+import Fish from "./Fish";
+
 
 class App extends React.Component{
 	render() {
@@ -22,7 +24,8 @@ class App extends React.Component{
 						<Route path="/sea" component={Sea}/>
 						<Route path="/seadetail" component={SeaMuseum}/>
 						<Route path="/fossils" component={Fossils}/>
-						<Route path="/" component={FrontPage}/>
+						<Route path="/fish" component={Fish}/>
+						<Route exact path="/" component={FrontPage}/>
 					</Switch>
 				</BrowserRouter>
             </div>

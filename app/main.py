@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, Response, json, redi
 from flask_cors import CORS
 import io
 import contextlib
-from create_db import db, Villagers, Songs, Sea, Fossils
+from create_db import db, Villagers, Songs, Sea, Fossils, Fishes
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -15,7 +15,9 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/villagers/')
 @app.route('/songs/')
 @app.route('/sea/')
+@app.route('/seadetail/')
 @app.route('/fossils/')
+@app.route('/fish/')
 def index():
     return app.send_static_file('index.html')
 
@@ -77,6 +79,21 @@ def fossil_data():
         new_one = get_fossil_dict(fossil)
         response.append(new_one)
     new_list = {'fossils': response}
+    return new_list
+
+def get_fish_dict(fish):
+    return {"name": fish.name, "monthNorth": fish.monthNorth, "monthSouth": fish.monthSouth, "time": fish.time, "location": fish.location,
+        "rarity": fish.rarity, "shadow": fish.shadow, "price": fish.price, "catchPhrase": fish.catchPhrase, "museumPhrase": fish.museumPhrase,
+        "image": fish.image, "icon": fish.icon, "id": fish.id}
+
+@app.route('/api/fish/')
+def fish_data():
+    response = []
+    fish_list = db.session.query(Fishes).all()
+    for fish in fish_list:
+        new_one = get_fish_dict(fish)
+        response.append(new_one)
+    new_list = {'fish': response}
     return new_list
 
 if __name__ == '__main__':
