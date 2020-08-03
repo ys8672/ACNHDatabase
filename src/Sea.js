@@ -264,11 +264,11 @@ class Sea extends React.Component {
 			
 		function truncate(cell, row) {
 		   if (cell.length > 64) {
-			    /* var link = <Link to={{pathname:`/seadetail`, state: {cell}}}>...</Link>;
+			    var link = <Link to={{pathname:`/seadetail`, state: {cell}}}>...</Link>;
 				return (
 					<div> {cell.substring(0, 64)}{link} </div>
-				) */
-				return cell.substring(0, 64) + "...";
+				)
+				//return cell.substring(0, 64) + "...";
 		   }
 		   return cell;
 		};

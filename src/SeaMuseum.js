@@ -1,4 +1,6 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
+
 
 class SeaMuseum extends React.Component {
     constructor(props) {
@@ -21,6 +23,10 @@ class SeaMuseum extends React.Component {
 				<h1 className="text-center"> <b>Full Museum Description</b> </h1>
 				<br/>
 				<p className="text-center">{data}</p>
+				<br/>
+				<div class="text-center">
+					<Link to={{pathname:`/sea`}}>Return To Sea Page</Link>
+				</div>
 				<br/>
             </div>
         )
