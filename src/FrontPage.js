@@ -1,7 +1,8 @@
 import React from 'react';
 import './index.css';
 import { Button } from 'react-bootstrap';
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet';
+import { LinkContainer } from 'react-router-bootstrap';
 
 const TITLE = 'AC:NH Database'
 
@@ -34,7 +35,9 @@ class FrontPage extends React.Component{
 						boat named Jolly Redd's Treasure Trawler. He will sell you paintings or sculptures to decorate
 						or donate to the Museum. Be careful though, as his artworks can be forgeries. </p>
 						<div class="text-center">
-						<Button variant="outline-primary" size="lg" href="/art"> Click Here To Learn More </Button>
+						<LinkContainer to="/art">
+							<Button variant="outline-primary" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
 						</div>
 					</div>
 				</div>
@@ -46,7 +49,9 @@ class FrontPage extends React.Component{
 						butterflies, different bugs will appear on your island depending on your time and month. Use a net to catch these 
 						creatures for Blather's Museum, your personal collection, your Critterpedia, or even for Flick!</p>
 						<div class="text-center">
-						<Button variant="outline-secondary" size="lg" href="/bugs"> Click Here To Learn More </Button>
+						<LinkContainer to="/bugs">
+							<Button variant="outline-secondary" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
 						</div>
 					</div>
 				</div>
@@ -58,7 +63,9 @@ class FrontPage extends React.Component{
 						by their shadows in rivers, lakes, and near the coast. Craft a fishing rod and catch some of these fish
 						for Blather's Museum, your personal collection, your Critterpedia, or even for C. J. </p>
 						<div class="text-center">
-						<Button variant="outline-success" size="lg" href="/fish"> Click Here To Learn More </Button>
+						<LinkContainer to="/fish">
+							<Button variant="outline-success" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
 						</div>
 					</div>
 				</div>		
@@ -71,7 +78,9 @@ class FrontPage extends React.Component{
 						to evaluate and you can see the bones of pre-historic animals. Be careful though, because
 						your friends may have planted a pitfall for you to fall into if they have visited your island. </p>
 						<div class="text-center">
-						<Button variant="outline-danger" size="lg" href="/fossils"> Click Here To Learn More </Button>
+						<LinkContainer to="/fossils">
+							<Button variant="outline-danger" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
 						</div>
 					</div>
 				</div>
@@ -84,7 +93,9 @@ class FrontPage extends React.Component{
 						sea creatures previously inaccessible via a fishing rod. You may have to be quick, as these animals
 						can swim away from you if you are not fast enough to catch them! </p>
 						<div class="text-center">
-						<Button variant="outline-warning" size="lg" href="/sea"> Click Here To Learn More </Button>
+						<LinkContainer to="/sea">
+							<Button variant="outline-warning" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
 						</div>
 					</div>
 				</div>
@@ -96,7 +107,9 @@ class FrontPage extends React.Component{
 						to Isabelle to invite K. K. Slider for a concert. Afterwards, he will visit your island every Saturday.
 						By then, you can talk to the talented K. K. Slider and request for any song to listen to while the credits roll.</p>
 						<div class="text-center">
-						<Button variant="outline-info" size="lg" href="/songs"> Click Here To Learn More </Button>
+						<LinkContainer to="/songs">
+							<Button variant="outline-info" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
 						</div>
 					</div>
 				</div>
@@ -107,7 +120,9 @@ class FrontPage extends React.Component{
 						<p class="card-text" className = 'text-center'> With around 400 villagers in the game, these NPCs can
 						move onto your island to live in and is sure to brighten up your town. </p>
 						<div class="text-center">
-						<Button variant="outline-dark" size="lg" href="/villagers"> Click Here To Learn More </Button>
+						<LinkContainer to="/villagers">
+							<Button variant="outline-dark" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
 						</div>
 					</div>
 				</div>	
