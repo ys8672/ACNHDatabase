@@ -12,6 +12,10 @@ body {
 	padding: 0% 30%;
 }
 
+.frontpagepadding {
+	margin: 0;
+	padding: 0% 15%;
+}
 .react-bootstrap-table>table>thead>tr>th .filter-label {
   width: 100%
 }
