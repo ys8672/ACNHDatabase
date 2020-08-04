@@ -15,7 +15,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/villagers/')
 @app.route('/songs/')
 @app.route('/sea/')
-@app.route('/seadetail/')
+@app.route('/details/')
 @app.route('/fossils/')
 @app.route('/fish/')
 def index():
