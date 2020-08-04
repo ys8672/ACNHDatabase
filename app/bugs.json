@@ -3544,7 +3544,7 @@
         "availability": {
             "month-northern": "6-9",
             "month-southern": "12-3",
-            "time": "5pm to 8am",
+            "time": "5pm - 8am",
             "isAllDay": false,
             "isAllYear": false,
             "location": "On palm trees",
@@ -5223,7 +5223,7 @@
             "time": "7pm - 8am",
             "isAllDay": false,
             "isAllYear": true,
-            "location": "",
+            "location": "Shaking trees",
             "rarity": "Common",
             "month-array-northern": [
                 1,

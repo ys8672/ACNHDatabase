@@ -2,10 +2,9 @@ from flask import Flask, render_template, url_for, request, Response, json, redi
 from flask_cors import CORS
 import io
 import contextlib
-from create_db import db, Villagers, Songs, Sea, Fossils, Fishes
+from create_db import db, Villagers, Songs, Sea, Fossils, Fishes, Bugs
 from sqlalchemy.orm.exc import NoResultFound
 import requests
-
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app)
@@ -18,6 +17,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/details/')
 @app.route('/fossils/')
 @app.route('/fish/')
+@app.route('/bugs/')
 def index():
     return app.send_static_file('index.html')
 
@@ -94,6 +94,21 @@ def fish_data():
         new_one = get_fish_dict(fish)
         response.append(new_one)
     new_list = {'fish': response}
+    return new_list
+    
+def get_bug_dict(bug):
+    return {"name": bug.name, "monthNorth": bug.monthNorth, "monthSouth": bug.monthSouth, "time": bug.time, "location": bug.location,
+        "rarity": bug.rarity, "price": bug.price, "catchPhrase": bug.catchPhrase, "museumPhrase": bug.museumPhrase,
+        "image": bug.image, "icon": bug.icon, "id": bug.id}
+
+@app.route('/api/bugs/')
+def bug_data():
+    response = []
+    bug_list = db.session.query(Bugs).all()
+    for bug in bug_list:
+        new_one = get_bug_dict(bug)
+        response.append(new_one)
+    new_list = {'bugs': response}
     return new_list
 
 if __name__ == '__main__':

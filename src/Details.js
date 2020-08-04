@@ -19,14 +19,6 @@ class Details extends React.Component {
 				this.setState({data: this.props.location.state.cell})
 			}
 		})
-		fetch('/sea').then(data => {
-			if(this.props.location.state === undefined){
-				this.setState({data: 'No information'})
-			}
-			else{
-				this.setState({data: this.props.location.state.cell})
-			}
-        })
     }
 
     render() {
