@@ -92,11 +92,14 @@ class Fish extends React.Component {
 				var monthTwoEnd = switchMonth(parseInt(monthTwo[1]));
 				return monthOneBegin + " - " + monthOneEnd + ", " + monthTwoBegin + " - " + monthTwoEnd;
 			}
-			else{
+			else if (cell.includes("-")){
 				var field = cell.split("-");
 				var monthBegin = switchMonth(parseInt(field[0]));
 				var monthEnd = switchMonth(parseInt(field[1]));
 				return monthBegin + " - " + monthEnd;
+			}
+			else{
+				return switchMonth(parseInt(cell));
 			}
 		}
 		
@@ -113,6 +116,14 @@ class Fish extends React.Component {
 			}
 			if (b === ""){
 				b = "1-1";
+			}
+			if (a.length === 1){
+				var aInt = parseInt(a);
+				a = aInt.toString() + "-" + aInt.toString();
+			}
+		    if (b.length === 1){
+				var bInt = parseInt(b);
+				b = bInt.toString() + "-" + bInt.toString();
 			}
 			
 			if(a.includes("&") && b.includes("&")){
@@ -165,6 +176,7 @@ class Fish extends React.Component {
 			var aMonthEnd = parseInt(aField[1]);
 			var bMonthBegin= parseInt(bField[0]);
 			var bMonthEnd = parseInt(bField[1]);
+			
 			if (aMonthBegin > aMonthEnd){
 				aMonthEnd += 12;
 			}
@@ -224,11 +236,36 @@ class Fish extends React.Component {
 			return bTimeBegin - aTimeBegin || bTimeEnd - aTimeEnd;
 		}
 		
+		const selectLocation={
+			'Pier': 'Pier',
+			'Pond': 'Pond',
+			'River': 'River',
+			'River (Clifftop)': 'River (Clifftop)',
+			'River (Clifftop) & Pond': 'River (Clifftop) & Pond',
+			'River (Mouth)': 'River (Mouth)',
+			'Sea': 'Sea',
+			'Sea (when raining or snowing)': 'Sea (when raining or snowing)'
+		}
 		
-		//location and rarity sort
+		const selectRarity={
+			'Common': 'Common',
+			'Uncommon': 'Uncommon',
+			'Rare': 'Rare',
+			'Ultra-rare': 'Ultra-rare'
+		}
+		
+		function raritySort(a, b, order, dataField, rowA, rowB) {
+			var sortOrder = ['Common', 'Uncommon', 'Rare', 'Ultra-rare'];
+			if(order === 'asc') {
+				return sortOrder.indexOf(a) - sortOrder.indexOf(b);
+			}
+			return sortOrder.indexOf(b) - sortOrder.indexOf(a);
+		}
 		
 		function shadowSort(a, b, order, dataField, rowA, rowB) {
-			var sortOrder = ['Smallest', 'Small', 'Medium', 'Large', 'Largest'];
+			var sortOrder = ['Narrow', 'Smallest (1)', 'Small (2)', 'Medium (3)',
+				'Medium (4)', 'Medium with fin (4)', 'Large (5)', 'Largest (6)',
+				'Largest with fin (6)'];
 			if (order === 'asc') {
 				return sortOrder.indexOf(a) - sortOrder.indexOf(b);
 			}
@@ -236,11 +273,15 @@ class Fish extends React.Component {
 		}
 			
 		const selectShadow={
-			"Smallest": 'Smallest',
-			"Small": 'Small',
-			"Medium": 'Medium',
-			"Large": 'Large',
-			"Largest": 'Largest'
+			"Narrow": "Narrow",
+			"Smallest (1)": "Smallest (1)",
+			"Small (2)": "Small (2)",
+			"Medium (3)": "Medium (3)",
+			"Medium (4)": "Medium (4)",
+			"Medium with fin (4)": "Medium with fin (4)",
+			"Large (5)": "Large (5)",
+			"Largest (6)": "Largest (6)",
+			"Largest with fin (6)": "Largest with fin (6)"
 		}
 		
 		const defaultSorted = [{
@@ -312,19 +353,33 @@ class Fish extends React.Component {
                 text: 'Fish Location',
                 sort: true,
 				align: "center",
-				headerAlign: 'center'
+				headerAlign: 'center',
+				formatter: cell => selectLocation[cell],
+				filter: selectFilter({
+					options: selectLocation
+				})
             }, {
                 dataField: 'rarity',
                 text: 'Fish Rarity',
                 sort: true,
+				sortFunc: raritySort,
 				align: "center",
-				headerAlign: 'center'
+				headerAlign: 'center',
+				formatter: cell => selectRarity[cell],
+				filter: selectFilter({
+					options: selectRarity
+				})
             }, {
                 dataField: 'shadow',
                 text: 'Fish Shadow Size',
                 sort: true,
+				sortFunc: shadowSort,
 				align: "center",
 				headerAlign: 'center',
+				formatter: cell => selectShadow[cell],
+				filter: selectFilter({
+					options: selectShadow
+				})
             },{
                 dataField: 'price',
                 text: 'Selling Price',
