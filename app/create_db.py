@@ -1,5 +1,5 @@
 import json
-from models import app, db, Villagers, Songs, Sea, Fossils, Fishes, Bugs
+from models import app, db, Villagers, Songs, Sea, Fossils, Fishes, Bugs, Arts
 
 #Loads JSON file 
 def load_json(filename):
@@ -127,6 +127,22 @@ def create_bugs():
         db.session.add(new_bug)
         db.session.commit()
         
+def create_arts():
+    db.session.query(Arts).delete()
+    arts =load_json('art.json')
+    for (k, art) in arts.items():
+        name = art['name']['name-USen']
+        hasFake = art['hasFake']
+        buyPrice = art['buy-price']
+        sellPrice = art['sell-price']
+        image = art['image_uri']
+        museum = art['museum-desc']
+        id = art['id']
+        new_art = Arts(name = name, hasFake = hasFake, buyPrice = buyPrice, sellPrice = sellPrice,
+            image = image, museum = museum, id = id)
+        db.session.add(new_art)
+        db.session.commit()
+    
 #Create all databases
 def create_database():
     create_villagers()
@@ -135,5 +151,6 @@ def create_database():
     create_fossils()
     create_fishes()
     create_bugs()
+    create_arts()
 
 create_database()

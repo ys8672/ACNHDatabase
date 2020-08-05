@@ -165,4 +165,16 @@ class Bugs(db.Model):
     icon = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
 
+class Arts(db.Model):
+
+    __tablename__ = 'arts'
+    
+    name = db.Column(db.String(256), nullable = False)
+    hasFake = db.Column(db.Boolean, nullable = False)
+    buyPrice = db.Column(db.Integer, nullable = False)
+    sellPrice = db.Column(db.Integer, nullable = False)
+    image = db.Column(db.String(256), nullable = False)
+    museum = db.Column(db.String(65536), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
+
 db.create_all()

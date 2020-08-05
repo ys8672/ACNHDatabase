@@ -26,7 +26,7 @@ export default class Navigation extends React.Component {
 					<LinkContainer to="/sea">
 					  <Nav.Link>Sea</Nav.Link>
 					</LinkContainer>
-					<LinkContainer to="/sonngs">
+					<LinkContainer to="/songs">
 					  <Nav.Link>Songs</Nav.Link>
 					</LinkContainer>
 					<LinkContainer to="/villagers">

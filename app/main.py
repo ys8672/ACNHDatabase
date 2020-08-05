@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, Response, json, redi
 from flask_cors import CORS
 import io
 import contextlib
-from create_db import db, Villagers, Songs, Sea, Fossils, Fishes, Bugs
+from create_db import db, Villagers, Songs, Sea, Fossils, Fishes, Bugs, Arts
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -18,6 +18,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/fossils/')
 @app.route('/fish/')
 @app.route('/bugs/')
+@app.route('/art/')
 def index():
     return app.send_static_file('index.html')
 
@@ -109,6 +110,20 @@ def bug_data():
         new_one = get_bug_dict(bug)
         response.append(new_one)
     new_list = {'bugs': response}
+    return new_list
+    
+def get_art_dict(art):
+    return {'name': art.name, 'hasFake': art.hasFake, 'buyPrice': art.buyPrice, 'sellPrice': art.sellPrice, 'image': art.image,
+        'museum': art.museum, 'id': art.id}
+        
+@app.route('/api/art/')
+def art_data():
+    response = []
+    art_list = db.session.query(Arts).all()
+    for art in art_list:
+        new_one = get_art_dict(art)
+        response.append(new_one)
+    new_list = {'arts': response}
     return new_list
 
 if __name__ == '__main__':
