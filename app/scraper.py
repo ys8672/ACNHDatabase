@@ -16,3 +16,5 @@ def makeJsonFile(files):
         
 files = ["fish", "sea", "bugs", "fossils", "villagers", "songs", "art"]
 makeJsonFile(files)
+item_files = ["houseware", "misc", "wallmounted"]
+makeJsonFile(item_files)

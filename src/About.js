@@ -24,8 +24,8 @@ class About extends React.Component{
 							songs, and villagers into tables that are convienent to search and filter through for the
 							average user. I do plan on updating my website from time to time, so look forward to updates
 							in the future. </p>
-						<p class="lead">If you enjoyed this website, please consider contributing to the costs of maintaining
-							and hosting this website via PayPal here.</p>
+						<p class="lead">Disclaimer: I do not own Animal Crossing: New Horizons, the assets on this website,
+						or anything related to the Animal Crossing franchise. All rights are belong to Nintendo.</p>
 					  </div>
 					</div>
 					<br/>

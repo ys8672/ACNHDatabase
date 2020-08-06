@@ -1,5 +1,5 @@
 import json
-from models import app, db, Villagers, Songs, Sea, Fossils, Fishes, Bugs, Arts
+from models import app, db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts
 
 #Loads JSON file 
 def load_json(filename):
@@ -142,12 +142,46 @@ def create_arts():
             image = image, museum = museum, id = id)
         db.session.add(new_art)
         db.session.commit()
+        
+def create_items():
+    db.session.query(Items).delete()
+    files = ['houseware.json', 'misc.json', 'wallmounted.json']
+    create_items_helper(files)
+        
+def create_items_helper(files):
+    index = 0
+    for string in files:
+        housewares = load_json(string)
+        for (k, item) in housewares.items():
+            name = item[0]['name']['name-USen']
+            canCustomize = (item[0]['canCustomizeBody'] or item[0]['canCustomizePattern'])
+            kitCost = item[0]['kit-cost']
+            size = item[0]['size']
+            source = item[0]['source']
+            isInteractive = item[0]['isInteractive']
+            if type(item[0]['isInteractive']) == str:
+                isInteractive = True
+            buyPrice = item[0]['buy-price']
+            sellPrice = item[0]['sell-price']
+            image = item[0]['image_uri']
+            category = string.split('.')[0]
+            variant = ""          
+            for i in item:
+                variant += str(i['variant']) + str("~")
+            id = index
+            new_item = Items(name = name, canCustomize = canCustomize, kitCost = kitCost, size = size,
+                source = source, isInteractive = isInteractive, buyPrice = buyPrice, sellPrice = sellPrice,
+                image = image, category = category, variant = variant, id = id)
+            db.session.add(new_item)
+            db.session.commit()
+            index += 1       
     
 #Create all databases
 def create_database():
     create_villagers()
     create_songs()
     create_sea()
+    create_items()
     create_fossils()
     create_fishes()
     create_bugs()

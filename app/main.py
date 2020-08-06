@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, request, Response, json, redi
 from flask_cors import CORS
 import io
 import contextlib
-from create_db import db, Villagers, Songs, Sea, Fossils, Fishes, Bugs, Arts
+from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -15,6 +15,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/songs/')
 @app.route('/sea/')
 @app.route('/details/')
+@app.route('/items/')
 @app.route('/fossils/')
 @app.route('/fish/')
 @app.route('/bugs/')
@@ -125,6 +126,21 @@ def art_data():
         new_one = get_art_dict(art)
         response.append(new_one)
     new_list = {'arts': response}
+    return new_list
+    
+def get_item_dict(item):
+    return {'name': item.name, 'canCustomize': item.canCustomize, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
+        'isInteractive': item.isInteractive, 'buyPrice': item.buyPrice, 'sellPrice': item.sellPrice, 'image': item.image, 
+        'category': item.category, 'variant': item.variant, 'id': id}
+        
+@app.route('/api/items/')
+def item_data():
+    response = []
+    item_list = db.session.query(Items).all()
+    for item in item_list:
+        new_one = get_item_dict(item)
+        response.append(new_one)
+    new_list = {'items': response}
     return new_list
 
 if __name__ == '__main__':
