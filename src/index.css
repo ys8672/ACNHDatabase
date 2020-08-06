@@ -36,7 +36,10 @@ body {
 	background-size: cover;
 }
 
-
+.abouttech {
+	margin: 0;
+	padding: 0% 2.5%;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
