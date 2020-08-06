@@ -11,6 +11,7 @@ import Fossils from "./Fossils";
 import Fish from "./Fish";
 import Bugs from "./Bugs";
 import Arts from "./Arts";
+import About from "./About";
 import Details from "./Details";
 
 
@@ -29,6 +30,7 @@ class App extends React.Component{
 						<Route path="/bugs" component={Bugs}/>
 						<Route path="/art" component={Arts}/>
 						<Route path="/details" component={Details}/>
+						<Route path="/about" component={About}/>
 						<Route exact path="/" component={FrontPage}/>
 					</Switch>
 				</BrowserRouter>

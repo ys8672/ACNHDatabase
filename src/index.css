@@ -28,6 +28,15 @@ body {
     text-transform: capitalize;
 }
 
+.bg {
+	background-image: url('https://i.imgur.com/8S1M8HU.png');
+	height: 60vh;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

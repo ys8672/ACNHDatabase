@@ -26,6 +26,9 @@ class FrontPage extends React.Component{
 					<br/>
 				</div>	
 				
+				<div className="bg" />
+				<br/>
+				
 				<div class="card w-100 border-primary">
 					<div class="card-body">
 						<h5 class="card-header" className='text-center'> <b>Art</b> </h5>
@@ -127,6 +130,14 @@ class FrontPage extends React.Component{
 					</div>
 				</div>	
 				<br/>
+				<div style={{display: 'flex', justifyContent: 'center'}}>
+					<LinkContainer to="/about">
+						<Button variant="outline-dark" size="lg"> About This Website </Button>
+					</LinkContainer>	
+				</div> 
+				<br/>
+
+
 			</div>
 		)
 	}
