@@ -23,6 +23,9 @@ export default class Navigation extends React.Component {
 					<LinkContainer to="/fossils">
 					  <Nav.Link>Fossils</Nav.Link>
 					</LinkContainer>
+					<LinkContainer to="/items">
+					  <Nav.Link>Items</Nav.Link>
+					</LinkContainer>
 					<LinkContainer to="/sea">
 					  <Nav.Link>Sea</Nav.Link>
 					</LinkContainer>

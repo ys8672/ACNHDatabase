@@ -88,6 +88,20 @@ class FrontPage extends React.Component{
 					</div>
 				</div>
 				<br/>
+				<div class="card w-100 border-dark">
+					<div class="card-body">
+						<h5 class="card-title" className='text-center'><b>Items</b></h5>
+						<p class="card-text" className = 'text-center'> Probably the longest table, up to hundreds of items
+							are used to decorate your island. From instruments to furniture to posters, these items will
+							be sure to make your island look extremely pretty.</p>
+						<div class="text-center">
+						<LinkContainer to="/items">
+							<Button variant="outline-dark" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
+						</div>
+					</div>
+				</div>
+				<br/>
 				<div class="card w-100 border-warning">
 					<div class="card-body">
 						<h5 class="card-title" className='text-center'><b>Sea Creatures</b></h5>
