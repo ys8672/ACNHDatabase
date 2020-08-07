@@ -156,7 +156,9 @@ def create_items_helper(files):
             name = item[0]['name']['name-USen']
             canCustomize = (item[0]['canCustomizeBody'] or item[0]['canCustomizePattern'])
             kitCost = item[0]['kit-cost']
-            size = item[0]['size']
+            if kitCost == None:
+                kitCost = -1
+            size = item[0]['size'].replace(" ", "")
             source = item[0]['source']
             isInteractive = item[0]['isInteractive']
             if type(item[0]['isInteractive']) == str:
@@ -164,10 +166,17 @@ def create_items_helper(files):
             buyPrice = item[0]['buy-price']
             sellPrice = item[0]['sell-price']
             image = item[0]['image_uri']
-            category = string.split('.')[0]
-            variant = ""          
+            category = item[0]['tag']
+            if category == "":
+                category = str('N/A')
+            variant_list = []          
             for i in item:
-                variant += str(i['variant']) + str("~")
+                v = i['variant']
+                if not v in variant_list:
+                    variant_list.append(v)
+            variant = ""
+            if variant_list[0] != None:
+                variant = ', '.join(variant_list)
             id = index
             new_item = Items(name = name, canCustomize = canCustomize, kitCost = kitCost, size = size,
                 source = source, isInteractive = isInteractive, buyPrice = buyPrice, sellPrice = sellPrice,

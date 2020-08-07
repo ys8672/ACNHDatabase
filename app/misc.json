@@ -47944,7 +47944,7 @@
             "isDIY": false,
             "canCustomizeBody": false,
             "canCustomizePattern": false,
-            "kit-cost": "",
+            "kit-cost": null,
             "color-1": "Pink",
             "color-2": "Light blue",
             "size": "1x1",
