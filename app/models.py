@@ -193,5 +193,16 @@ class Arts(db.Model):
     image = db.Column(db.String(256), nullable = False)
     museum = db.Column(db.String(65536), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
+    
+class Construction(db.Model):
+    
+    __tablename__ = 'construction'
+    
+    name = db.Column(db.String(256), nullable = False)
+    image = db.Column(db.String(256), nullable = False)
+    buyPrice = db.Column(db.Integer, nullable = False)
+    source = db.Column(db.String(256), nullable = False)
+    category = db.Column(db.String(256), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
 
 db.create_all()

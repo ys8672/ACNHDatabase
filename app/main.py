@@ -2,7 +2,8 @@ from flask import Flask, render_template, url_for, request, Response, json, redi
 from flask_cors import CORS
 import io
 import contextlib
-from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts
+from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
+    Construction
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -18,6 +19,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/items/')
 @app.route('/fossils/')
 @app.route('/fish/')
+@app.route('/construction/')
 @app.route('/bugs/')
 @app.route('/art/')
 @app.route('/about/')
@@ -141,6 +143,20 @@ def item_data():
         new_one = get_item_dict(item)
         response.append(new_one)
     new_list = {'items': response}
+    return new_list
+    
+def get_construction_dict(cons):  
+    return {'name': cons.name, 'image': cons.image, 'buyPrice': cons.buyPrice, 'source': cons.source,
+        'category': cons.category, 'id': cons.id}
+    
+@app.route('/api/construction/')
+def construction_data():
+    response = []
+    cons_list = db.session.query(Construction).all()
+    for cons in cons_list:
+        new_one = get_construction_dict(cons)
+        response.append(new_one)
+    new_list = {'construction': response}
     return new_list
 
 if __name__ == '__main__':

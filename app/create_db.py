@@ -1,9 +1,11 @@
 import json
-from models import app, db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts
+from models import app, db, Villagers, Songs, Sea, \
+    Items, Fossils, Fishes, Bugs, Arts, Construction
 
 #Loads JSON file 
 def load_json(filename):
-    with open(filename) as file:
+    realfilename = str('json/') + filename
+    with open(realfilename) as file:
         jsn = json.load(file)
         file.close()
     return jsn
@@ -23,7 +25,8 @@ def create_villagers():
         icon = villager['icon_uri']
         id = villager['id']
         new_villager = Villagers(name = name, personality = personality, birthday = birthday,
-            species = species, gender = gender, catchPhrase = catchPhrase, image = image, icon = icon, id = id)
+            species = species, gender = gender, catchPhrase = catchPhrase, 
+            image = image, icon = icon, id = id)
         db.session.add(new_villager)
         db.session.commit()
 
@@ -100,8 +103,8 @@ def create_fishes():
         icon = fish['icon_uri']
         id = fish['id']
         new_fish = Fishes(name = name, monthNorth = monthNorth, monthSouth = monthSouth, time = time,
-            location = location, rarity = rarity, shadow = shadow, price = price, catchPhrase = catchPhrase, 
-            museumPhrase = museumPhrase, image = image, icon = icon, id = id)
+            location = location, rarity = rarity, shadow = shadow, price = price, 
+            catchPhrase = catchPhrase, museumPhrase = museumPhrase, image = image, icon = icon, id = id)
         db.session.add(new_fish)
         db.session.commit()
 
@@ -184,6 +187,23 @@ def create_items_helper(files):
             db.session.add(new_item)
             db.session.commit()
             index += 1       
+
+def create_construction():
+    db.session.query(Construction).delete()
+    construction = load_json('construction.json')
+    index = 0
+    for cons in construction:
+        name = cons['name']
+        image = cons['image']
+        buyPrice = cons['buy']
+        source = cons['source'][0]
+        category = cons['category']
+        id = index
+        new_item = Construction(name = name, image = image, buyPrice = buyPrice, source = source,
+            category = category, id = id)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1       
     
 #Create all databases
 def create_database():
@@ -195,5 +215,6 @@ def create_database():
     create_fishes()
     create_bugs()
     create_arts()
+    create_construction()
 
 create_database()

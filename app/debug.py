@@ -1,4 +1,5 @@
 import json
+from models import app, db, Construction
 
 def load_json(filename):
     with open(filename) as file:
@@ -6,24 +7,32 @@ def load_json(filename):
         file.close()
     return jsn
 
-def create_items_helper(files):
-    index = 0
-    slist = [] 
-    for string in files:
-        housewares = load_json(string)
-        for (k, item) in housewares.items():                   
-            for i in item:
-                v = i['tag']
-                if not v in slist:
-                    slist.append(v)
+# def create_items_helper(files):
+    # index = 0
+    # slist = [] 
+    # for string in files:
+        # housewares = load_json(string)
+        # for (k, item) in housewares.items():                   
+            # for i in item:
+                # v = i['tag']
+                # if not v in slist:
+                    # slist.append(v)
                     
-    slist.sort()
-    real_list = []
-    for i in slist:
-        real_list.append(("'") + i + str("': '") + i + str("'"))
-    variant = ""
-    variant = ',\n'.join(real_list)
-    print(variant)
+    # slist.sort()
+    # real_list = []
+    # for i in slist:
+        # real_list.append(("'") + i + str("': '") + i + str("'"))
+    # variant = ""
+    # variant = ',\n'.join(real_list)
+    # print(variant)
 
-files = ['houseware.json', 'misc.json', 'wallmounted.json']
-create_items_helper(files)
+# files = ['houseware.json', 'misc.json', 'wallmounted.json']
+# create_items_helper(files)
+
+def create_construction():
+    db.session.query(Construction).delete()
+    construction = load_json('json/construction.json')
+    for cons in construction:
+        print(cons['name'])
+
+create_construction()
