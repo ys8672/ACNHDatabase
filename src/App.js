@@ -10,6 +10,7 @@ import Sea from "./Sea";
 import Items from "./Items";
 import Fossils from "./Fossils";
 import Fish from "./Fish";
+import Construction from "./Construction";
 import Bugs from "./Bugs";
 import Arts from "./Arts";
 import About from "./About";
@@ -29,6 +30,7 @@ class App extends React.Component{
 						<Route path="/items" component={Items}/>
 						<Route path="/fossils" component={Fossils}/>
 						<Route path="/fish" component={Fish}/>
+						<Route path="/construction" component={Construction}/>
 						<Route path="/bugs" component={Bugs}/>
 						<Route path="/art" component={Arts}/>
 						<Route path="/details" component={Details}/>

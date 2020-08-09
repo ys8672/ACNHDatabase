@@ -59,6 +59,20 @@ class FrontPage extends React.Component{
 					</div>
 				</div>
 				<br/>
+				<div class="card w-100 border-info">
+					<div class="card-body">
+						<h5 class="card-title" className='text-center'><b>Construction</b></h5>
+						<p class="card-text" className = 'text-center'> To decorate your island, Tom Nook can help you build various
+						construction projects to make your island prettier. These include your bridges across bodies of water,
+						slopes to go up levels, and even your owner house! </p>
+						<div class="text-center">
+						<LinkContainer to="/construction">
+							<Button variant="outline-info" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
+						</div>
+					</div>
+				</div>
+				<br/>
 				<div class="card w-100 border-success">
 					<div class="card-body">
 						<h5 class="card-title" className='text-center'><b>Fish</b></h5>
@@ -144,6 +158,7 @@ class FrontPage extends React.Component{
 					</div>
 				</div>	
 				<br/>
+				
 				<div style={{display: 'flex', justifyContent: 'center'}}>
 					<LinkContainer to="/about">
 						<Button variant="outline-dark" size="lg"> About This Website </Button>
