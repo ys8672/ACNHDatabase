@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction
+    Construction, Recipes
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -15,6 +15,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/villagers/')
 @app.route('/songs/')
 @app.route('/sea/')
+@app.route('/recipes/')
 @app.route('/details/')
 @app.route('/items/')
 @app.route('/fossils/')
@@ -158,6 +159,22 @@ def construction_data():
         response.append(new_one)
     new_list = {'construction': response}
     return new_list
+    
+def get_recipe_dict(recipe):
+    return {'name': recipe.name, 'buyPrice': recipe.buyPrice, 'sellPrice': recipe.sellPrice, "source": recipe.source,
+        "recipesToUnlock": recipe.recipesToUnlock, 'category': recipe.category, 'cardColor': recipe.cardColor,
+        'materials': recipe.materials, 'sourceNotes': recipe.sourceNotes, 'id': recipe.id}
+
+@app.route('/api/recipes/')
+def recipe_data():
+    response = []
+    recipe_list = db.session.query(Recipes).all()
+    for recipe in recipe_list:
+        new_one = get_recipe_dict(recipe)
+        response.append(new_one)
+    new_list = {'recipes': response}
+    return new_list
+
 
 if __name__ == '__main__':
     app.run()

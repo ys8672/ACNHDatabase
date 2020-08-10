@@ -1,6 +1,8 @@
 import json
-from models import app, db, Villagers, Songs, Sea, \
-    Items, Fossils, Fishes, Bugs, Arts, Construction
+from models import app, db, Villagers, Songs, Sea,      \
+    Items, Fossils, Fishes, Bugs, Arts, Construction,   \
+    Recipes
+    
 
 #Loads JSON file 
 def load_json(filename):
@@ -205,6 +207,39 @@ def create_construction():
         db.session.commit()
         index += 1       
     
+def create_recipes():
+    db.session.query(Recipes).delete()
+    recipes = load_json('recipes.json')
+    index = 0
+    for recipe in recipes:
+        name = recipe['name']
+        buyPrice = ""
+        if recipe['buy'] == -1 and recipe['milesPrice'] == None:
+            buyPrice = "Not Purchasable"
+        elif recipe['buy'] != -1 and recipe['milesPrice'] == None:
+            buyPrice = str(recipe['buy']) + " bells"
+        elif recipe['buy'] == -1 and recipe['milesPrice'] != None:
+            buyPrice = str(recipe['milesPrice']) + " Nook Miles"
+        else:
+            buyPrice = str(recipe['buy']) + " bells, " + str(recipe['milesPrice']) + " Nook Miles"
+        sellPrice = recipe['sell']
+        source = ', '.join(recipe['source'])
+        sourceNotes = recipe['sourceNotes']
+        recipesToUnlock = recipe['recipesToUnlock']
+        category = recipe['category']
+        cardColor = recipe['cardColor']
+        materials = ""
+        for (key, value) in recipe['materials'].items():
+            materials += str(value) + " " + key + "(s), "
+        materials = materials[:-2]
+        id = index
+        new_item = Recipes(name = name, buyPrice = buyPrice, sellPrice = sellPrice, source = source,
+            recipesToUnlock = recipesToUnlock, category = category, cardColor = cardColor, 
+            materials = materials, sourceNotes = sourceNotes, id = id)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1       
+
 #Create all databases
 def create_database():
     create_villagers()
@@ -216,5 +251,6 @@ def create_database():
     create_bugs()
     create_arts()
     create_construction()
+    create_recipes()
 
 create_database()
