@@ -116,6 +116,21 @@ class FrontPage extends React.Component{
 					</div>
 				</div>
 				<br/>
+				<div class="card w-100 border-primary">
+					<div class="card-body">
+						<h5 class="card-title" className='text-center'><b>Recipes</b></h5>
+						<p class="card-text" className = 'text-center'> A new feature in the series, crafting has allowed
+						players to take materials they have already acquired to craft into a completely new item. Did you know
+						that some DIY recipes can only be given by certain villagers with a specific personality? And that
+						some DIYs require a specific number previously learned before it is available? I did not.</p>
+						<div class="text-center">
+						<LinkContainer to="/recipes">
+							<Button variant="outline-dark" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
+						</div>
+					</div>
+				</div>
+				<br/>
 				<div class="card w-100 border-warning">
 					<div class="card-body">
 						<h5 class="card-title" className='text-center'><b>Sea Creatures</b></h5>

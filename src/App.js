@@ -7,6 +7,7 @@ import Villagers from "./Villagers";
 import FrontPage from "./FrontPage";
 import Songs from "./Songs";
 import Sea from "./Sea";
+import Recipes from "./Recipes";
 import Items from "./Items";
 import Fossils from "./Fossils";
 import Fish from "./Fish";
@@ -27,6 +28,7 @@ class App extends React.Component{
 						<Route path="/villagers" component={Villagers}/>
 						<Route path="/songs" component={Songs}/>
 						<Route path="/sea" component={Sea}/>
+						<Route path="/recipes" component={Recipes}/>
 						<Route path="/items" component={Items}/>
 						<Route path="/fossils" component={Fossils}/>
 						<Route path="/fish" component={Fish}/>

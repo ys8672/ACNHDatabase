@@ -20,7 +20,7 @@ class About extends React.Component{
 						<h1 class="display-4 text-center"><b>About This Website</b></h1>
 						<p class="lead">Hello, Welcome to the Animal Crossing: New Horizons Database. This website is
 							my attempt at creating a database of information about Animal Crossing: New Horizons. Currently,
-							I have catalogued all of the art pieces, bugs, fish, fossils, deep sea creatures, K.K. Slider
+							I have catalogued art pieces, bugs, construction, fish, fossils, recipes, deep sea creatures, K.K. Slider
 							songs, and villagers into tables that are convienent to search and filter through for the
 							average user. I do plan on updating my website from time to time, so look forward to updates
 							in the future. </p>
@@ -57,11 +57,10 @@ class About extends React.Component{
 					<div class="card w-100 border-primary">
 					  <div class="card-body">
 						<h1 class="card-title" className="text-center"><b> Special Shoutouts To: </b></h1>
-						<p class="card-text">ACNH API for the for helping me with getting most of the information I needed to make this website. I would
+						<p class="card-text"><a href="http://acnhapi.com/">ACNH API</a> for the for helping me with getting most of the information I needed to make this website,
+							including art pieces, bugs, fish, fossils, items, sea creatures, songs, and villagers. I would
 							have had a way harder time creating the database for this website otherwise. Thank you. </p>
-						<div style={{display: 'flex', justifyContent: 'center'}}>
-							<a href="http://acnhapi.com/" class="btn btn-info">Check Out ACNH API</a>
-						</div> 
+						<p class="card-text"><a href="https://github.com/acdb-team/google-sheets-to-json">ACDB-Team</a> for the information on recipes and construction. Thank you. </p>
 					  </div>
 					</div>
 					<br/>
