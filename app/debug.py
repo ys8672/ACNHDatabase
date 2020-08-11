@@ -1,5 +1,5 @@
 import json
-from models import app, db, Construction
+from models import app, db, Construction, Recipes
 
 def load_json(filename):
     with open(filename) as file:
@@ -40,16 +40,16 @@ def load_json(filename):
 def create_cons():
     index = 0
     slist = [] 
-    construction = load_json('json/construction.json')
+    construction = load_json('json/recipes.json')
     for item in construction:                   
-        v = item['category']
-        if not v in slist:
+        v = item['cardColor']
+        if not v in slist and v != None:
             slist.append(v)
                     
     slist.sort()
     real_list = []
     for i in slist:
-        real_list.append(("'") + i + str("': '") + i + str("'"))
+        real_list.append(("'") + str(i) + str("': '") + str(i) + str("'"))
     variant = ""
     variant = ',\n'.join(real_list)
     print(variant)

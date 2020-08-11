@@ -215,7 +215,7 @@ class Recipes(db.Model):
     source = db.Column(db.String(256), nullable = False)
     recipesToUnlock = db.Column(db.Integer, nullable = False)
     category = db.Column(db.String(256), nullable = False)
-    cardColor = db.Column(db.String(256), nullable = True)
+    cardColor = db.Column(db.String(256), nullable = False)
     materials = db.Column(db.String(256), nullable = False)
     sourceNotes = db.Column(db.String(256), nullable = True)
     id = db.Column(db.Integer, primary_key = True)

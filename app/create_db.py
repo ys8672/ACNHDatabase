@@ -228,6 +228,8 @@ def create_recipes():
         recipesToUnlock = recipe['recipesToUnlock']
         category = recipe['category']
         cardColor = recipe['cardColor']
+        if cardColor == None:
+            cardColor = "No Color"
         materials = ""
         for (key, value) in recipe['materials'].items():
             materials += str(value) + " " + key + "(s), "
