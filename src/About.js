@@ -42,11 +42,12 @@ class About extends React.Component{
 							<p class="card-text">Hello! My name is Kevin, and I am the sole developer of this website. This
 							website is a personal project of mine. I wanted to program a website and database about a topic I am personally
 							interested in, and this is the result. I really do not want to reveal too much about myself personally, but I will say 3
-							fun facts about myself. Also, if you want to contact me, you can message my Discord: CapK#5880.</p>
+							fun facts about myself. if you want to see my Animal Crossing: New Horizons island, my Dream Code is DA-1067-3201-6546.
+							Also, if you want to contact me, you can message my Discord: CapK#5880.</p>
 							<ol>
-							  <li>I am an avid Nintendo fan, and my favorite Switch games are Splatoon 2, FE3H, and XC2. If you want to visit my Animal Crossing island, my Dream Code is DA-1067-3201-6546.</li>
-							  <li>I have played the piano for over 10 years. Although I don't play much these days, my proudest moment was performing Chopin Polonaise Op.53 at a local recital.</li>
-							  <li>I love reading romance, historical fiction, and fantasy novels. My favorite series include The Bronze Horseman Triology and The Daevabad Triology. </li>
+							  <li>My favorite Switch games are Splatoon 2, FE3H, and XC2.</li>
+							  <li>My favorite piano piece Chopin Polonaise Op.53, and I played it many times in my college dorm piano.</li>
+							  <li>I love reading romance, historical fiction, and fantasy novels. My favorite series I have read in 2020 is The Daevabad Triology. </li>
 							</ol> 
 						  </div>
 						</div>
@@ -97,7 +98,7 @@ class About extends React.Component{
 								  <p class="card-text">I have also made a RESTful API for all of the pages. This will include all
 								  the data shown on the tables in JSON format. Feel free to use however you like. </p>
 								  <div style={{display: 'flex', justifyContent: 'center'}}>
-									<a href="https://www.getpostman.com/collections/288550df45fccd5a33bc" class="btn btn-info">Postman API</a>
+									<a href="https://www.postman.com/collections/2f87fb9670ad6eb19f90" class="btn btn-info">Postman API</a>
 								  </div> 
 								</div>
 							 </div>
