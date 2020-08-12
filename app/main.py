@@ -24,6 +24,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/bugs/')
 @app.route('/art/')
 @app.route('/about/')
+@app.route('/search/')
 def index():
     return app.send_static_file('index.html')
 

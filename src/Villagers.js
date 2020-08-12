@@ -26,14 +26,14 @@ class Villagers extends React.Component {
         function imageFormatter(cell, row) {
             return (
                 <img className="img" src={cell}
-                     style={{maxHeight: '75%', maxWidth: '75%'}}/>
+                     alt="not found" style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }
 		
 		function imageFormatter2(cell, row) {
             return (
                 <img className="img" src={cell}
-                     style={{maxHeight: '100%', maxWidth: '100%'}}/>
+                     alt="not found" style={{maxHeight: '100%', maxWidth: '100%'}}/>
             );
         }
 		

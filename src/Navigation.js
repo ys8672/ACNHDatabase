@@ -41,6 +41,9 @@ export default class Navigation extends React.Component {
 					<LinkContainer to="/villagers">
 					  <Nav.Link>Villagers</Nav.Link>
 					</LinkContainer>
+					<LinkContainer to="/search">
+					  <Nav.Link>Search</Nav.Link>
+					</LinkContainer>
 					<LinkContainer to="/about">
 					  <Nav.Link>About</Nav.Link>
 					</LinkContainer>
