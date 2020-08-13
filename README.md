@@ -94,10 +94,10 @@ Go back to ACNHDatabase:
 cd ..
 ```
 
-### Running the application
+## Running the application
 Note: you will need 2 Git Bash.
 
-## Git Bash 1 (Database and Back-End):
+### Git Bash 1 (Database and Back-End):
 Open PostGreSQL:
 ```bash
 psql -U postgres -h localhost
@@ -132,7 +132,7 @@ Run The Flask application:
 python main.py
 ```
 
-## Git Bash 2(Front-End):
+### Git Bash 2(Front-End):
 Run the Front-End:
 ```bash
 npm start
