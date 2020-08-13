@@ -74,10 +74,11 @@ class About extends React.Component{
 								  <h5 class="card-title" className="text-center"><b>Tools Used</b></h5>
 								  <p class="card-text">
 								  <ol>
-									<li>Python-Flask for back-end</li>
+									<li>Python/Flask for back-end</li>
 									<li>ReactJS/Bootstrap for front-end</li>
 									<li>SQLAlchemy/PostGreSQL for database</li>
 									<li>Google Cloud Platform for hosting</li>
+									<li>NameCheap for the free URL</li>
 								  </ol>
 								  </p>
 								</div>

@@ -41,6 +41,10 @@ body {
 	padding: 0% 2.5%;
 }
 
+.borderdiv {
+    border:1px solid black;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
