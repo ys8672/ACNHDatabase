@@ -45,6 +45,10 @@ body {
     border:1px solid blue;
 }
 
+.YourHighlightClass {
+  background-color: #ffd54f;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
