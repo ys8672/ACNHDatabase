@@ -84,10 +84,15 @@ class Search extends React.Component {
 		for (let c of category) {
 			var i;
 			var x = true;
+			var str = c.name.toLowerCase()
 			for (i = 0; i < inputSplit.length; i++) {
-				if (!((c.name.toLowerCase()).indexOf(inputSplit[i].toLowerCase()) >= 0)) {
+				var inputStr = inputSplit[i].toLowerCase()
+				if (!(str.indexOf(inputStr) >= 0)) {
 					x = false;
 					break;
+				}
+				else{
+					str = str.replace(inputStr ,"");
 				}
 			} 
 			if (x === true){
