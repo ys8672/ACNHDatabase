@@ -50,7 +50,7 @@ def villager_data():
     
 @app.route('/api/villagers/<int:villager_id>/')
 def villager_by_ID(villager_id):
-    if villager_id <= 0 or villager_id >= db.session.query(Villagers).count():
+    if villager_id <= 0 or villager_id > db.session.query(Villagers).count():
         dict = {'code': 404, 'message': 'Villager not found'}
     else:
         villager = db.session.query(Villagers).filter_by(id=villager_id).one()
@@ -58,9 +58,6 @@ def villager_by_ID(villager_id):
     return dict
 
 def get_song_dict(song):
-    if song.buyPrice == None:
-        return {"name": song.name, "buyPrice": -1, "sellPrice": song.sellPrice, "isOrderable": song.isOrderable,
-            "image": song.image, "music": song.music, "id": song.id}
     return {"name": song.name, "buyPrice": song.buyPrice, "sellPrice": song.sellPrice, "isOrderable": song.isOrderable,
             "image": song.image, "music": song.music, "id": song.id}
    
@@ -74,6 +71,15 @@ def song_data():
     new_list = {'songs': response}
     return new_list
     
+@app.route('/api/songs/<int:song_id>/')
+def song_by_ID(song_id):
+    if song_id <= 0 or song_id > db.session.query(Songs).count():
+        dict = {'code': 404, 'message': 'Song not found'}
+    else:
+        song = db.session.query(Songs).filter_by(id=song_id).one()
+        dict = get_song_dict(song)
+    return dict
+
 def get_sea_dict(sea):
     return {"name": sea.name, "monthNorth": sea.monthNorth, "monthSouth": sea.monthSouth, "time": sea.time, "speed": sea.speed,
         "shadow": sea.shadow, "price": sea.price, "catchPhrase": sea.catchPhrase, "museumPhrase": sea.museumPhrase,

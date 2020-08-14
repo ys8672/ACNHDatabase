@@ -47,9 +47,9 @@ class Songs(db.Model):
     __tablename__= 'songs'
     
     name = db.Column(db.String(256), nullable = False)
-    buyPrice = db.Column(db.Integer, nullable = True)
+    buyPrice = db.Column(db.Integer, nullable = False)
     sellPrice = db.Column(db.Integer, nullable = False)
-    isOrderable = db.Column(db.Boolean, nullable = False)
+    isOrderable = db.Column(db.String(256), nullable = False)
     image = db.Column(db.String(256), nullable = False)
     music = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)

@@ -40,8 +40,12 @@ def create_songs():
     for (k, song) in songs.items():
         name = song['name']['name-USen']
         buyPrice = song['buy-price']
+        if buyPrice == None:
+            buyPrice = -1
         sellPrice = song['sell-price']
-        isOrderable = song['isOrderable']
+        isOrderable = "Yes"
+        if song['isOrderable'] == False:
+            isOrderable = "No"
         image = song['image_uri']
         music = song['music_uri']
         id = song['id']

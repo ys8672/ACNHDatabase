@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
@@ -24,8 +25,9 @@ class Songs extends React.Component {
 
     render() {
 		function nameFormatter(cell, row) {
+			var rowID = row.id
             return (
-                <b className="capitalize">{cell} </b> 
+                <b className="capitalize"><Link to={{pathname: `/songs/${row.id}`}}>{cell}</Link></b>
             );
         }
 		
@@ -35,13 +37,6 @@ class Songs extends React.Component {
                      style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }
-
-		function orderableFormatter(cell, row) {
-			if(cell === true){
-				return ("Yes")
-			}
-			return ("No")
-		}
 
 		function buyPriceFormatter(cell, row) {
 			if(cell === -1){
@@ -60,12 +55,12 @@ class Songs extends React.Component {
 		
 		const defaultSorted = [{
 			dataField: 'id',
-			order: 'asce'
+			order: 'asc'
 		}];
 		
 		const selectPurchasable= {
-			true: 'Yes',
-			false: 'No'
+			'Yes': 'Yes',
+			'No': 'No'
 		};
 		
 		const selectBuyPrice= {
@@ -101,7 +96,7 @@ class Songs extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				formatter: orderableFormatter,
+				formatter: cell => selectPurchasable[cell],
 				filter: selectFilter({
 					options: selectPurchasable
 				})

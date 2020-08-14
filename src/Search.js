@@ -401,7 +401,9 @@ class Search extends React.Component {
 											textToHighlight={song.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={song.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a> &emsp; <a href={song.music} target="_blank"><b>Music</b></a></p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/songs/${song.id}`}}>More details</Link>
+									</div> 
 								</div>
 							)}  
 					</div>

@@ -50,7 +50,10 @@ class VillagerDetails extends React.Component {
 						</div>
 					</div>
 				</div>
-				
+				<br/>
+				<div class="text-center">
+					<Link to={{pathname:`/`}}>Return to home page</Link>
+				</div>
 			</div>
 		)
 	}

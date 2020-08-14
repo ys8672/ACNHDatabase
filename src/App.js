@@ -5,8 +5,8 @@ import Navigation from "./Navigation";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Villagers from "./Villagers";
 import VillagerDetails from "./details/VillagerDetails";
-import FrontPage from "./FrontPage";
 import Songs from "./Songs";
+import SongDetails from "./details/SongDetails";
 import Sea from "./Sea";
 import Recipes from "./Recipes";
 import Items from "./Items";
@@ -18,6 +18,7 @@ import Arts from "./Arts";
 import About from "./About";
 import Details from "./Details";
 import Search from "./Search";
+import FrontPage from "./FrontPage";
 
 
 class App extends React.Component{
@@ -29,7 +30,8 @@ class App extends React.Component{
 					<Switch>
 						<Route exact path="/villagers" component={Villagers}/>
 						<Route path="/villagers/:id" component={VillagerDetails}/>
-						<Route path="/songs" component={Songs}/>
+						<Route exact path="/songs" component={Songs}/>
+						<Route path="/songs/:id" component={SongDetails}/>
 						<Route path="/sea" component={Sea}/>
 						<Route path="/recipes" component={Recipes}/>
 						<Route path="/items" component={Items}/>
