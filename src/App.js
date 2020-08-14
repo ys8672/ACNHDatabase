@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from "./Navigation";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Villagers from "./Villagers";
+import VillagerDetails from "./details/VillagerDetails";
 import FrontPage from "./FrontPage";
 import Songs from "./Songs";
 import Sea from "./Sea";
@@ -26,7 +27,8 @@ class App extends React.Component{
 				<BrowserRouter>
 				<Navigation/>
 					<Switch>
-						<Route path="/villagers" component={Villagers}/>
+						<Route exact path="/villagers" component={Villagers}/>
+						<Route path="/villagers/:id" component={VillagerDetails}/>
 						<Route path="/songs" component={Songs}/>
 						<Route path="/sea" component={Sea}/>
 						<Route path="/recipes" component={Recipes}/>

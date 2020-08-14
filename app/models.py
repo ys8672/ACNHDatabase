@@ -25,6 +25,7 @@ class Villagers(db.Model):
     name = db.Column(db.String(256), nullable = False)
     personality = db.Column(db.String(256), nullable = False)
     birthday = db.Column(db.String(256), nullable = False)
+    birthdayString = db.Column(db.String(256), nullable = False)
     species = db.Column(db.String(256), nullable = False)
     gender = db.Column(db.String(256), nullable = False)
     catchPhrase = db.Column(db.String(256), nullable = False)

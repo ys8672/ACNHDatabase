@@ -27,10 +27,16 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/search/')
 def index():
     return app.send_static_file('index.html')
-
+    
+@app.route('/villagers/<int:user_id>')
+def data_detail(user_id):
+    return app.send_static_file('index.html')
+    
+#villagers Endpoint
 def get_villager_dict(villager):
-    return {"name": villager.name, "personality": villager.personality, "birthday": villager.birthday, "species": villager.species,
-            "gender": villager.gender, "catchPhrase": villager.catchPhrase, "image": villager.image, "icon": villager.icon, "id": villager.id}
+    return {"name": villager.name, "personality": villager.personality, "birthday": villager.birthday,
+        "birthdayString": villager.birthdayString, "species": villager.species, "gender": villager.gender, 
+        "catchPhrase": villager.catchPhrase, "image": villager.image, "icon": villager.icon, "id": villager.id}
     
 @app.route('/api/villagers/')
 def villager_data():
@@ -41,6 +47,15 @@ def villager_data():
         response.append(new_one)
     new_list = {'villagers': response}
     return new_list
+    
+@app.route('/api/villagers/<int:villager_id>/')
+def villager_by_ID(villager_id):
+    if villager_id <= 0 or villager_id >= db.session.query(Villagers).count():
+        dict = {'code': 404, 'message': 'Villager not found'}
+    else:
+        villager = db.session.query(Villagers).filter_by(id=villager_id).one()
+        dict = get_villager_dict(villager)
+    return dict
 
 def get_song_dict(song):
     if song.buyPrice == None:

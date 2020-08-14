@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from 'react-helmet'
+import {Link} from 'react-router-dom';
 import Highlighter from "react-highlight-words"
 
 const TITLE = 'ACNH Image Search'
@@ -167,7 +168,7 @@ class Search extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 				<div>
-					<h1 className='text-center'><b>Image Search</b></h1>
+					<h1 className='text-center'><b>Search</b></h1>
 					<br/>
 					<div style={{display: 'flex', justifyContent: 'center'}}>
 							<img className="img-center"
@@ -178,7 +179,7 @@ class Search extends React.Component {
 					<br/>
 					<div class="aboutcard" style={{display: 'flex', justifyContent: 'center'}}>
 						<input class="form-control form-control-lg" type="text" id="searchBar"
-							   placeholder="Search anything: (Note: DIY Recipes Do Not Have Images)"></input>
+							   placeholder="Search:"></input>
 						<button type="submit" class="btn btn-primary btn-lg" onClick={this.searchData}>Search
 						</button>
 					</div>
@@ -419,7 +420,9 @@ class Search extends React.Component {
 											textToHighlight={villager.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={villager.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a></p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/villagers/${villager.id}`}}>More details</Link>
+									</div> 
 								</div>
 							)}
 					</div>

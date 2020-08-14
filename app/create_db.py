@@ -20,6 +20,7 @@ def create_villagers():
         name = villager['name']['name-USen']
         personality = villager['personality']
         birthday = villager['birthday']
+        birthdayString = villager['birthday-string']
         species = villager['species']
         gender = villager['gender']
         catchPhrase = villager['catch-phrase']
@@ -27,7 +28,7 @@ def create_villagers():
         icon = villager['icon_uri']
         id = villager['id']
         new_villager = Villagers(name = name, personality = personality, birthday = birthday,
-            species = species, gender = gender, catchPhrase = catchPhrase, 
+            birthdayString = birthdayString, species = species, gender = gender, catchPhrase = catchPhrase, 
             image = image, icon = icon, id = id)
         db.session.add(new_villager)
         db.session.commit()

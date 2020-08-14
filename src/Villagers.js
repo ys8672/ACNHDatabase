@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter} from 'react-bootstrap-table2-filter';
@@ -38,8 +39,9 @@ class Villagers extends React.Component {
         }
 		
 		function villagerFormatter(cell, row) {
+			var rowID = row.id
             return (
-                <b> {cell} </b>
+                <Link to={{pathname: `/villagers/${row.id}`}}>{cell}</Link>
             );
         }
 		
