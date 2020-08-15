@@ -8,9 +8,11 @@ import VillagerDetails from "./details/VillagerDetails";
 import Songs from "./Songs";
 import SongDetails from "./details/SongDetails";
 import Sea from "./Sea";
-import SeaDetails from"./details/SeaDetails";
+import SeaDetails from "./details/SeaDetails";
 import Recipes from "./Recipes";
+import RecipeDetails from "./details/RecipeDetails";
 import Items from "./Items";
+import ItemDetails from "./details/ItemDetails";
 import Fossils from "./Fossils";
 import Fish from "./Fish";
 import Construction from "./Construction";
@@ -34,8 +36,10 @@ class App extends React.Component{
 						<Route path="/songs/:id" component={SongDetails}/>
 						<Route exact path="/sea" component={Sea}/>
 						<Route path="/sea/:id" component={SeaDetails}/>
-						<Route path="/recipes" component={Recipes}/>
-						<Route path="/items" component={Items}/>
+						<Route exact path="/recipes" component={Recipes}/>
+						<Route path="/recipes/:id" component={RecipeDetails}/>
+						<Route exact path="/items" component={Items}/>
+						<Route path="/items/:id" component={ItemDetails}/>
 						<Route path="/fossils" component={Fossils}/>
 						<Route path="/fish" component={Fish}/>
 						<Route path="/construction" component={Construction}/>

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
@@ -25,7 +26,7 @@ class Recipes extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize">{cell}</b> 
+                <b className="capitalize"><Link to={{pathname: `/recipes/${row.id}`}}>{cell}</Link></b> 
             );
         }
 		

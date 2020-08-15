@@ -85,6 +85,20 @@ class Sea(db.Model):
     icon = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
+class Recipes(db.Model):
+    __tablename__ = 'recipes'
+    
+    name = db.Column(db.String(256), nullable = False)
+    buyPrice = db.Column(db.String(256), nullable = False)
+    sellPrice = db.Column(db.Integer, nullable = False)
+    source = db.Column(db.String(256), nullable = False)
+    recipesToUnlock = db.Column(db.Integer, nullable = False)
+    category = db.Column(db.String(256), nullable = False)
+    cardColor = db.Column(db.String(256), nullable = False)
+    materials = db.Column(db.String(256), nullable = False)
+    sourceNotes = db.Column(db.String(256), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
+    
 class Items(db.Model):
     __tablename__= 'items'
     
@@ -206,20 +220,7 @@ class Construction(db.Model):
     category = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
 
-class Recipes(db.Model):
 
-    __tablename__ = 'recipes'
-    
-    name = db.Column(db.String(256), nullable = False)
-    buyPrice = db.Column(db.String(256), nullable = False)
-    sellPrice = db.Column(db.Integer, nullable = False)
-    source = db.Column(db.String(256), nullable = False)
-    recipesToUnlock = db.Column(db.Integer, nullable = False)
-    category = db.Column(db.String(256), nullable = False)
-    cardColor = db.Column(db.String(256), nullable = False)
-    materials = db.Column(db.String(256), nullable = False)
-    sourceNotes = db.Column(db.String(256), nullable = True)
-    id = db.Column(db.Integer, primary_key = True)
     
     
 db.create_all()

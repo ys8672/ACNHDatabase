@@ -30,6 +30,8 @@ def index():
 @app.route('/villagers/<int:user_id>')
 @app.route('/songs/<int:user_id>')
 @app.route('/sea/<int:user_id>')
+@app.route('/recipes/<int:user_id>')
+@app.route('/items/<int:user_id>')
 def data_detail(user_id):
     return app.send_static_file('index.html')
     
@@ -101,11 +103,62 @@ def sea_data():
 @app.route('/api/sea/<int:sea_id>/')
 def sea_by_ID(sea_id):
     if sea_id <= 0 or sea_id > db.session.query(Sea).count():
-        dict = {'code': 404, 'message': 'Song not found'}
+        dict = {'code': 404, 'message': 'Sea creature not found'}
     else:
         sea = db.session.query(Sea).filter_by(id=sea_id).one()
         dict = get_sea_dict(sea)
     return dict
+    
+#recipes
+def get_recipe_dict(recipe):
+    return {'name': recipe.name, 'buyPrice': recipe.buyPrice, 'sellPrice': recipe.sellPrice, "source": recipe.source,
+        "recipesToUnlock": recipe.recipesToUnlock, 'category': recipe.category, 'cardColor': recipe.cardColor,
+        'materials': recipe.materials, 'sourceNotes': recipe.sourceNotes, 'id': recipe.id}
+
+@app.route('/api/recipes/')
+def recipe_data():
+    response = []
+    recipe_list = db.session.query(Recipes).all()
+    for recipe in recipe_list:
+        new_one = get_recipe_dict(recipe)
+        response.append(new_one)
+    new_list = {'recipes': response}
+    return new_list
+    
+@app.route('/api/recipes/<int:recipe_id>/')
+def recipe_by_ID(recipe_id):
+    if recipe_id <= 0 or recipe_id > db.session.query(Recipes).count():
+        new_dict = {'code': 404, 'message': 'Recipe not found'}
+    else:
+        recipe = db.session.query(Recipes).filter_by(id=recipe_id).one()
+        new_dict = get_recipe_dict(recipe)
+    return new_dict
+    
+#items
+def get_item_dict(item):
+    return {'name': item.name, 'canCustomize': item.canCustomize, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
+        'isInteractive': item.isInteractive, 'buyPrice': item.buyPrice, 'sellPrice': item.sellPrice, 'image': item.image, 
+        'category': item.category, 'variant': item.variant, 'id': item.id}
+        
+@app.route('/api/items/')
+def item_data():
+    response = []
+    item_list = db.session.query(Items).all()
+    for item in item_list:
+        new_one = get_item_dict(item)
+        response.append(new_one)
+    new_list = {'items': response}
+    return new_list
+
+@app.route('/api/items/<int:item_id>/')
+def item_by_ID(item_id):
+    if item_id <= 0 or item_id > db.session.query(Items).count():
+        new_dict = {'code': 404, 'message': 'Item not found'}
+    else:
+        recipe = db.session.query(Items).filter_by(id=item_id).one()
+        new_dict = get_item_dict(recipe)
+    return new_dict
+
     
 def get_fossil_dict(fossil):
     return {"name": fossil.name, "price": fossil.price, "museumPhrase": fossil.museumPhrase,
@@ -165,21 +218,6 @@ def art_data():
     new_list = {'arts': response}
     return new_list
     
-def get_item_dict(item):
-    return {'name': item.name, 'canCustomize': item.canCustomize, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
-        'isInteractive': item.isInteractive, 'buyPrice': item.buyPrice, 'sellPrice': item.sellPrice, 'image': item.image, 
-        'category': item.category, 'variant': item.variant, 'id': item.id}
-        
-@app.route('/api/items/')
-def item_data():
-    response = []
-    item_list = db.session.query(Items).all()
-    for item in item_list:
-        new_one = get_item_dict(item)
-        response.append(new_one)
-    new_list = {'items': response}
-    return new_list
-    
 def get_construction_dict(cons):  
     return {'name': cons.name, 'image': cons.image, 'buyPrice': cons.buyPrice, 'source': cons.source,
         'category': cons.category, 'id': cons.id}
@@ -194,21 +232,5 @@ def construction_data():
     new_list = {'construction': response}
     return new_list
     
-def get_recipe_dict(recipe):
-    return {'name': recipe.name, 'buyPrice': recipe.buyPrice, 'sellPrice': recipe.sellPrice, "source": recipe.source,
-        "recipesToUnlock": recipe.recipesToUnlock, 'category': recipe.category, 'cardColor': recipe.cardColor,
-        'materials': recipe.materials, 'sourceNotes': recipe.sourceNotes, 'id': recipe.id}
-
-@app.route('/api/recipes/')
-def recipe_data():
-    response = []
-    recipe_list = db.session.query(Recipes).all()
-    for recipe in recipe_list:
-        new_one = get_recipe_dict(recipe)
-        response.append(new_one)
-    new_list = {'recipes': response}
-    return new_list
-
-
 if __name__ == '__main__':
     app.run()

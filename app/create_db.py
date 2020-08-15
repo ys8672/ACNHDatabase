@@ -3,6 +3,7 @@ from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
     Recipes
     
+#Run this file with 'python create_db.py' to create the database.
 
 #Loads JSON file 
 def load_json(filename):
@@ -85,7 +86,7 @@ def create_sea():
 def create_fossils():
     db.session.query(Fossils).delete()
     fossils = load_json('fossils.json')
-    index = 0
+    index = 1
     for (k, fossil) in fossils.items():
         name = fossil['name']['name-USen']
         price = fossil['price']
@@ -165,7 +166,7 @@ def create_items():
     create_items_helper(files)
         
 def create_items_helper(files):
-    index = 0
+    index = 1
     for string in files:
         housewares = load_json(string)
         for (k, item) in housewares.items():
@@ -204,7 +205,7 @@ def create_items_helper(files):
 def create_construction():
     db.session.query(Construction).delete()
     construction = load_json('construction.json')
-    index = 0
+    index = 1
     for cons in construction:
         name = cons['name']
         image = cons['image']
@@ -221,7 +222,7 @@ def create_construction():
 def create_recipes():
     db.session.query(Recipes).delete()
     recipes = load_json('recipes.json')
-    index = 0
+    index = 1
     for recipe in recipes:
         name = recipe['name']
         buyPrice = ""
@@ -235,7 +236,9 @@ def create_recipes():
             buyPrice = str(recipe['buy']) + " bells, " + str(recipe['milesPrice']) + " Nook Miles"
         sellPrice = recipe['sell']
         source = ', '.join(recipe['source'])
-        sourceNotes = recipe['sourceNotes']
+        sourceNotes = ""
+        if recipe['sourceNotes'] != None:
+            sourceNotes = recipe['sourceNotes']
         recipesToUnlock = recipe['recipesToUnlock']
         category = recipe['category']
         cardColor = recipe['cardColor']
