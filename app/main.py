@@ -16,7 +16,6 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/songs/')
 @app.route('/sea/')
 @app.route('/recipes/')
-@app.route('/details/')
 @app.route('/items/')
 @app.route('/fossils/')
 @app.route('/fish/')
@@ -29,10 +28,12 @@ def index():
     return app.send_static_file('index.html')
     
 @app.route('/villagers/<int:user_id>')
+@app.route('/songs/<int:user_id>')
+@app.route('/sea/<int:user_id>')
 def data_detail(user_id):
     return app.send_static_file('index.html')
     
-#villagers Endpoint
+#villagers
 def get_villager_dict(villager):
     return {"name": villager.name, "personality": villager.personality, "birthday": villager.birthday,
         "birthdayString": villager.birthdayString, "species": villager.species, "gender": villager.gender, 
@@ -57,6 +58,7 @@ def villager_by_ID(villager_id):
         dict = get_villager_dict(villager)
     return dict
 
+#songs
 def get_song_dict(song):
     return {"name": song.name, "buyPrice": song.buyPrice, "sellPrice": song.sellPrice, "isOrderable": song.isOrderable,
             "image": song.image, "music": song.music, "id": song.id}
@@ -80,6 +82,7 @@ def song_by_ID(song_id):
         dict = get_song_dict(song)
     return dict
 
+#sea
 def get_sea_dict(sea):
     return {"name": sea.name, "monthNorth": sea.monthNorth, "monthSouth": sea.monthSouth, "time": sea.time, "speed": sea.speed,
         "shadow": sea.shadow, "price": sea.price, "catchPhrase": sea.catchPhrase, "museumPhrase": sea.museumPhrase,
@@ -94,6 +97,15 @@ def sea_data():
         response.append(new_one)
     new_list = {'sea': response}
     return new_list
+    
+@app.route('/api/sea/<int:sea_id>/')
+def sea_by_ID(sea_id):
+    if sea_id <= 0 or sea_id > db.session.query(Sea).count():
+        dict = {'code': 404, 'message': 'Song not found'}
+    else:
+        sea = db.session.query(Sea).filter_by(id=sea_id).one()
+        dict = get_sea_dict(sea)
+    return dict
     
 def get_fossil_dict(fossil):
     return {"name": fossil.name, "price": fossil.price, "museumPhrase": fossil.museumPhrase,

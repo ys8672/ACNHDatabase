@@ -26,7 +26,7 @@ class Sea extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize">{cell} </b> 
+                <b className="capitalize"><Link to={{pathname: `/sea/${row.id}`}}>{cell}</Link></b> 
             );
         }
 		
@@ -79,7 +79,7 @@ class Sea extends React.Component {
 		}
 		
 		function monthFormatter(cell, row){
-			if (cell === ""){
+			if (cell === "All Year"){
 				return "All Year"
 			}
 			else if (cell.includes("&")){
@@ -99,19 +99,12 @@ class Sea extends React.Component {
 				return monthBegin + " - " + monthEnd;
 			}
 		}
-		
-		function timeFormatter(cell, row){
-			if (cell === ""){
-				return "All Day";
-			}	
-			return cell;
-		}
-		
+				
 		function monthSort(a, b, order, dataField, rowA, rowB){
-			if (a === ""){
+			if (a === "All Year"){
 				a = "1-1";
 			}
-			if (b === ""){
+			if (b === "All Year"){
 				b = "1-1";
 			}
 			
@@ -178,10 +171,10 @@ class Sea extends React.Component {
 		}
 		
 		function timeSort(a, b, order, dataField, rowA, rowB){
-			if (a === ""){
+			if (a === "All Day"){
 				a = "0am - 0am";
 			}
-			if (b === ""){
+			if (b === "All Day"){
 				b = "0am - 0am";
 			}
 			
@@ -264,11 +257,7 @@ class Sea extends React.Component {
 			
 		function truncate(cell, row) {
 		   if (cell.length > 64) {
-			    var link = <Link to={{pathname:`/details`, state: {cell}}}>...</Link>;
-				return (
-					<div> {cell.substring(0, 64)}{link} </div>
-				)
-				//return cell.substring(0, 64) + "...";
+				return cell.substring(0, 64) + "...";
 		   }
 		   return cell;
 		};
@@ -318,7 +307,6 @@ class Sea extends React.Component {
                 text: 'Time Available',
                 sort: true,
 				sortFunc: timeSort,
-				formatter: timeFormatter,
 				align: "center",
 				headerAlign: 'center'
             }, {

@@ -60,8 +60,14 @@ def create_sea():
     for (k, sea) in seas.items():
         name = sea['name']['name-USen']
         monthNorth = sea['availability']['month-northern']
+        if monthNorth == "":
+            monthNorth = "All Year"
         monthSouth = sea['availability']['month-southern']
+        if monthSouth == "":
+            monthSouth = "All Year"
         time = sea['availability']['time']
+        if time == "":
+            time = "All Day"
         speed = sea['speed']
         shadow = sea['shadow']
         price = sea['price']
