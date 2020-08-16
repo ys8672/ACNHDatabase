@@ -7,7 +7,7 @@ from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, A
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
-app = Flask(__name__, static_folder='../build', static_url_path='/')
+app = Flask(__name__, static_folder='build', static_url_path='/')
 CORS(app)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
