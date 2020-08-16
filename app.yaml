@@ -9,14 +9,14 @@ runtime_config:
 env_variables:
 # Replace user, password, database, and instance connection name with the values obtained
 # when configuring your Cloud SQL instance.
-DB_STRING: >-
-postgresql+psycopg2://postgres:asdf1234@/postgres?host=/cloudsql/acnhdatabase:us-central1:acnh
+    DB_STRING: >-
+      postgresql+psycopg2://postgres:asdf1234@/postgres?host=/cloudsql/acnhdatabase:us-central1:acnh
 #[END env]
 #[START cloudsql_settings]
 # Replace project and instance with the values obtained when configuring your
 # Cloud SQL instance.
 beta_settings:
-cloud_sql_instances: acnhdatabase:us-central1:acnh
+    cloud_sql_instances: acnhdatabase:us-central1:acnh
 
 # This sample incurs costs to run on the App Engine flexible environment. 
 # The settings below are to reduce costs during testing and are not appropriate
