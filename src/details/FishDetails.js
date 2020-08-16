@@ -1,19 +1,19 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 
-class SeaDetails extends React.Component {
+class FishDetails extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            sea: {},
+            fish: {},
 			canShow: true
         }
     }
 	
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(sea_by_ID => {
-			this.setState({sea: sea_by_ID})
-			if('code' in sea_by_ID){
+		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(fish_by_ID => {
+			this.setState({fish: fish_by_ID})
+			if('code' in fish_by_ID){
 				this.setState({canShow: false});
 			}
         })
@@ -79,16 +79,19 @@ class SeaDetails extends React.Component {
 				var monthTwoEnd = switchMonth(parseInt(monthTwo[1]));
 				return monthOneBegin + " - " + monthOneEnd + ", " + monthTwoBegin + " - " + monthTwoEnd;
 			}
-			else{
+			else if (cell.includes("-")){
 				var field = cell.split("-");
 				var monthBegin = switchMonth(parseInt(field[0]));
 				var monthEnd = switchMonth(parseInt(field[1]));
 				return monthBegin + " - " + monthEnd;
 			}
+			else{
+				return switchMonth(parseInt(cell));
+			}
 		}
-		
-		const title = "ACNH Database: Sea Details"
-		const sea = this.state.sea
+
+		const title = "ACNH Database: Fish Details"
+		const fish = this.state.fish
 		const canShow = this.state.canShow
 		return(
 			<div>
@@ -99,35 +102,36 @@ class SeaDetails extends React.Component {
 				{canShow && <div class="borderdiv">
 					<div class="row no-gutters">
 						<div class="col-md-3">
-							<img src={sea.image} class="card-img" alt=""
+							<img src={fish.image} class="card-img" alt=""
 								 style={{maxHeight: '100%', maxWidth: '100%'}}/>
 						</div>
 						<div class="col-md-6">
 							<div class="card-body">
-								<h1 class="card-title capitalize"><b>Name: {sea.name}</b></h1>
-								<p class="card-text"><b>Month(s) Available in the Northern Hemisphere: </b> {monthFormatter(sea.monthNorth)} </p>
-								<p class="card-text"><b>Month(s) Available in the Southern Hemisphere:</b> {monthFormatter(sea.monthSouth)} </p>
-								<p class="card-text"><b>Time Available:</b> {sea.time} </p>
-								<p class="card-text"><b>Movement Speed:</b> {sea.speed} </p>
-								<p class="card-text"><b>Shadow Size:</b> {sea.shadow} </p>
-								<p class="card-text"><b>Selling Price:</b> {sea.price} </p>
-								<p class="card-text"><b>Catch Phrase:</b> {sea.catchPhrase} </p>
-								<p class="card-text"><b>Museum Phrase:</b> {sea.museumPhrase} </p>
+								<h1 class="card-title capitalize"><b>Name: {fish.name}</b></h1>
+								<p class="card-text"><b>Month(s) Available in the Northern Hemisphere: </b> {monthFormatter(fish.monthNorth)} </p>
+								<p class="card-text"><b>Month(s) Available in the Southern Hemisphere:</b> {monthFormatter(fish.monthSouth)} </p>
+								<p class="card-text"><b>Time Available:</b> {fish.time} </p>
+								<p class="card-text"><b>Location:</b> {fish.location} </p>
+								<p class="card-text"><b>Rarity:</b> {fish.rarity} </p>
+								<p class="card-text"><b>Shadow Size:</b> {fish.shadow} </p>
+								<p class="card-text"><b>Selling Price:</b> {fish.price} </p>
+								<p class="card-text"><b>Catch Phrase:</b> {fish.catchPhrase} </p>
+								<p class="card-text"><b>Museum Phrase:</b> {fish.museumPhrase} </p>
 							</div>
 						</div>
 						<div class="col-md-3">
-							<img src={sea.icon} class="card-img" alt=""
+							<img src={fish.icon} class="card-img" alt=""
 								 style={{maxHeight: '100%', maxWidth: '100%'}}/>
 						</div>
 					</div>
 				</div>}
 				{!canShow && <div class="borderdiv">
-					<h5 className="text-center">Error Code: {sea.code} </h5>
-					<p className="text-center">{sea.message} </p>
+					<h5 className="text-center">Error Code: {fish.code} </h5>
+					<p className="text-center">{fish.message} </p>
 				</div>}
 			</div>
 		)
 	}
 }
 
-export default SeaDetails;
+export default FishDetails;

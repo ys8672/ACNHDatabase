@@ -5,7 +5,8 @@ class VillagerDetails extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            villager: {}
+            villager: {},
+			canShow: true
         }
     }
 	
@@ -13,6 +14,9 @@ class VillagerDetails extends React.Component {
 	componentDidMount() {
 		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(villager_by_ID => {
 			this.setState({villager: villager_by_ID})
+			if('code' in villager_by_ID){
+				this.setState({canShow: false});
+			}
         })
 	}
 	
@@ -21,13 +25,14 @@ class VillagerDetails extends React.Component {
 	render() {
 		const title = "ACNH Database: Villager Details"
 		const villager = this.state.villager
+		const canShow = this.state.canShow
 		return(
 			<div class="frontpagepadding">
 				<Helmet>
 					<title>{title} </title>
 				</Helmet>
 				<br/>
-				<div class="borderdiv">
+				{canShow && <div class="borderdiv">
 					<div class="row no-gutters">
 						<div class="col-md-4">
 							<img src={villager.image} class="card-img" alt=""
@@ -48,7 +53,11 @@ class VillagerDetails extends React.Component {
 								 style={{maxHeight: '100%', maxWidth: '100%'}}/>
 						</div>
 					</div>
-				</div>
+				</div>}
+				{!canShow && <div class="borderdiv">
+					<h5 className="text-center">Error Code: {villager.code} </h5>
+					<p className="text-center">{villager.message} </p>
+				</div>}
 
 			</div>
 		)

@@ -44,7 +44,10 @@ class Fossils extends React.Component {
 		
 		function truncate(cell, row) {
 		   if (cell.length > 128) {
-				return cell.substring(0, 128) + "...";
+				var link = <Link to={{pathname: `/fossils/${row.id}`}}>...</Link>;
+				return (
+					<div> {cell.substring(0, 128)}{link} </div>
+				)
 		   }
 		   return cell;
 		};

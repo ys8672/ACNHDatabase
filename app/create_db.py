@@ -134,8 +134,14 @@ def create_bugs():
     for (k, bug) in bugs.items():
         name = bug['name']['name-USen']
         monthNorth = bug['availability']['month-northern']
+        if monthNorth == "":
+            monthNorth = "All Year"
         monthSouth = bug['availability']['month-southern']
+        if monthSouth == "":
+            monthSouth = "All Year"
         time = bug['availability']['time']
+        if time == "":
+            time = "All Day"
         location = bug['availability']['location']
         rarity = bug['availability']['rarity']
         price = bug['price']

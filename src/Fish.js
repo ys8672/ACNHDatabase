@@ -287,7 +287,7 @@ class Fish extends React.Component {
 			
 		function truncate(cell, row) {
 		   if (cell.length > 64) {
-			    var link = <Link to={{pathname:`/details`, state: {cell}}}>...</Link>;
+			    var link = <Link to={{pathname: `/fish/${row.id}`}}>...</Link>;
 				return (
 					<div> {cell.substring(0, 64)}{link} </div>
 				)

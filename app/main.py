@@ -33,6 +33,10 @@ def index():
 @app.route('/recipes/<int:user_id>')
 @app.route('/items/<int:user_id>')
 @app.route('/fossils/<int:user_id>')
+@app.route('/fish/<int:user_id>')
+@app.route('/construction/<int:user_id>/')
+@app.route('/bugs/<int:user_id>/')
+@app.route('/art/<int:user_id>/')
 def data_detail(user_id):
     return app.send_static_file('index.html')
     
@@ -189,7 +193,7 @@ def fossil_data():
 @app.route('/api/fossils/<int:fossil_id>/')
 def fossil_by_ID(fossil_id):
     if fossil_id <= 0 or fossil_id > db.session.query(Fossils).count():
-        new_dict = {'code': 404, 'message': 'Item not found'}
+        new_dict = {'code': 404, 'message': 'Fossil not found'}
     else:
         fossil = db.session.query(Fossils).filter_by(id=fossil_id).one()
         new_dict = get_fossil_dict(fossil)
@@ -211,6 +215,40 @@ def fish_data():
     new_list = {'fish': response}
     return new_list
 
+@app.route('/api/fish/<int:fish_id>/')
+def fish_by_ID(fish_id):
+    if fish_id <= 0 or fish_id > db.session.query(Fishes).count():
+        new_dict = {'code': 404, 'message': 'Fish not found'}
+    else:
+        fish = db.session.query(Fishes).filter_by(id=fish_id).one()
+        new_dict = get_fish_dict(fish)
+    return new_dict
+
+#construction
+def get_construction_dict(cons):  
+    return {'name': cons.name, 'image': cons.image, 'buyPrice': cons.buyPrice, 'source': cons.source,
+        'category': cons.category, 'id': cons.id}
+    
+@app.route('/api/construction/')
+def construction_data():
+    response = []
+    cons_list = db.session.query(Construction).all()
+    for cons in cons_list:
+        new_one = get_construction_dict(cons)
+        response.append(new_one)
+    new_list = {'construction': response}
+    return new_list
+    
+@app.route('/api/construction/<int:cons_id>/')
+def construction_by_ID(cons_id):
+    if cons_id <= 0 or cons_id > db.session.query(Construction).count():
+        new_dict = {'code':404, 'message': 'Construction not found'}
+    else:
+        cons = db.session.query(Construction).filter_by(id=cons_id).one()
+        new_dict = get_construction_dict(cons)
+    return new_dict
+
+#bugs
 def get_bug_dict(bug):
     return {"name": bug.name, "monthNorth": bug.monthNorth, "monthSouth": bug.monthSouth, "time": bug.time, "location": bug.location,
         "rarity": bug.rarity, "price": bug.price, "catchPhrase": bug.catchPhrase, "museumPhrase": bug.museumPhrase,
@@ -226,6 +264,16 @@ def bug_data():
     new_list = {'bugs': response}
     return new_list
     
+@app.route('/api/bugs/<int:bug_id>/')
+def bug_by_ID(bug_id):
+    if bug_id <= 0 or bug_id > db.session.query(Bugs).count():
+        new_dict = {'code': 404, 'message': 'Bug not found'}
+    else:
+        bugs = db.session.query(Bugs).filter_by(id=bug_id).one()
+        new_dict = get_bug_dict(bugs)
+    return new_dict
+    
+#art
 def get_art_dict(art):
     return {'name': art.name, 'hasFake': art.hasFake, 'buyPrice': art.buyPrice, 'sellPrice': art.sellPrice, 'image': art.image,
         'museum': art.museum, 'id': art.id}
@@ -240,19 +288,14 @@ def art_data():
     new_list = {'arts': response}
     return new_list
     
-def get_construction_dict(cons):  
-    return {'name': cons.name, 'image': cons.image, 'buyPrice': cons.buyPrice, 'source': cons.source,
-        'category': cons.category, 'id': cons.id}
-    
-@app.route('/api/construction/')
-def construction_data():
-    response = []
-    cons_list = db.session.query(Construction).all()
-    for cons in cons_list:
-        new_one = get_construction_dict(cons)
-        response.append(new_one)
-    new_list = {'construction': response}
-    return new_list
-    
+@app.route('/api/art/<int:art_id>/')
+def art_by_ID(art_id):
+    if art_id <= 0 or art_id > db.session.query(Arts).count():
+        new_dict = {'code': 404, 'message': 'Art not found'}
+    else:
+        art = db.session.query(Arts).filter_by(id=art_id).one()
+        new_dict = get_art_dict(art)
+    return new_dict
+
 if __name__ == '__main__':
     app.run()

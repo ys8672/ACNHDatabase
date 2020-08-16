@@ -5,7 +5,8 @@ class ItemDetails extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            item: {}
+            item: {},
+			canShow: true
         }
     }
 	
@@ -13,6 +14,9 @@ class ItemDetails extends React.Component {
 	componentDidMount() {
 		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(item_by_ID => {
 			this.setState({item: item_by_ID})
+			if('code' in item_by_ID){
+				this.setState({canShow: false});
+			}
         })
 	}
 	
@@ -51,13 +55,14 @@ class ItemDetails extends React.Component {
 		
 		const title = "ACNH Database: Item Details"
 		const item = this.state.item
+		const canShow = this.state.canShow
 		return(
 			<div class="frontpagepadding">
 				<Helmet>
 					<title>{title} </title>
 				</Helmet>
 				<br/>
-				<div class="borderdiv">
+				{canShow && <div class="borderdiv">
 					<div class="row no-gutters">
 						<div class="col-md-4">
 							<img src={item.image} class="card-img" alt=""
@@ -78,7 +83,11 @@ class ItemDetails extends React.Component {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>}
+				{!canShow && <div class="borderdiv">
+					<h5 className="text-center">Error Code: {item.code} </h5>
+					<p className="text-center">{item.message} </p>
+				</div>}
 			</div>
 		)
 	}

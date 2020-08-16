@@ -174,11 +174,6 @@ class FrontPage extends React.Component{
 				</div>	
 				<br/>
 				
-				<div style={{display: 'flex', justifyContent: 'center'}}>
-					<LinkContainer to="/about">
-						<Button variant="outline-danger" size="lg"> About This Website </Button>
-					</LinkContainer>	
-				</div> 
 				<br/>
 
 

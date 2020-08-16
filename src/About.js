@@ -18,7 +18,7 @@ class About extends React.Component{
 						<h1 class="display-4 text-center"><b>About This Website</b></h1>
 						<p class="lead">Hello, Welcome to the Animal Crossing: New Horizons Database. This website is
 							my attempt at creating a database of information about Animal Crossing: New Horizons. Currently,
-							I have catalogued art pieces, bugs, construction, fish, fossils, recipes, deep sea creatures, K.K. Slider
+							I have catalogued art pieces, bugs, construction, fish, fossils, items, recipes, deep sea creatures, K.K. Slider
 							songs, and villagers into tables that are convienent to search and filter through for the
 							average user. I do plan on updating my website from time to time, so look forward to updates
 							in the future. </p>
@@ -61,7 +61,7 @@ class About extends React.Component{
 							have had a way harder time creating the database for this website otherwise. Thank you. </p>
 						<p class="Card-text"><a href="https://docs.google.com/spreadsheets/d/13d_LAJPlxMa_DubPTuirkIV4DERBMXbrWQsmSh8ReK4/edit#gid=93332535">ACNH Spreadsheet</a> for
 						an AC:NH database community and for all the information I needed to look up many things on the website. Thank you. I am on the Discord of this group (which you
-						can find in the README of the link above) if you want to talk to me from there. I go by the tag CapK and I have a developer role in that Discord.</p>
+						can find in the README of the link above) if you want to talk to me from there. I go by the tag CapK.</p>
 						<p class="card-text"><a href="https://github.com/acdb-team/google-sheets-to-json">ACDB-Team</a> for the information on recipes and construction. Thank you. </p>
 					  </div>
 					</div>

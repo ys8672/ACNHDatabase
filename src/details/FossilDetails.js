@@ -5,7 +5,8 @@ class FossilDetails extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            fossil: {}
+            fossil: {},
+			canShow: true
         }
     }
 	
@@ -13,19 +14,23 @@ class FossilDetails extends React.Component {
 	componentDidMount() {
 		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(fossil_by_ID => {
 			this.setState({fossil: fossil_by_ID})
+			if('code' in fossil_by_ID){
+				this.setState({canShow: false});
+			}
         })
 	}
 
 	render() {
 		const title = "ACNH Database: Fossil Details"
 		const fossil = this.state.fossil
+		const canShow = this.state.canShow
 		return(
 			<div class="frontpagepadding">
 				<Helmet>
 					<title>{title} </title>
 				</Helmet>
 				<br/>
-				<div class="borderdiv">
+				{canShow && <div class="borderdiv">
 					<div class="row no-gutters">
 						<div class="col-md-4">
 							<img src={fossil.image} class="card-img" alt=""
@@ -40,7 +45,11 @@ class FossilDetails extends React.Component {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>}
+				{!canShow && <div class="borderdiv">
+					<h5 className="text-center">Error Code: {fossil.code} </h5>
+					<p className="text-center">{fossil.message} </p>
+				</div>}
 
 			</div>
 		)

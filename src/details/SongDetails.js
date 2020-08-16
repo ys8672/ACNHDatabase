@@ -5,13 +5,18 @@ class SongDetails extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            song: {}
+            song: {},
+			canShow: true
         }
     }
 	
 	componentDidMount() {
 		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(song_by_ID => {
 			this.setState({song: song_by_ID})
+			if('code' in song_by_ID){
+				this.setState({canShow: false});
+			}
+			const canShow = this.state.canShow
         })
 	}
 	
@@ -31,13 +36,14 @@ class SongDetails extends React.Component {
 		
 		const title = "ACNH Database: Song Details"
 		const song = this.state.song
+		const canShow = this.state.canShow
 		return(
 			<div class="frontpagepadding">
 				<Helmet>
 					<title>{title} </title>
 				</Helmet>
 				<br/>
-				<div class="borderdiv">
+				{canShow && <div class="borderdiv">
 					<div class="row no-gutters">
 						<div class="col-md-4">
 							<img src={song.image} class="card-img" alt=""
@@ -55,7 +61,11 @@ class SongDetails extends React.Component {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>}
+				{!canShow && <div class="borderdiv">
+					<h5 className="text-center">Error Code: {song.code} </h5>
+					<p className="text-center">{song.message} </p>
+				</div>}
 			</div>
 		)
 	}
