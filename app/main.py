@@ -32,6 +32,7 @@ def index():
 @app.route('/sea/<int:user_id>')
 @app.route('/recipes/<int:user_id>')
 @app.route('/items/<int:user_id>')
+@app.route('/fossils/<int:user_id>')
 def data_detail(user_id):
     return app.send_static_file('index.html')
     
@@ -170,7 +171,7 @@ def item_by_ID(item_id):
         new_dict = get_item_dict(recipe)
     return new_dict
 
-    
+#fossils
 def get_fossil_dict(fossil):
     return {"name": fossil.name, "price": fossil.price, "museumPhrase": fossil.museumPhrase,
         "image": fossil.image, "id": fossil.id}
@@ -185,6 +186,16 @@ def fossil_data():
     new_list = {'fossils': response}
     return new_list
 
+@app.route('/api/fossils/<int:fossil_id>/')
+def fossil_by_ID(fossil_id):
+    if fossil_id <= 0 or fossil_id > db.session.query(Fossils).count():
+        new_dict = {'code': 404, 'message': 'Item not found'}
+    else:
+        fossil = db.session.query(Fossils).filter_by(id=fossil_id).one()
+        new_dict = get_fossil_dict(fossil)
+    return new_dict
+
+#fish
 def get_fish_dict(fish):
     return {"name": fish.name, "monthNorth": fish.monthNorth, "monthSouth": fish.monthSouth, "time": fish.time, "location": fish.location,
         "rarity": fish.rarity, "shadow": fish.shadow, "price": fish.price, "catchPhrase": fish.catchPhrase, "museumPhrase": fish.museumPhrase,
@@ -199,7 +210,7 @@ def fish_data():
         response.append(new_one)
     new_list = {'fish': response}
     return new_list
-    
+
 def get_bug_dict(bug):
     return {"name": bug.name, "monthNorth": bug.monthNorth, "monthSouth": bug.monthSouth, "time": bug.time, "location": bug.location,
         "rarity": bug.rarity, "price": bug.price, "catchPhrase": bug.catchPhrase, "museumPhrase": bug.museumPhrase,

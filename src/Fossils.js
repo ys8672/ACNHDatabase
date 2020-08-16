@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, numberFilter } from 'react-bootstrap-table2-filter';
@@ -25,7 +26,7 @@ class Fossils extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize">{cell} </b> 
+                <b className="capitalize"><Link to={{pathname: `/fossils/${row.id}`}}>{cell}</Link></b> 
             );
         }
 		
@@ -40,6 +41,13 @@ class Fossils extends React.Component {
 			dataField: 'id',
 			order: 'asce'
 		}];
+		
+		function truncate(cell, row) {
+		   if (cell.length > 128) {
+				return cell.substring(0, 128) + "...";
+		   }
+		   return cell;
+		};
 		
         const {fossils} = this.state
         const {columns} = {
@@ -72,7 +80,8 @@ class Fossils extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter(),
+				formatter: truncate
             }, {
                 dataField: 'id',
                 text: 'ID',

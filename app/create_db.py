@@ -105,8 +105,14 @@ def create_fishes():
     for (k, fish) in fishes.items():
         name = fish['name']['name-USen']
         monthNorth = fish['availability']['month-northern']
+        if monthNorth == "":
+            monthNorth = "All Year"
         monthSouth = fish['availability']['month-southern']
+        if monthSouth == "":
+            monthSouth = "All Year"
         time = fish['availability']['time']
+        if time == "":
+            time = "All Day"
         location = fish['availability']['location']
         rarity = fish['availability']['rarity']
         shadow = fish['shadow']

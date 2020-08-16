@@ -26,7 +26,7 @@ class Fish extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize">{cell} </b> 
+                <b className="capitalize"><Link to={{pathname: `/fish/${row.id}`}}>{cell}</Link></b> 
             );
         }
 		
@@ -82,7 +82,7 @@ class Fish extends React.Component {
 		}
 		
 		function monthFormatter(cell, row){
-			if (cell === ""){
+			if (cell === "All Year"){
 				return "All Year"
 			}
 			else if (cell.includes("&")){
@@ -104,20 +104,13 @@ class Fish extends React.Component {
 			else{
 				return switchMonth(parseInt(cell));
 			}
-		}
-		
-		function timeFormatter(cell, row){
-			if (cell === ""){
-				return "All Day";
-			}	
-			return cell;
-		}
+		}		
 		
 		function monthSort(a, b, order, dataField, rowA, rowB){
-			if (a === ""){
+			if (a === "All Year"){
 				a = "1-1";
 			}
-			if (b === ""){
+			if (b === "All Year"){
 				b = "1-1";
 			}
 			if (a.length === 1){
@@ -193,10 +186,10 @@ class Fish extends React.Component {
 		}
 		
 		function timeSort(a, b, order, dataField, rowA, rowB){
-			if (a === ""){
+			if (a === "All Day"){
 				a = "0am - 0am";
 			}
-			if (b === ""){
+			if (b === "All Day"){
 				b = "0am - 0am";
 			}
 			
@@ -348,7 +341,6 @@ class Fish extends React.Component {
                 text: 'Time Available',
                 sort: true,
 				sortFunc: timeSort,
-				formatter: timeFormatter,
 				align: "center",
 				headerAlign: 'center'
             }, {

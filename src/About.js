@@ -59,8 +59,8 @@ class About extends React.Component{
 						<p class="card-text"><a href="http://acnhapi.com/">ACNH API</a> for the for helping me with getting most of the information I needed to make this website,
 							including art pieces, bugs, fish, fossils, items, sea creatures, songs, and villagers. I would
 							have had a way harder time creating the database for this website otherwise. Thank you. </p>
-						<p class="Card-text"><a href="https://docs.google.com/spreadsheets/d/13d_LAJPlxMa_DubPTuirkIV4DERBMXbrWQsmSh8ReK4/edit#gid=93332535">ACNH Spreadsheet</a> 
-						for an AC:NH community and for all the information I needed to look up many things on the website. Thank you. I am on the Discord of this group (which you
+						<p class="Card-text"><a href="https://docs.google.com/spreadsheets/d/13d_LAJPlxMa_DubPTuirkIV4DERBMXbrWQsmSh8ReK4/edit#gid=93332535">ACNH Spreadsheet</a> for
+						an AC:NH database community and for all the information I needed to look up many things on the website. Thank you. I am on the Discord of this group (which you
 						can find in the README of the link above) if you want to talk to me from there. I go by the tag CapK and I have a developer role in that Discord.</p>
 						<p class="card-text"><a href="https://github.com/acdb-team/google-sheets-to-json">ACDB-Team</a> for the information on recipes and construction. Thank you. </p>
 					  </div>
@@ -88,7 +88,7 @@ class About extends React.Component{
 								<div class="card-body">
 								  <h5 class="card-title" className="text-center"><b>GitHub</b></h5>
 								  <p class="card-text">I have made all code for this database and website open-sourced. Feel free to 
-								  clone my repository and give me feedback. You can contact me via Discord: CapK#5880. </p>
+								  clone my repository and give me feedback via Discord. My Discord info is in the About Me Section. </p>
 								  <div style={{display: 'flex', justifyContent: 'center'}}>
 									<a href="https://github.com/shengye000/ACNHDatabase" class="btn btn-info">GitHub Repository</a>
 								  </div> 
