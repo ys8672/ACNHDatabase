@@ -31,7 +31,7 @@ class Arts extends React.Component {
 		
         function imageFormatter(cell, row) {
             return (
-                <img className="img" src={cell}
+                <img className="img" src={cell} alt=""
                      style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }

@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from "react-router-dom";
 import { Helmet } from 'react-helmet'
 
 class SeaDetails extends React.Component {
@@ -54,6 +53,9 @@ class SeaDetails extends React.Component {
 					break;
 				case 12:
 					month = "December";
+					break;
+				default:
+					break;
 			}
 			return month;
 		}
@@ -113,10 +115,6 @@ class SeaDetails extends React.Component {
 								 style={{maxHeight: '100%', maxWidth: '100%'}}/>
 						</div>
 					</div>
-				</div>
-				<br/>
-				<div class="text-center">
-					<Link to={{pathname:`/`}}>Return to home page</Link>
 				</div>
 			</div>
 		)

@@ -48,35 +48,66 @@ class Search extends React.Component {
 	}
 	
 	componentDidMount() {
-		fetch('/api/villagers/').then(r => r.json()).then(villager_data => {
-            this.setState({villagers: villager_data.villagers})
-        })
-		fetch('/api/songs/').then(r => r.json()).then(song_data => {
-            this.setState({songs: song_data.songs})
-        })
-		fetch('/api/sea/').then(r => r.json()).then(sea_data => {
-            this.setState({sea: sea_data.sea})
-        })
-		fetch('/api/recipes/').then(r => r.json()).then(recipe_data => {
-            this.setState({recipes: recipe_data.recipes})
-        })
-		fetch('/api/items/').then(r => r.json()).then(item_data => {
-            this.setState({items: item_data.items})
-        })
-		fetch('/api/fossils/').then(r => r.json()).then(fossil_data => {
-            this.setState({fossils: fossil_data.fossils})
-        })
-		fetch('/api/fish/').then(r => r.json()).then(fish_data => {
-            this.setState({fish: fish_data.fish})
-        })
-		fetch('/api/construction/').then(r => r.json()).then(construction_data => {
-            this.setState({construction: construction_data.construction})
-        })
-		fetch('/api/bugs/').then(r => r.json()).then(bug_data => {
-            this.setState({bugs: bug_data.bugs})
-        })
-		fetch('/api/art/').then(r => r.json()).then(art_data => {
-            this.setState({art: art_data.arts})
+		fetch('/api/search/').then(r => r.json()).then(search_data => {
+            let search = search_data.search
+			let art2 = []
+			let bugs2 = []
+			let construction2 = []
+			let fish2 = []
+			let fossils2 = []
+			let items2 = []
+			let recipes2 = []
+			let sea2 = []
+			let songs2 = []
+			let villagers2 = []
+			var i;
+			for (i = 0; i < search.length; i++) {
+				var cat = search[i].category;
+				switch(true){					
+					case (cat === 'art'):
+						art2.push(search[i]);
+						break;
+					case (cat === 'bugs'):
+						bugs2.push(search[i]);
+						break;
+					case (cat === 'construction'):
+						construction2.push(search[i]);
+						break;
+					case (cat === 'fish'):
+						fish2.push(search[i]);
+						break;
+					case (cat === 'fossils'):
+						fossils2.push(search[i]);
+						break;
+					case (cat === 'items'):
+						items2.push(search[i]);
+						break;
+					case (cat === 'recipes'):
+						recipes2.push(search[i]);
+						break;
+					case (cat === 'sea'):
+						sea2.push(search[i]);
+						break;
+					case (cat === 'songs'):
+						songs2.push(search[i]);
+						break;
+					case (cat=== 'villagers'):
+						villagers2.push(search[i]);
+						break;
+					default:
+						break;
+				}
+			} 
+			this.setState({art: art2})
+			this.setState({bugs: bugs2})
+			this.setState({construction: construction2})
+			this.setState({fish: fish2})
+			this.setState({fossils: fossils2})
+			this.setState({items: items2})
+			this.setState({recipes: recipes2})
+			this.setState({sea: sea2})
+			this.setState({songs: songs2})
+			this.setState({villagers: villagers2})
         })
 	}
 	
@@ -243,8 +274,9 @@ class Search extends React.Component {
 											textToHighlight={art.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={art.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a></p>
-									<p className='text-center'>{art.museumPhrase} </p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/art/${art.id}`}}>More details</Link>
+									</div>
 								</div>
 							)}  
 					</div>
@@ -263,8 +295,9 @@ class Search extends React.Component {
 											textToHighlight={bug.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={bug.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a></p>
-									<p className='text-center'>{bug.museumPhrase} </p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/bugs/${bug.id}`}}>More details</Link>
+									</div>
 								</div>
 							)}  
 					</div>
@@ -283,7 +316,9 @@ class Search extends React.Component {
 											textToHighlight={cons.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={cons.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a></p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/construction/${cons.id}`}}>More details</Link>
+									</div>
 								</div>
 							)}  
 					</div>
@@ -302,8 +337,9 @@ class Search extends React.Component {
 											textToHighlight={fish.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={fish.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a></p>
-									<p className='text-center'>{fish.museumPhrase} </p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/fish/${fish.id}`}}>More details</Link>
+									</div>
 								</div>
 							)}  
 					</div>
@@ -322,8 +358,9 @@ class Search extends React.Component {
 											textToHighlight={fossil.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={fossil.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a></p>
-									<p className='text-center'>{fossil.museumPhrase} </p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/fossils/${fossil.id}`}}>More details</Link>
+									</div>
 								</div>
 							)}  
 					</div>
@@ -342,7 +379,9 @@ class Search extends React.Component {
 											textToHighlight={item.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={item.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a></p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/items/${item.id}`}}>More details</Link>
+									</div>
 								</div>
 							)}  
 					</div>
@@ -361,8 +400,9 @@ class Search extends React.Component {
 											textToHighlight={recipe.name}
 										/>
 									</b></h5>
-									<p className='text-center'>Source: {recipe.source} </p>
-									<p className='text-center'>Materials: {recipe.materials} </p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/recipes/${recipe.id}`}}>More details</Link>
+									</div>
 								</div>
 							)}  
 					</div>
@@ -381,8 +421,9 @@ class Search extends React.Component {
 											textToHighlight={sea.name}
 										/>
 									</b></h5>
-									<p className='text-center'><a href={sea.image} target="_blank" rel="noopener noreferrer" ><b>Image</b></a></p>
-									<p className='text-center'>{sea.museumPhrase} </p>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/sea/${sea.id}`}}>More details</Link>
+									</div> 
 								</div>
 							)}  
 					</div>
@@ -428,6 +469,7 @@ class Search extends React.Component {
 								</div>
 							)}
 					</div>
+					<br/>
 				</div>}
 			</div>
 		)

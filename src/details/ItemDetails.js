@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from "react-router-dom";
 import { Helmet } from 'react-helmet'
 
 class ItemDetails extends React.Component {
@@ -79,10 +78,6 @@ class ItemDetails extends React.Component {
 							</div>
 						</div>
 					</div>
-				</div>
-				<br/>
-				<div class="text-center">
-					<Link to={{pathname:`/`}}>Return to home page</Link>
 				</div>
 			</div>
 		)

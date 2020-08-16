@@ -25,7 +25,6 @@ class Songs extends React.Component {
 
     render() {
 		function nameFormatter(cell, row) {
-			var rowID = row.id
             return (
                 <b className="capitalize"><Link to={{pathname: `/songs/${row.id}`}}>{cell}</Link></b>
             );
@@ -33,7 +32,7 @@ class Songs extends React.Component {
 		
         function imageFormatter(cell, row) {
             return (
-                <img className="img" src={cell}
+                <img className="img" src={cell} alt=""
                      style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }

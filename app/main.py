@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction, Recipes
+    Construction, Recipes, Search
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -34,6 +34,17 @@ def index():
 @app.route('/items/<int:user_id>')
 def data_detail(user_id):
     return app.send_static_file('index.html')
+    
+#search
+@app.route('/api/search/')
+def search_data():
+    response = []
+    search_list = db.session.query(Search).all()
+    for search in search_list:
+        new_one = {"name": search.name, "category": search.category, "id": search.id, "searchID": search.searchID}
+        response.append(new_one)
+    new_list = {'search': response}
+    return new_list
     
 #villagers
 def get_villager_dict(villager):

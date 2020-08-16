@@ -1,7 +1,7 @@
 import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, { textFilter, selectFilter, numberFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter, numberFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 
@@ -31,7 +31,7 @@ class Fossils extends React.Component {
 		
         function imageFormatter(cell, row) {
             return (
-                <img className="img" src={cell}
+                <img className="img" src={cell} alt=""
                      style={{maxHeight: '75%', maxWidth: '75%'}}/>
             );
         }

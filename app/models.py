@@ -220,7 +220,13 @@ class Construction(db.Model):
     category = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
 
-
+class Search(db.Model):
+    __tablename__ = 'search'
+    
+    name = db.Column(db.String(256), nullable = False)
+    category = db.Column(db.String(256), nullable = False)
+    id = db.Column(db.Integer, nullable = False)
+    searchID = db.Column(db.Integer, primary_key = True)
     
     
 db.create_all()

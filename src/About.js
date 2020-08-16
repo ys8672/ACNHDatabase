@@ -1,8 +1,6 @@
 import React from 'react';
 import './index.css';
-import { Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
-import { LinkContainer } from 'react-router-bootstrap';
 
 const TITLE = 'AC:NH About'
 
@@ -34,18 +32,18 @@ class About extends React.Component{
 					<div class="card mb-3 w-100 border-secondary">
 					  <div class="row no-gutters">
 						<div class="col-md-4">
-						  <img src={process.env.PUBLIC_URL + '/avatar.png'} class="card-img" alt="Picture Not Available." />
+						  <img src={process.env.PUBLIC_URL + '/avatar.png'} class="card-img" alt="" />
 						</div>
 						<div class="col-md-8">
 						  <div class="card-body">
 							<h1 class="card-title" className="text-center"><b>About Me</b></h1>
-							<p class="card-text">Hello! My name is Kevin, and I am the sole developer of this website. This
+							<p class="card-text">Hello! I wish to stay anonymous name-wise, but I am the sole developer of this website. This
 							website is a personal project of mine. I wanted to program a website and database about a topic I am personally
 							interested in, and this is the result. I really do not want to reveal too much about myself personally, but I will say 3
 							fun facts about myself. if you want to see my Animal Crossing: New Horizons island, my Dream Code is DA-1067-3201-6546.
 							Also, if you want to contact me, you can message my Discord: CapK#5880.</p>
 							<ol>
-							  <li>My favorite Switch games are Splatoon 2, FE3H, and XC2.</li>
+							  <li>My top 3 Switch games are Splatoon 2, Fire Emblem: Three Houses, and Xenoblade Chronicle 2.</li>
 							  <li>My favorite piano piece Chopin Polonaise Op.53, and I played it many times in my college dorm piano.</li>
 							  <li>I love reading romance, historical fiction, and fantasy novels. My favorite series I have read in 2020 is The Daevabad Triology. </li>
 							</ol> 
@@ -61,6 +59,9 @@ class About extends React.Component{
 						<p class="card-text"><a href="http://acnhapi.com/">ACNH API</a> for the for helping me with getting most of the information I needed to make this website,
 							including art pieces, bugs, fish, fossils, items, sea creatures, songs, and villagers. I would
 							have had a way harder time creating the database for this website otherwise. Thank you. </p>
+						<p class="Card-text"><a href="https://docs.google.com/spreadsheets/d/13d_LAJPlxMa_DubPTuirkIV4DERBMXbrWQsmSh8ReK4/edit#gid=93332535">ACNH Spreadsheet</a> 
+						for an AC:NH community and for all the information I needed to look up many things on the website. Thank you. I am on the Discord of this group (which you
+						can find in the README of the link above) if you want to talk to me from there. I go by the tag CapK and I have a developer role in that Discord.</p>
 						<p class="card-text"><a href="https://github.com/acdb-team/google-sheets-to-json">ACDB-Team</a> for the information on recipes and construction. Thank you. </p>
 					  </div>
 					</div>

@@ -32,7 +32,7 @@ class Fish extends React.Component {
 		
         function imageFormatter(cell, row) {
             return (
-                <img className="img" src={cell} alt={"Image Not Found"}
+                <img className="img" src={cell} alt=""
                      style={{maxHeight: '100%', maxWidth: '100%'}}/>
             );
         }
@@ -74,6 +74,9 @@ class Fish extends React.Component {
 					break;
 				case 12:
 					month = "December";
+					break;
+				default:
+					break;
 			}
 			return month;
 		}

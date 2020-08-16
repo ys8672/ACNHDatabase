@@ -39,7 +39,6 @@ class Villagers extends React.Component {
         }
 		
 		function villagerFormatter(cell, row) {
-			var rowID = row.id
             return (
                 <b><Link to={{pathname: `/villagers/${row.id}`}}>{cell}</Link></b>
             );
@@ -101,6 +100,9 @@ class Villagers extends React.Component {
 					break;
 				case 12:
 					month = "December";
+					break;
+				default:
+					break;
 			}
 			day = ordinal_suffix_of(day)
 			

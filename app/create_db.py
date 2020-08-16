@@ -1,7 +1,7 @@
 import json
 from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
-    Recipes
+    Recipes, Search
     
 #Run this file with 'python create_db.py' to create the database.
 
@@ -254,7 +254,84 @@ def create_recipes():
             materials = materials, sourceNotes = sourceNotes, id = id)
         db.session.add(new_item)
         db.session.commit()
-        index += 1       
+        index += 1  
+
+def create_search():
+    searchID = 1
+    def create_search_normal(file):
+        f = load_json(file)
+        nonlocal searchID
+        for (k, val) in f.items():
+            name = val['name']['name-USen']
+            category = file.split(".")[0]
+            id = val['id']
+            new = Search(name = name, category = category, id = id, searchID = searchID)
+            db.session.add(new)
+            db.session.commit()        
+            searchID += 1
+
+    def create_search_items(files):
+        index = 1
+        nonlocal searchID
+        for string in files:
+            housewares = load_json(string)
+            for (k, item) in housewares.items():
+                name = item[0]['name']['name-USen']
+                category = 'items'
+                id = index
+                new_item = Search(name = name, category = category, id = id ,searchID = searchID)
+                db.session.add(new_item)
+                db.session.commit()
+                index += 1                 
+                searchID += 1
+                
+    db.session.query(Search).delete()
+    #normal add
+    files = ['villagers.json', 'songs.json', 'sea.json', 'fish.json', 'bugs.json', 'art.json']
+    for file in files:
+        create_search_normal(file)
+    #fossil add
+    fossils = load_json('fossils.json')
+    index = 1
+    for (k, fossil) in fossils.items():
+        name = fossil['name']['name-USen']
+        category = 'fossils'
+        id = index
+        new = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new)
+        db.session.commit()
+        index += 1
+        searchID += 1
+    #items add
+    item_files = ['houseware.json', 'misc.json', 'wallmounted.json']
+    create_search_items(item_files)
+    #construction add
+    construction = load_json('construction.json')
+    index = 1
+    for cons in construction:
+        name = cons['name']
+        category = 'construction'
+        id = index
+        new = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new)
+        db.session.commit()
+        index += 1      
+        searchID += 1
+    #recipe add
+    recipes = load_json('recipes.json')
+    index = 1
+    for recipe in recipes:
+        name = recipe['name']
+        category = 'recipes'
+        id = index
+        new_item = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1  
+        searchID += 1
+    
+    
+
 
 #Create all databases
 def create_database():
@@ -268,5 +345,6 @@ def create_database():
     create_arts()
     create_construction()
     create_recipes()
+    create_search()
 
 create_database()
