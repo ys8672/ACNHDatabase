@@ -203,7 +203,7 @@ class Search extends React.Component {
 					<br/>
 					<div style={{display: 'flex', justifyContent: 'center'}}>
 							<img className="img-center"
-								 src={process.env.PUBLIC_URL + '/search.png'}
+								 src={process.env.PUBLIC_URL + '/search.PNG'}
 								 alt=""/>
 						</div>
 					
