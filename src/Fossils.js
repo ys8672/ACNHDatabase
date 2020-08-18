@@ -104,7 +104,7 @@ class Fossils extends React.Component {
 
 				<div>
 
-					<BootstrapTable
+					<BootstrapTable 
 						bootstrap4
 						keyField = "id"
 						data={ fossils }
