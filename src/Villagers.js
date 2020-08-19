@@ -4,6 +4,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter} from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 
 const TITLE = 'AC:NH Villagers'
@@ -23,7 +25,10 @@ class Villagers extends React.Component {
 
     }
 	
+		
     render() {
+		
+		
         function imageFormatter(cell, row) {
             return (
                 <img className="img" src={cell}
@@ -40,7 +45,10 @@ class Villagers extends React.Component {
 		
 		function villagerFormatter(cell, row) {
             return (
-                <b><Link to={{pathname: `/villagers/${row.id}`}}>{cell}</Link></b>
+				<div>
+					<b><Link to={{pathname: `/villagers/${row.id}`}}>{cell}</Link></b>
+				</div>
+                
             );
         }
 		
@@ -182,7 +190,8 @@ class Villagers extends React.Component {
 			Tiger: 'Tiger',
 			Wolf: 'Wolf'
 		};
-
+		
+		const { SearchBar } = Search;
         const {villagers} = this.state
         const {columns} = {
             columns: [{
@@ -264,6 +273,108 @@ class Villagers extends React.Component {
             }
             ]
         }
+
+		function mobileName(cell, row){
+			return (
+				<div>
+					<h5><b>Villager Name: <Link to={{pathname: `/villagers/${row.id}`}}>{cell}</Link></b></h5>
+				</div>
+            );
+		}
+		
+		function mobileSpecies(cell, row){
+			return (
+				<div>
+					<b>Species: </b> {cell}
+				</div>
+            );
+		}
+		
+		function mobilePersonality(cell, row){
+			return (
+				<div>
+					<b>Personality: </b> {cell}
+				</div>
+            );
+		}
+		
+		function mobileGender(cell, row){
+			return (
+				<div>
+					<b>Gender: </b>{cell}
+				</div>
+            );
+		}
+		
+		function mobileBirthday(cell, row){
+			return (
+				<div>
+					<b>Birthday: </b> {birthdayFormatter(cell)}
+				</div>
+            );
+		}
+		
+		function mobileCatchPhrase(cell, row){
+			return (
+				<div>
+					<b>Catch Phrase: </b> {cell}
+				</div>
+            );
+		}
+		
+		const { mobilecol } = {
+            mobilecol:
+			[{
+                dataField: 'name',
+                text: 'Villager Name',
+				formatter: mobileName,
+				align: "center",
+				headerAlign: 'center',
+            },{
+                dataField: 'image',
+                text: 'Villager Photo',
+                formatter: imageFormatter,
+				searchable: false,
+				align: "center",
+				headerAlign: 'center'
+            }, {
+                dataField: 'species',
+                text: 'Species',
+				align: "center",
+				headerAlign: 'center',
+				formatter: mobileSpecies
+            },{
+                dataField: 'personality',
+                text: 'Personality',
+				align: "center",
+				headerAlign: 'center',
+				formatter: mobilePersonality
+            },{
+                dataField: 'gender',
+                text: 'Gender',
+				align: "center",
+				headerAlign: 'center',
+				formatter: mobileGender
+            }, {
+                dataField: 'birthday',
+                text: 'Birthday',
+				align: "center",
+				headerAlign: 'center',
+				formatter: mobileBirthday,
+				filterValue: birthdayFormatter,
+            }, {
+                dataField: 'catchPhrase',
+                text: 'Catch Phrase',
+				align: "center",
+				headerAlign: 'center',
+				formatter: mobileCatchPhrase
+            }, {
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+            }]
+		}; 
 				
         return (
             <div>
@@ -272,8 +383,8 @@ class Villagers extends React.Component {
 				</Helmet>
 
                 <h1 className="text-center">Villagers</h1>
-
-				<div>
+				
+				<BrowserView>
 					<BootstrapTable
 						bootstrap4
 						keyField = "id"
@@ -284,7 +395,33 @@ class Villagers extends React.Component {
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ villagers }
+					  columns={ mobilecol }
+					  search
+					>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
+				
 			</div>
         )
     }

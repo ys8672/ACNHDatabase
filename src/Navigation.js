@@ -2,12 +2,18 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, Navbar} from "react-bootstrap";
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
 export default class Navigation extends React.Component {
     render() {
         return (
 			<Navbar bg="primary" expand="lg" variant="dark">
-			  <Navbar.Brand href="/">Animal Crossing: New Horizons Database</Navbar.Brand>
+			  <BrowserView>
+				<Navbar.Brand href="/">Animal Crossing: New Horizons Database</Navbar.Brand>
+			  </BrowserView>
+			  <MobileView>
+					<Navbar.Brand href="/">AC:NH Database</Navbar.Brand>
+			  </MobileView>
 			  <Navbar.Toggle aria-controls="basic-navbar-nav" />
 			  <Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="ml-auto">
