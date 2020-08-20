@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter, numberFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 const TITLE = 'AC:NH Items'
 
@@ -308,6 +310,137 @@ class Items extends React.Component {
             }
             ]
         }
+		
+		//mobile
+		const { SearchBar } = Search;
+		const {mobilecolumns} = {
+            mobilecolumns: [{
+                dataField: 'name',
+                text: 'Item Name',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Name: </b> {nameFormatter(cell, row)} </div>
+					);
+				},
+				align: "center",
+				headerAlign: 'center',
+            },{
+                dataField: 'image',
+                text: 'Item Image',
+                formatter: (cell, row) => {
+					return(
+						<div>{imageFormatter(cell, row)}</div>
+					);
+				},
+				searchable: false,
+				align: "center",
+				headerAlign: 'center'
+			},{
+                dataField: 'canCustomize',
+                text: 'Customizable?',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Customizable?: </b> {booleanFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: booleanFormatter
+			},{
+                dataField: 'kitCost',
+                text: 'Customization Kit Cost',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Customization Kit Cost: </b> {kitCostFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: kitCostFormatter
+			},{
+                dataField: 'size',
+                text: 'Size of Item',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Size of Item: </b> {cell} </div>
+					);
+				}
+			},{
+                dataField: 'source',
+                text: 'How to Acquire',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Source: </b> {cell} </div>
+					);
+				}
+
+			},{
+                dataField: 'isInteractive',
+                text: 'Interactable?',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Interactable?: </b> {booleanFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: booleanFormatter
+			},{
+                dataField: 'buyPrice',
+                text: 'Price to Buy',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Purchase Price: </b> {buyFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: buyFormatter
+			},{
+                dataField: 'sellPrice',
+                text: 'Price to Sell',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Selling Price: </b> {cell} </div>
+					);
+				}
+			},{
+                dataField: 'category',
+                text: 'Category',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Purchase Price: </b> {emptyFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: emptyFormatter
+			},{
+                dataField: 'variant',
+                text: 'List of Variants',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Purchase Price: </b> {emptyFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: emptyFormatter
+			},{
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+				searchable: false
+            }
+            ]
+        }
 	
         return (
             <div>
@@ -317,7 +450,7 @@ class Items extends React.Component {
 
                 <h1 className="text-center">Items</h1>
 
-				<div>
+				<BrowserView>
 
 					<BootstrapTable
 						bootstrap4
@@ -330,7 +463,31 @@ class Items extends React.Component {
 						filter={ filterFactory() }
 						
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ items }
+					  columns={ mobilecolumns }
+					  search>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
 			</div>
         )
     }

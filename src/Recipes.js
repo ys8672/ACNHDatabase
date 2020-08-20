@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 const TITLE = 'AC:NH Recipes'
 
@@ -254,7 +256,110 @@ class Recipes extends React.Component {
             }
             ]
         }
-	
+		
+		//mobile
+		const { SearchBar } = Search;
+		const {mobilecolumns} = {
+            mobilecolumns: [{
+                dataField: 'name',
+                text: 'Recipe Name',
+				formatter: (cell, row) => {
+					return(
+						<h5><b>Name: <Link to={{pathname: `/recipes/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+					);
+				},
+				align: "center",
+				headerAlign: 'center',
+            },{
+                dataField: 'buyPrice',
+                text: 'Purchase Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Purchase Price: </b> {cell} </div>
+					);
+				}
+            },  {
+                dataField: 'sellPrice',
+                text: 'Sellling Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Sell Price: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'source',
+                text: 'Where To Find?',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Source: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'recipesToUnlock',
+                text: 'Number of Recipes Needed to Unlock',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Number of recipes to Unlock: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'category',
+                text: 'Category',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Category: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'cardColor',
+                text: 'Recipe Card Color',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Card Color: </b> {colorFormatter(cell, row)} </div>
+					);
+				}
+            }, {
+                dataField: 'materials',
+                text: 'Materials To Craft',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Materials: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'sourceNotes',
+                text: 'Important Notes',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Important Notes: </b> {cell} </div>
+					);
+				}
+            },{
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+				searchable: false
+            }
+            ]
+        }
+		
         return (
             <div>
 				<Helmet>
@@ -263,8 +368,7 @@ class Recipes extends React.Component {
 
                 <h1 className="text-center">Recipes</h1>
 
-				<div>
-
+				<BrowserView>
 					<BootstrapTable
 						bootstrap4
 						keyField = "id"
@@ -276,7 +380,31 @@ class Recipes extends React.Component {
 						filter={ filterFactory() }
 						
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ recipes }
+					  columns={ mobilecolumns }
+					  search>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
 			</div>
         )
     }
