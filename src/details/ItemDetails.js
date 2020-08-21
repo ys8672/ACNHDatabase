@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
 class ItemDetails extends React.Component {
 	constructor(props) {
@@ -53,41 +54,59 @@ class ItemDetails extends React.Component {
 			return cell
 		}
 		
+		function card(){
+			return(
+				<div>
+					{canShow && <div class="borderdiv">
+						<div class="row no-gutters">
+							<div class="col-md-4">
+								<img src={item.image} class="card-img" alt=""
+									 style={{maxHeight: '100%', maxWidth: '100%'}}/>
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h1 class="card-title capitalize"><b>Name: {item.name}</b></h1>
+									<p class="card-text"><b>Customizable?:</b> {booleanFormatter(item.canCustomize)} </p>
+									<p class="card-text"><b>Customize Kit Cost:</b> {kitCostFormatter(item.kitCost)} </p>
+									<p class="card-text"><b>Size: </b> {item.size} </p>
+									<p class="card-text"><b>Where To Find:</b> {item.source} </p>
+									<p class="card-text"><b>Interactable?:</b> {booleanFormatter(item.isInteractive)} </p>
+									<p class="card-text"><b>Purchase Price:</b> {buyFormatter(item.buyPrice)} </p>
+									<p class="card-text"><b>Selling Price:</b> {item.sellPrice} </p>
+									<p class="card-text"><b>Category:</b> {item.category} </p>
+									<p class="card-text"><b>Variants:</b> {emptyFormatter(item.variant)} </p>
+								</div>
+							</div>
+						</div>
+					</div>}
+					{!canShow && <div class="borderdiv">
+						<h5 className="text-center">Error Code: {item.code} </h5>
+						<p className="text-center">{item.message} </p>
+					</div>}
+				</div>
+			)
+		}
+		
 		const title = "ACNH Database: Item Details"
 		const item = this.state.item
 		const canShow = this.state.canShow
 		return(
-			<div class="frontpagepadding">
+			<div>
 				<Helmet>
 					<title>{title} </title>
 				</Helmet>
 				<br/>
-				{canShow && <div class="borderdiv">
-					<div class="row no-gutters">
-						<div class="col-md-4">
-							<img src={item.image} class="card-img" alt=""
-								 style={{maxHeight: '100%', maxWidth: '100%'}}/>
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<h1 class="card-title capitalize"><b>Name: {item.name}</b></h1>
-								<p class="card-text"><b>Customizable?:</b> {booleanFormatter(item.canCustomize)} </p>
-								<p class="card-text"><b>Customize Kit Cost:</b> {kitCostFormatter(item.kitCost)} </p>
-								<p class="card-text"><b>Size: </b> {item.size} </p>
-								<p class="card-text"><b>Where To Find:</b> {item.source} </p>
-								<p class="card-text"><b>Interactable?:</b> {booleanFormatter(item.isInteractive)} </p>
-								<p class="card-text"><b>Purchase Price:</b> {buyFormatter(item.buyPrice)} </p>
-								<p class="card-text"><b>Selling Price:</b> {item.sellPrice} </p>
-								<p class="card-text"><b>Category:</b> {item.category} </p>
-								<p class="card-text"><b>Variants:</b> {emptyFormatter(item.variant)} </p>
-							</div>
-						</div>
+				
+				<BrowserView>
+					<div class="frontpagepadding">
+						{card()}
 					</div>
-				</div>}
-				{!canShow && <div class="borderdiv">
-					<h5 className="text-center">Error Code: {item.code} </h5>
-					<p className="text-center">{item.message} </p>
-				</div>}
+				</BrowserView>
+				
+				<MobileView>
+					{card()}
+				</MobileView>
+				
 			</div>
 		)
 	}

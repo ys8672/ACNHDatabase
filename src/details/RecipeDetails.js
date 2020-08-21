@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
 class RecipeDetails extends React.Component {
 	constructor(props) {
@@ -20,15 +21,9 @@ class RecipeDetails extends React.Component {
 	}
 	
 	render() {
-		const title = "ACNH Database: Recipe Details"
-		const recipe = this.state.recipe
-		const canShow = this.state.canShow
-		return(
-			<div class="recipepadding">
-				<Helmet>
-					<title>{title}</title>
-				</Helmet>
-				<br/>
+		function card(){
+			return(
+			<div>
 				{canShow && <div class="borderdiv">
 					<div class="card-body">
 						<h1 class="card-title capitalize"><b>Name: {recipe.name}</b></h1>
@@ -46,6 +41,29 @@ class RecipeDetails extends React.Component {
 					<h5 className="text-center">Error Code: {recipe.code} </h5>
 					<p className="text-center">{recipe.message} </p>
 				</div>}
+			</div>
+			)
+		}
+		
+		const title = "ACNH Database: Recipe Details"
+		const recipe = this.state.recipe
+		const canShow = this.state.canShow
+		return(
+			<div>
+				<Helmet>
+					<title>{title}</title>
+				</Helmet>
+				<br/>
+				
+				<BrowserView>
+					<div class="recipepadding">
+						{card()}	
+					</div>
+				</BrowserView>
+				
+				<MobileView>
+					{card()}
+				</MobileView>
 			</div>
 		)
 	}
