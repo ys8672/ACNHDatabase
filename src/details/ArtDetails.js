@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
 class ArtDetails extends React.Component {
 	constructor(props) {
@@ -32,12 +33,10 @@ class ArtDetails extends React.Component {
 		const title = "ACNH Database: Art Details"
 		const art = this.state.art
 		const canShow = this.state.canShow
-		return(
-			<div class="frontpagepadding">
-				<Helmet>
-					<title>{title} </title>
-				</Helmet>
-				<br/>
+		
+		function card(){
+			return(
+			<div>
 				{canShow && <div class="borderdiv">
 					<div class="row no-gutters">
 						<div class="col-md-4">
@@ -59,6 +58,26 @@ class ArtDetails extends React.Component {
 					<h5 className="text-center">Error Code: {art.code} </h5>
 					<p className="text-center">{art.message} </p>
 				</div>}
+			</div>
+			)
+		}
+		
+		return(
+			<div>
+				<Helmet>
+					<title>{title} </title>
+				</Helmet>
+				<br/>
+				
+				<BrowserView>
+					<div class="frontpagepadding">
+						{card()}
+					</div>
+				</BrowserView>
+				
+				<MobileView>
+					{card()}
+				</MobileView>
 			</div>
 		)
 	}
