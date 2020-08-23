@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, numberFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 const TITLE = 'AC:NH Fossils'
 
@@ -93,6 +95,60 @@ class Fossils extends React.Component {
             }
             ]
         }
+		
+		//mobile
+		const { SearchBar } = Search;
+		const {mobilecolumns} = {
+            mobilecolumns: [{
+                dataField: 'name',
+                text: 'Fossil Name',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Name: </b> {nameFormatter(cell, row)} </div>
+					);
+				},
+				align: "center",
+				headerAlign: 'center',
+            },{
+                dataField: 'image',
+                text: 'Fossil Image',
+                formatter: (cell, row) => {
+					return(
+						<div>{imageFormatter(cell, row)}</div>
+					);
+				},
+				searchable: false,
+				align: "center",
+				headerAlign: 'center'
+			},{
+                dataField: 'price',
+                text: 'Sell Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Sell Price: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'museumPhrase',
+                text: 'Museum Description',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Museum Phrase: </b> {truncate(cell, row)} </div>
+					);
+				},
+            }, {
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+				searchable: false
+            }
+            ]
+        }
 	
         return (
             <div>
@@ -102,9 +158,8 @@ class Fossils extends React.Component {
 
                 <h1 className="text-center">Fossils</h1>
 
-				<div>
-
-					<BootstrapTable
+				<BrowserView>
+					<BootstrapTable 
 						bootstrap4
 						keyField = "id"
 						data={ fossils }
@@ -115,7 +170,31 @@ class Fossils extends React.Component {
 						filter={ filterFactory() }
 						
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ fossils }
+					  columns={ mobilecolumns }
+					  search>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
 			</div>
         )
     }

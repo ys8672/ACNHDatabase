@@ -115,6 +115,7 @@ class Items(db.Model):
     category = db.Column(db.String(256), nullable = False)
     variant = db.Column(db.String(65536), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
+
     
 class Fossils(db.Model):
     '''

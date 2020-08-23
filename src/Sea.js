@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter, numberFilter  } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 const TITLE = 'AC:NH Sea Creatures'
 
@@ -364,10 +366,123 @@ class Sea extends React.Component {
                 text: 'ID',
                 sort: true,
                 hidden: true,
+				searchable: false
             }
             ]
         }
-	
+		
+		//mobile functions
+		const { SearchBar } = Search;
+        const {mobilecolumns} = {
+            mobilecolumns: [{
+                dataField: 'name',
+                text: 'Sea Creature Name',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<h5><b>Name: <Link to={{pathname: `/sea/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+					);
+				}
+            }, {
+                dataField: 'image',
+                text: 'Sea Creature Image',
+                searchable: false,
+                formatter: imageFormatter,
+				align: "center",
+				headerAlign: 'center'
+            }, {
+                dataField: 'monthNorth',
+                text: 'Months Available in the Northern Hemisphere',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Months Available (Northern Hemisphere): </b> {monthFormatter(cell, row)} </div>
+					);
+				},
+				align: "center",
+				headerAlign: 'center',
+				filterValue: monthFormatter
+            }, {
+                dataField: 'monthSouth',
+                text: 'Months Available in the Southern Hemisphere',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Months Available (Southern Hemisphere): </b> {monthFormatter(cell, row)}</div>
+					);
+				},
+				align: "center",
+				headerAlign: 'center',
+				filterValue: monthFormatter
+            }, {
+                dataField: 'time',
+                text: 'Time Available',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Time Available: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'speed',
+                text: 'Movement Speed',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Movement Speed: </b> {cell} </div>
+					);
+				}
+
+            }, {
+                dataField: 'shadow',
+                text: 'Sea Creature Shadow Size',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Shadow Size: </b> {cell} </div>
+					);
+				}
+            },{
+                dataField: 'price',
+                text: 'Selling Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Selling Price: </b> {cell} </div>
+					);
+				}
+            },{
+                dataField: 'catchPhrase',
+                text: 'Catch Phrase',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Catch Phrase: </b> {cell} </div>
+					);
+				}
+            },{
+                dataField: 'museumPhrase',
+                text: 'Museum Description',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Museum Description: </b> {truncate(cell, row)} </div>
+					);
+				}
+            },{
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+				searchable: false
+            }
+            ]
+        }
         return (
             <div>
 				<Helmet>
@@ -376,8 +491,7 @@ class Sea extends React.Component {
 
                 <h1 className="text-center">Sea Creatures</h1>
 
-				<div>
-
+				<BrowserView>
 					<BootstrapTable
 						bootstrap4
 						keyField = "id"
@@ -387,9 +501,34 @@ class Sea extends React.Component {
 						pagination={ paginationFactory() }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
-						
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ seas }
+					  columns={ mobilecolumns }
+					  search
+					>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
+				
 			</div>
         )
     }

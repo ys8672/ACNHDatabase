@@ -3,17 +3,15 @@ import './index.css';
 import { Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { LinkContainer } from 'react-router-bootstrap';
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
 const TITLE = 'AC:NH Database'
 
 class FrontPage extends React.Component{	
 	render(){
-		return(
-			
-			<div className='frontpagepadding'>
-				<Helmet>
-					<title>{ TITLE }</title>
-				</Helmet>
+		function page(){
+			return(
+			<div>
 				<div>
 					<br/>
 					<b><h1 className='text-center'>Welcome to the Animal Crossing: New Horizons Database</h1></b>       
@@ -173,9 +171,26 @@ class FrontPage extends React.Component{
 					</div>
 				</div>	
 				<br/>
+			</div>
+			)
+		}
+		
+		return(
+			
+			<div>
+				<Helmet>
+					<title>{ TITLE }</title>
+				</Helmet>
 				
-				<br/>
-
+				<BrowserView>
+					<div className='frontpagepadding'>
+						{page()}
+					</div>
+				</BrowserView>
+				
+				<MobileView>
+					{page()}
+				</MobileView>
 
 			</div>
 		)

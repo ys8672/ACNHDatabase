@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
 class FishDetails extends React.Component {
 	constructor(props) {
@@ -11,7 +12,7 @@ class FishDetails extends React.Component {
     }
 	
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(fish_by_ID => {
+		fetch(`/api/${this.props.location.pathname}/`).then(r => r.json()).then(fish_by_ID => {
 			this.setState({fish: fish_by_ID})
 			if('code' in fish_by_ID){
 				this.setState({canShow: false});
@@ -93,12 +94,10 @@ class FishDetails extends React.Component {
 		const title = "ACNH Database: Fish Details"
 		const fish = this.state.fish
 		const canShow = this.state.canShow
-		return(
+		
+		function card(){
+			return(
 			<div>
-				<Helmet>
-					<title>{title}</title>
-				</Helmet>
-				<br/>
 				{canShow && <div class="borderdiv">
 					<div class="row no-gutters">
 						<div class="col-md-3">
@@ -129,6 +128,17 @@ class FishDetails extends React.Component {
 					<h5 className="text-center">Error Code: {fish.code} </h5>
 					<p className="text-center">{fish.message} </p>
 				</div>}
+			</div>
+			)
+		}
+		
+		return(
+			<div>
+				<Helmet>
+					<title>{title}</title>
+				</Helmet>
+				<br/>
+				{card()}
 			</div>
 		)
 	}

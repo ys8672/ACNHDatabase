@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter, numberFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 const TITLE = 'AC:NH Construction'
 
@@ -124,7 +126,67 @@ class Construction extends React.Component {
             }
             ]
         }
-	
+		
+		//mobile functions
+		const { SearchBar } = Search;
+	        const {mobilecolumns} = {
+            mobilecolumns: [{
+                dataField: 'name',
+                text: 'Construction Name',
+				formatter: (cell, row) => {
+					return(
+						<h5><b>Name: <Link to={{pathname: `/construction/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+					);
+				},
+				align: "center",
+				headerAlign: 'center'
+            },{
+                dataField: 'image',
+                text: 'Construction Photo',
+                searchable: false,
+                formatter: imageFormatter,
+				align: "center",
+				headerAlign: 'center'
+			}, {
+                dataField: 'buyPrice',
+                text: 'Purchase Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<h5><b>Purchase Price: <Link to={{pathname: `/sea/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+					);
+				}
+            }, {
+                dataField: 'source',
+                text: 'How to Acquire',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>How To Acquire: </b> {cell} </div>
+					);
+				},
+            }, {
+                dataField: 'category',
+                text: 'Category',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Category: </b> {cell} </div>
+					);
+				},
+            }, {
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+				searchable: false
+            }
+            ]
+        }
+		
         return (
             <div>
 				<Helmet>
@@ -133,8 +195,7 @@ class Construction extends React.Component {
 
                 <h1 className="text-center">Construction</h1>
 
-				<div>
-
+				<BrowserView>
 					<BootstrapTable
 						bootstrap4
 						keyField = "id"
@@ -146,7 +207,32 @@ class Construction extends React.Component {
 						filter={ filterFactory() }
 						
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ cons }
+					  columns={ mobilecolumns }
+					  search
+					>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
 			</div>
         )
     }

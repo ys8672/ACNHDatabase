@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
 class FossilDetails extends React.Component {
 	constructor(props) {
@@ -12,7 +13,7 @@ class FossilDetails extends React.Component {
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(fossil_by_ID => {
+		fetch(`/api/${this.props.location.pathname}/`).then(r => r.json()).then(fossil_by_ID => {
 			this.setState({fossil: fossil_by_ID})
 			if('code' in fossil_by_ID){
 				this.setState({canShow: false});
@@ -24,12 +25,10 @@ class FossilDetails extends React.Component {
 		const title = "ACNH Database: Fossil Details"
 		const fossil = this.state.fossil
 		const canShow = this.state.canShow
-		return(
-			<div class="frontpagepadding">
-				<Helmet>
-					<title>{title} </title>
-				</Helmet>
-				<br/>
+		
+		function card(){
+			return(
+			<div>
 				{canShow && <div class="borderdiv">
 					<div class="row no-gutters">
 						<div class="col-md-4">
@@ -50,8 +49,28 @@ class FossilDetails extends React.Component {
 					<h5 className="text-center">Error Code: {fossil.code} </h5>
 					<p className="text-center">{fossil.message} </p>
 				</div>}
-
 			</div>
+			)
+		}
+		
+		return(
+			<div>
+				<Helmet>
+					<title>{title} </title>
+				</Helmet>
+				<br/>
+				
+				<BrowserView>
+					<div class="frontpagepadding">
+						{card()}
+					</div>
+				</BrowserView>
+				
+				<MobileView>
+				{card()}
+				</MobileView>
+			</div>
+
 		)
 	}
 }
