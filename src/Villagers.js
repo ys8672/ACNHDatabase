@@ -270,6 +270,7 @@ class Villagers extends React.Component {
                 text: 'ID',
                 sort: true,
                 hidden: true,
+				searchable: false
             }
             ]
         }

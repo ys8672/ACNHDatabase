@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 const TITLE = 'AC:NH Art'
 
@@ -136,6 +138,66 @@ class Arts extends React.Component {
             }
             ]
         }
+		
+		//mobile functions
+		const { SearchBar } = Search;
+		const {mobilecolumns} = {
+            mobilecolumns: [{
+                dataField: 'name',
+                text: 'Art Name',
+				formatter: (cell, row) => {
+					return(
+						<h5><b>Name: <Link to={{pathname: `/art/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+					);
+				},
+				align: "center",
+				headerAlign: 'center'
+            },{
+                dataField: 'image',
+                text: 'Art Photo',
+                searchable: false,
+                formatter: imageFormatter,
+				align: "center",
+				headerAlign: 'center'
+			},{
+                dataField: 'buyPrice',
+                text: 'Purchase Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Purchase Price: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'sellPrice',
+                text: 'Sell Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Sell Price: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'museum',
+                text: 'Museum Description',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Museum Description: </b> {truncate(cell, row)} </div>
+					);
+				}
+            }, {
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+				searchable: false
+            }
+            ]
+        }
 	
         return (
             <div>
@@ -145,7 +207,7 @@ class Arts extends React.Component {
 
                 <h1 className="text-center">Art</h1>
 
-				<div>
+				<BrowserView>
 
 					<BootstrapTable
 						bootstrap4
@@ -158,7 +220,32 @@ class Arts extends React.Component {
 						filter={ filterFactory() }
 						
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ arts }
+					  columns={ mobilecolumns }
+					  searchts
+					>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
 			</div>
         )
     }

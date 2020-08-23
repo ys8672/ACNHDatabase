@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter, numberFilter  } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 const TITLE = 'AC:NH Bugs'
 
@@ -384,7 +386,119 @@ class Bugs extends React.Component {
             }
             ]
         }
-	
+		
+		//mobile functions
+		const { SearchBar } = Search;
+	    const {mobilecolumns} = {
+            mobilecolumns: [{
+                dataField: 'name',
+                text: 'Bug Name',
+				formatter: (cell, row) => {
+					return(
+						<h5><b>Name: <Link to={{pathname: `/bugs/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+					);
+				},
+				align: "center",
+				headerAlign: 'center'
+            }, {
+                dataField: 'image',
+                text: 'Bug Image',
+                searchable: false,
+                formatter: imageFormatter,
+				align: "center",
+				headerAlign: 'center'
+            }, {
+                dataField: 'monthNorth',
+                text: 'Months Available in the Northern Hemisphere',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Months Available (Northern Hemisphere): </b> {monthFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: monthFormatter,
+				align: "center",
+				headerAlign: 'center'
+            }, {
+                dataField: 'monthSouth',
+                text: 'Months Available in the Southern Hemisphere',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Months Available (Southern Hemisphere): </b> {monthFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: monthFormatter,
+				align: "center",
+				headerAlign: 'center'
+            }, {
+                dataField: 'time',
+                text: 'Time Available',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Time Available: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'location',
+                text: 'Bug Location',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Location: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'rarity',
+                text: 'Bug Rarity',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Rarity: </b> {cell} </div>
+					);
+				}
+            }, {
+                dataField: 'price',
+                text: 'Selling Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Selling Price: </b> {cell} </div>
+					);
+				}
+            },{
+                dataField: 'catchPhrase',
+                text: 'Catch Phrase',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Catch Phrase: </b> {cell} </div>
+					);
+				}
+            },{
+                dataField: 'museumPhrase',
+                text: 'Museum Description',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Museum Phrase: </b> {truncate(cell, row)} </div>
+					);
+				}
+            },{
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+				searchable: false
+            }
+            ]
+        }
+		
         return (
             <div>
 				<Helmet>
@@ -393,7 +507,7 @@ class Bugs extends React.Component {
 
                 <h1 className="text-center">Bugs</h1>
 
-				<div>
+				<BrowserView>
 
 					<BootstrapTable
 						bootstrap4
@@ -406,7 +520,32 @@ class Bugs extends React.Component {
 						filter={ filterFactory() }
 						
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ bugs }
+					  columns={ mobilecolumns }
+					  search
+					>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
 			</div>
         )
     }
