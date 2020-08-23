@@ -13,7 +13,7 @@ class ArtDetails extends React.Component {
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(art_by_ID => {
+		fetch(`/api/${this.props.location.pathname}/`).then(r => r.json()).then(art_by_ID => {
 			this.setState({art: art_by_ID})
 			if('code' in art_by_ID){
 				this.setState({canShow: false});

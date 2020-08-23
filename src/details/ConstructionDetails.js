@@ -13,7 +13,7 @@ class ConstructionDetails extends React.Component {
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(construction_by_ID => {
+		fetch(`/api/${this.props.location.pathname}/`).then(r => r.json()).then(construction_by_ID => {
 			this.setState({construction: construction_by_ID})
 			if('code' in construction_by_ID){
 				this.setState({canShow: false});

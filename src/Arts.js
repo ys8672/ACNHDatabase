@@ -227,7 +227,7 @@ class Arts extends React.Component {
 					  keyField="id"
 					  data={ arts }
 					  columns={ mobilecolumns }
-					  searchts
+					  search
 					>
 					  {
 						props => (

@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from 'react-helmet'
 import {Link} from 'react-router-dom';
 import Highlighter from "react-highlight-words"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
 const TITLE = 'ACNH Image Search'
 
@@ -200,13 +201,14 @@ class Search extends React.Component {
 				</Helmet>
 				<div>
 					<h1 className='text-center'><b>Search</b></h1>
-					<br/>
-					<div style={{display: 'flex', justifyContent: 'center'}}>
+					<BrowserView>
+						<br/>
+						<div style={{display: 'flex', justifyContent: 'center'}}>
 							<img className="img-center"
 								 src={process.env.PUBLIC_URL + '/search.PNG'}
 								 alt=""/>
 						</div>
-					
+					</BrowserView>
 					<br/>
 					<div class="aboutcard" style={{display: 'flex', justifyContent: 'center'}}>
 						<input class="form-control form-control-lg" type="text" id="searchBar"
@@ -218,40 +220,42 @@ class Search extends React.Component {
 				</div>
 				<br/>
 				{this.state.canShow && <div>
-					<div style={{display: 'flex', justifyContent: 'center'}}>
-						<div class="btn-group" role="group" aria-label="Basic example">
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivArt.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Art</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivBugs.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Bugs</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivConstruction.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Construction</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivFish.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Fish</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivFossils.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Fossils</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivItems.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Items</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivRecipes.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Recipes</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivSea.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Sea Creatures</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivSongs.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Songs</button>
-							<button type="button" class="btn btn-secondary" onClick={() => {
-									this.scrollDivVillagers.current.scrollIntoView({ behavior: 'smooth' });
-								  }}>Villagers</button>
+					<BrowserView>
+						<div style={{display: 'flex', justifyContent: 'center'}}>
+							<div class="btn-group" role="group" aria-label="Basic example">
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivArt.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Art</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivBugs.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Bugs</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivConstruction.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Construction</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivFish.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Fish</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivFossils.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Fossils</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivItems.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Items</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivRecipes.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Recipes</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivSea.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Sea Creatures</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivSongs.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Songs</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivVillagers.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Villagers</button>
+							</div>
 						</div>
-					</div>
+					</BrowserView>
 					<br/>
 					
 					<h1 className='text-center'><b>You searched: {this.myRef.current} </b></h1>
