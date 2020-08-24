@@ -22,6 +22,8 @@ class Search extends React.Component {
 			seaFiltered:[],
 			recipes: [],
 			recipesFiltered: [],
+			reactions: [],
+			reactionsFiltered: [],
 			items: [],
 			itemsFiltered: [],
 			fossils: [],
@@ -42,6 +44,7 @@ class Search extends React.Component {
 		this.scrollDivFish = React.createRef();
 		this.scrollDivFossils = React.createRef();
 		this.scrollDivItems = React.createRef();
+		this.scrollDivReactions = React.createRef();
 		this.scrollDivRecipes = React.createRef();
 		this.scrollDivSea = React.createRef();
 		this.scrollDivSongs = React.createRef();
@@ -57,6 +60,7 @@ class Search extends React.Component {
 			let fish2 = []
 			let fossils2 = []
 			let items2 = []
+			let reactions2 = []
 			let recipes2 = []
 			let sea2 = []
 			let songs2 = []
@@ -83,6 +87,9 @@ class Search extends React.Component {
 					case (cat === 'items'):
 						items2.push(search[i]);
 						break;
+					case (cat === 'reactions'):
+						reactions2.push(search[i]);
+						break;
 					case (cat === 'recipes'):
 						recipes2.push(search[i]);
 						break;
@@ -105,6 +112,7 @@ class Search extends React.Component {
 			this.setState({fish: fish2})
 			this.setState({fossils: fossils2})
 			this.setState({items: items2})
+			this.setState({reactions: reactions2})
 			this.setState({recipes: recipes2})
 			this.setState({sea: sea2})
 			this.setState({songs: songs2})
@@ -142,12 +150,14 @@ class Search extends React.Component {
 		this.setState({
             searchText: input
         });
+		//Needed otherwise searching empty and then another will not clear the filtered list.
 		if (input === ""){
 			this.setState({canShow: false})
 			this.setState({villagersFiltered: []})
 			this.setState({songsFiltered: []})
 			this.setState({seaFiltered: []})
 			this.setState({recipesFiltered: []})
+			this.setState({reactionsFiltered: []})
 			this.setState({itemsFiltered: []})
 			this.setState({fossilsFiltered: []})
 			this.setState({fishFiltered: []})
@@ -172,6 +182,9 @@ class Search extends React.Component {
 			//DIY recipes
 			var recipeList = this.sortFunc(inputSplit, this.state.recipes)
 			this.setState({recipesFiltered: recipeList})
+			//Reactions
+			var reactionList = this.sortFunc(inputSplit, this.state.reactions)
+			this.setState({reactionsFiltered: reactionList})
 			//Items
 			var itemList = this.sortFunc(inputSplit, this.state.items)
 			this.setState({itemsFiltered: itemList})
@@ -240,6 +253,9 @@ class Search extends React.Component {
 										this.scrollDivItems.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Items</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivReactions.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Reactions</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
 										this.scrollDivRecipes.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Recipes</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
@@ -260,7 +276,7 @@ class Search extends React.Component {
 					<h5 className='text-center'>Total Number of results: {(this.state.seaFiltered).length + (this.state.villagersFiltered).length
 						+ (this.state.songsFiltered).length + (this.state.recipesFiltered).length + (this.state.itemsFiltered).length
 						+ (this.state.fossilsFiltered).length + (this.state.fishFiltered).length + (this.state.constructionFiltered).length
-						+ (this.state.bugsFiltered).length + (this.state.artFiltered).length}</h5>
+						+ (this.state.bugsFiltered).length + (this.state.artFiltered).length + (this.state.reactionsFiltered).length}</h5>
 					<br/>
 
 					<div ref={this.scrollDivArt}>
@@ -388,6 +404,26 @@ class Search extends React.Component {
 							)}  
 					</div>
 					<br/>
+					
+					<div ref={this.scrollDivReactions}>
+						<h3 className='text-center'><b>Reactions: </b></h3>
+						<h5 className='text-center'>Number of reactions: {(this.state.reactionsFiltered).length}</h5>
+							{(this.state.reactionsFiltered).map((reaction, i) =>
+								<div class="borderdiv" key={i}>
+									<h5 className='text-center capitalize'><b>
+										<Highlighter
+											highlightClassName="YourHighlightClass"
+											searchWords={this.state.searchTextArray}
+											autoEscape={true}
+											textToHighlight={reaction.name}
+										/>
+									</b></h5>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/reactions/${reaction.id}`}}>More details</Link>
+									</div>
+								</div>
+							)}  
+					</div>
 					
 					<div ref={this.scrollDivRecipes}>
 						<h3 className='text-center'><b>Recipes: </b></h3>
