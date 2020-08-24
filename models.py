@@ -220,6 +220,15 @@ class Construction(db.Model):
     source = db.Column(db.String(256), nullable = False)
     category = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
+    
+class Reactions(db.Model):
+    __tablename__ = 'reactions'
+    
+    name = db.Column(db.String(256), nullable = False)
+    image = db.Column(db.String(256), nullable = False)
+    source = db.Column(db.String(256), nullable = False)
+    sourceNotes = db.Column(db.String(256), nullable = True)
+    id = db.Column(db.Integer, primary_key = True)
 
 class Search(db.Model):
     __tablename__ = 'search'
@@ -229,5 +238,6 @@ class Search(db.Model):
     id = db.Column(db.Integer, nullable = False)
     searchID = db.Column(db.Integer, primary_key = True)
     
+
     
 db.create_all()

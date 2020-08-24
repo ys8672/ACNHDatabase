@@ -18,13 +18,13 @@ class FrontPage extends React.Component{
 					<br/>
 					<h3 className='text-center'>
 						Hello there! Do you want to know more about Animal Crossing: New Horizons for
-						the Nintendo Switch? Well look no further, because hopefully this website can help. 
+						the Nintendo Switch? Well look no further. 
 						Click on any of the links below to learn more about that specific topic. 
 					</h3>
 					<br/>
 				</div>	
 				
-				<div className="bg" />
+				<div className="bg"/>
 				<br/>
 				
 				<div class="card w-100 border-primary">
@@ -108,6 +108,20 @@ class FrontPage extends React.Component{
 							be sure to make your island look extremely pretty.</p>
 						<div class="text-center">
 						<LinkContainer to="/items">
+							<Button variant="outline-info" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="card w-100 border-info">
+					<div class="card-body">
+						<h5 class="card-title" className='text-center'><b>Reactions</b></h5>
+						<p class="card-text" className = 'text-center'> From happy faces to heartbroken symbols, reactions
+						can be used by all villagers and players to show their feelings. Use these to communicate with your
+						friends and even take more accuracte photos with an appropriate reaction mixed in.</p>
+						<div class="text-center">
+						<LinkContainer to="/reactions">
 							<Button variant="outline-info" size="lg"> Click Here To Learn More </Button>
 						</LinkContainer>
 						</div>

@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction, Recipes, Search
+    Construction, Recipes, Search, Reactions
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -16,6 +16,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/songs/')
 @app.route('/sea/')
 @app.route('/recipes/')
+@app.route('/reactions/')
 @app.route('/items/')
 @app.route('/fossils/')
 @app.route('/fish/')
@@ -31,6 +32,7 @@ def index():
 @app.route('/songs/<int:user_id>/')
 @app.route('/sea/<int:user_id>/')
 @app.route('/recipes/<int:user_id>/')
+@app.route('/reactions/<int:user_id>/')
 @app.route('/items/<int:user_id>/')
 @app.route('/fossils/<int:user_id>/')
 @app.route('/fish/<int:user_id>/')
@@ -150,6 +152,30 @@ def recipe_by_ID(recipe_id):
         new_dict = get_recipe_dict(recipe)
     return new_dict
     
+#reactions
+def get_reaction_dict(reaction):
+    return {'name': reaction.name, 'image': reaction.image, 'source': reaction.source, 'sourceNotes': reaction.sourceNotes,
+        'id': reaction.id}
+
+@app.route('/api/reactions/')
+def reaction_data():
+    response = []
+    reaction_list = db.session.query(Reactions).all()
+    for reaction in reaction_list:
+        new_one = get_reaction_dict(reaction)
+        response.append(new_one)
+    new_list = {'reactions': response}
+    return new_list
+
+@app.route('/api/reactions/<int:reaction_id>/')
+def reaction_by_ID(reaction_id):
+    if reaction_id <= 0 or reaction_id > db.session.query(Reactions).count():
+        new_dict = {'code': 404, 'message': 'Reaction not found'}
+    else:
+        reaction = db.session.query(Reactions).filter_by(id = reaction_id).one()
+        new_dict = get_reaction_dict(reaction)
+    return new_dict
+
 #items
 def get_item_dict(item):
     return {'name': item.name, 'canCustomize': item.canCustomize, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,

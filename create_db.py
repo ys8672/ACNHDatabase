@@ -1,7 +1,7 @@
 import json
 from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
-    Recipes, Search
+    Recipes, Search, Reactions
     
 #Run this file with 'python create_db.py' to create the database.
 
@@ -267,6 +267,21 @@ def create_recipes():
         db.session.add(new_item)
         db.session.commit()
         index += 1  
+        
+def create_reactions():
+    db.session.query(Reactions).delete()
+    reactions = load_json('reactions.json')
+    index = 1
+    for reaction in reactions:
+        name = reaction['name']
+        image = reaction['image']
+        source = reaction['source'][0] + " Villagers"
+        sourceNotes = reaction['sourceNotes']
+        id = index
+        new_item = Reactions(name = name, image = image, source = source, sourceNotes = sourceNotes, id = id)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1
 
 def create_search():
     searchID = 1
@@ -341,6 +356,18 @@ def create_search():
         db.session.commit()
         index += 1  
         searchID += 1
+    #reactions add
+    reactions = load_json('reactions.json')
+    index = 1
+    for reaction in reactions:
+        name = reaction['name']
+        category = 'reactions'
+        id = index
+        new_item = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1
+        searchID += 1
     
     
 
@@ -357,6 +384,7 @@ def create_database():
     create_arts()
     create_construction()
     create_recipes()
+    create_reactions()
     create_search()
 
 create_database()

@@ -17,6 +17,9 @@ export default class Navigation extends React.Component {
 			  <Navbar.Toggle aria-controls="basic-navbar-nav" />
 			  <Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="ml-auto">
+					<LinkContainer to="/search">
+					  <Nav.Link>Search</Nav.Link>
+					</LinkContainer>
 					<LinkContainer to="/art">
 					  <Nav.Link>Art</Nav.Link>
 					</LinkContainer>
@@ -35,6 +38,9 @@ export default class Navigation extends React.Component {
 					<LinkContainer to="/items">
 					  <Nav.Link>Items</Nav.Link>
 					</LinkContainer>
+					<LinkContainer to="/reactions">
+					  <Nav.Link>Reactions</Nav.Link>
+					</LinkContainer>
 					<LinkContainer to="/recipes">
 					  <Nav.Link>Recipes</Nav.Link>
 					</LinkContainer>
@@ -46,9 +52,6 @@ export default class Navigation extends React.Component {
 					</LinkContainer>
 					<LinkContainer to="/villagers">
 					  <Nav.Link>Villagers</Nav.Link>
-					</LinkContainer>
-					<LinkContainer to="/search">
-					  <Nav.Link>Search</Nav.Link>
 					</LinkContainer>
 					<LinkContainer to="/about">
 					  <Nav.Link>About</Nav.Link>

@@ -204,9 +204,7 @@ class Search extends React.Component {
 					<BrowserView>
 						<br/>
 						<div style={{display: 'flex', justifyContent: 'center'}}>
-							<img className="img-center"
-								 src={process.env.PUBLIC_URL + '/search.PNG'}
-								 alt=""/>
+							<img className="img" src="https://i.imgur.com/LjX6ohC.png" alt=""/>
 						</div>
 					</BrowserView>
 					<br/>

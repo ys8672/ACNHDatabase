@@ -11,6 +11,8 @@ import Sea from "./Sea";
 import SeaDetails from "./details/SeaDetails";
 import Recipes from "./Recipes";
 import RecipeDetails from "./details/RecipeDetails";
+import Reactions from "./Reactions"
+import ReactionDetails from "./details/ReactionDetails";
 import Items from "./Items";
 import ItemDetails from "./details/ItemDetails";
 import Fossils from "./Fossils";
@@ -43,6 +45,8 @@ class App extends React.Component{
 						<Route path="/sea/:id" component={SeaDetails}/>
 						<Route exact path="/recipes" component={Recipes}/>
 						<Route path="/recipes/:id" component={RecipeDetails}/>
+						<Route exact path="/reactions" component={Reactions}/>
+						<Route path="/reactions/:id" component={ReactionDetails}/>
 						<Route exact path="/items" component={Items}/>
 						<Route path="/items/:id" component={ItemDetails}/>
 						<Route exact path="/fossils" component={Fossils}/>
