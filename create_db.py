@@ -307,9 +307,20 @@ def create_clothes():
             image = ''
             if 'closetImage' in cloth:
                 image = cloth['closetImage']
+            # else:
+                # variant = cloth['variations'][0]
+                # image = variant['closetImage']
+            if 'variation' in cloth and cloth['variation'] == None:
+                variations = None
             else:
-                variant = cloth['variations'][0]
-                image = variant['closetImage']
+                variant_list = []
+                image_list = []
+                for variant in cloth['variations']:
+                    variant_list.append(str(variant['variation']))
+                    image_list.append(str(variant['closetImage']))
+                variations = ", ".join(variant_list)
+                image = ",".join(image_list)
+                
             sourceSheet = cloth['sourceSheet']
             buy = cloth['buy']
             sell = cloth['sell']
@@ -319,13 +330,6 @@ def create_clothes():
             seasonal = cloth['seasonalAvailability']
             villager = cloth['villagerEquippable']
             themes = ', '.join(cloth['themes'])
-            if 'variation' in cloth and cloth['variation'] == None:
-                variations = None
-            else:
-                variant_list = []
-                for variant in cloth['variations']:
-                    variant_list.append(str(variant['variation']))
-                variations = ", ".join(variant_list)
             id = index
             new_item = Clothes(name = name, image = image, sourceSheet = sourceSheet, buy = buy, sell = sell,
                 source = source, seasonal = seasonal, villager = villager, themes = themes, variations = variations, id = id)

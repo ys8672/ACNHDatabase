@@ -234,7 +234,7 @@ class Clothes(db.Model):
     __tablename__ = 'clothes'
     
     name = db.Column(db.String(256), nullable = False)
-    image = db.Column(db.String(256), nullable = False)
+    image = db.Column(db.String(8192), nullable = False)
     sourceSheet = db.Column(db.String(256), nullable = False)
     buy = db.Column(db.Integer, nullable = False)
     sell = db.Column(db.Integer, nullable = False)
