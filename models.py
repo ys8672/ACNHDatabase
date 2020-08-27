@@ -229,6 +229,21 @@ class Reactions(db.Model):
     source = db.Column(db.String(256), nullable = False)
     sourceNotes = db.Column(db.String(256), nullable = True)
     id = db.Column(db.Integer, primary_key = True)
+    
+class Clothes(db.Model):
+    __tablename__ = 'clothes'
+    
+    name = db.Column(db.String(256), nullable = False)
+    image = db.Column(db.String(256), nullable = False)
+    sourceSheet = db.Column(db.String(256), nullable = False)
+    buy = db.Column(db.Integer, nullable = False)
+    sell = db.Column(db.Integer, nullable = False)
+    source = db.Column(db.String(256), nullable = False)
+    seasonal = db.Column(db.String(256), nullable = False)
+    villager = db.Column(db.Boolean, nullable = False)
+    themes = db.Column(db.String(256), nullable = False)
+    variations = db.Column(db.String(256), nullable = True)
+    id = db.Column(db.Integer, primary_key = True)
 
 class Search(db.Model):
     __tablename__ = 'search'

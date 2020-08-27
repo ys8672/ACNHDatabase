@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction, Recipes, Search, Reactions
+    Construction, Recipes, Search, Reactions, Clothes
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -21,6 +21,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/fossils/')
 @app.route('/fish/')
 @app.route('/construction/')
+@app.route('/clothes/')
 @app.route('/bugs/')
 @app.route('/art/')
 @app.route('/about/')
@@ -37,6 +38,7 @@ def index():
 @app.route('/fossils/<int:user_id>/')
 @app.route('/fish/<int:user_id>/')
 @app.route('/construction/<int:user_id>/')
+@app.route('/clothes/<int:user_id>/')
 @app.route('/bugs/<int:user_id>/')
 @app.route('/art/<int:user_id>/')
 def data_detail(user_id):
@@ -272,6 +274,31 @@ def construction_by_ID(cons_id):
     else:
         cons = db.session.query(Construction).filter_by(id=cons_id).one()
         new_dict = get_construction_dict(cons)
+    return new_dict
+
+#clothes
+def get_cloth_dict(cloth):
+    return {'name': cloth.name, 'image': cloth.image, 'sourceSheet': cloth.sourceSheet, 'buy': cloth.buy, 'sell': cloth.sell,
+        'source': cloth.source, 'seasonal': cloth.seasonal, 'villager': cloth.villager, 'themes': cloth.themes,
+        'variations': cloth.variations, 'id': cloth.id}
+        
+@app.route('/api/clothes/')
+def clothes_data():
+    response = []
+    clothes_list = db.session.query(Clothes).all()
+    for cloth in clothes_list:
+        new_one = get_cloth_dict(cloth)
+        response.append(new_one)
+    new_list = {'clothes': response}
+    return new_list
+    
+@app.route('/api/clothes/<int:cloth_id>/')
+def cloth_by_ID(cloth_id):
+    if cloth_id <= 0 or cloth_id > db.session.query(Clothes).count():
+        new_dict = {'code':404, 'message': 'Clothe not found'}
+    else:
+        cloth = db.session.query(Clothes).filter_by(id=cloth_id).one()
+        new_dict = get_cloth_dict(cloth)
     return new_dict
 
 #bugs

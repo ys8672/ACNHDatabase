@@ -1,14 +1,14 @@
 import json
 from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
-    Recipes, Search, Reactions
+    Recipes, Search, Reactions, Clothes
     
 #Run this file with 'python create_db.py' to create the database.
 
 #Loads JSON file 
 def load_json(filename):
     realfilename = str('json/') + filename
-    with open(realfilename) as file:
+    with open(realfilename, encoding='utf-8') as file:
         jsn = json.load(file)
         file.close()
     return jsn
@@ -282,6 +282,42 @@ def create_reactions():
         db.session.add(new_item)
         db.session.commit()
         index += 1
+        
+def create_clothes():
+    db.session.query(Clothes).delete()
+    clothes = load_json('bags.json')
+    index = 1
+    for cloth in clothes:
+        name = cloth['name']
+        # Get first from variation if this does not exist.
+        image = ''
+        if 'closetImage' in cloth:
+            image = cloth['closetImage']
+        else:
+            variant = cloth['variations'][0]
+            image = variant['closetImage']
+        sourceSheet = cloth['sourceSheet']
+        buy = cloth['buy']
+        sell = cloth['sell']
+        source = ', '.join(cloth['source']) 
+        if cloth['sourceNotes'] != None:
+            source += ' (' + cloth['sourceNotes'] + ')'
+        seasonal = cloth['seasonalAvailability']
+        villager = cloth['villagerEquippable']
+        themes = ', '.join(cloth['themes'])
+        if 'variation' in cloth and cloth['variation'] == None:
+            variations = None
+        else:
+            variant_list = []
+            for variant in cloth['variations']:
+                variant_list.append(variant['variation'])
+            variations = ", ".join(variant_list)
+        id = index
+        new_item = Clothes(name = name, image = image, sourceSheet = sourceSheet, buy = buy, sell = sell,
+            source = source, seasonal = seasonal, villager = villager, themes = themes, variations = variations, id = id)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1
 
 def create_search():
     searchID = 1
@@ -385,6 +421,7 @@ def create_database():
     create_construction()
     create_recipes()
     create_reactions()
+    create_clothes()
     create_search()
 
 create_database()
