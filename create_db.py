@@ -282,42 +282,46 @@ def create_reactions():
         db.session.add(new_item)
         db.session.commit()
         index += 1
-        
+            
 def create_clothes():
     db.session.query(Clothes).delete()
-    clothes = load_json('bags.json')
+    #Note: umbrellas are not current used.
+    clothes_list = ['accessories.json', 'bags.json', 'bottoms.json', 'clothing_other.json', 'dress_up.json',
+        'headwear.json', 'shoes.json', 'socks.json', 'tops.json']
     index = 1
-    for cloth in clothes:
-        name = cloth['name']
-        # Get first from variation if this does not exist.
-        image = ''
-        if 'closetImage' in cloth:
-            image = cloth['closetImage']
-        else:
-            variant = cloth['variations'][0]
-            image = variant['closetImage']
-        sourceSheet = cloth['sourceSheet']
-        buy = cloth['buy']
-        sell = cloth['sell']
-        source = ', '.join(cloth['source']) 
-        if cloth['sourceNotes'] != None:
-            source += ' (' + cloth['sourceNotes'] + ')'
-        seasonal = cloth['seasonalAvailability']
-        villager = cloth['villagerEquippable']
-        themes = ', '.join(cloth['themes'])
-        if 'variation' in cloth and cloth['variation'] == None:
-            variations = None
-        else:
-            variant_list = []
-            for variant in cloth['variations']:
-                variant_list.append(variant['variation'])
-            variations = ", ".join(variant_list)
-        id = index
-        new_item = Clothes(name = name, image = image, sourceSheet = sourceSheet, buy = buy, sell = sell,
-            source = source, seasonal = seasonal, villager = villager, themes = themes, variations = variations, id = id)
-        db.session.add(new_item)
-        db.session.commit()
-        index += 1
+    for string in clothes_list:
+        clothes = load_json(string)
+        for cloth in clothes:
+            name = cloth['name']
+            # Get first from variation if this does not exist.
+            image = ''
+            if 'closetImage' in cloth:
+                image = cloth['closetImage']
+            else:
+                variant = cloth['variations'][0]
+                image = variant['closetImage']
+            sourceSheet = cloth['sourceSheet']
+            buy = cloth['buy']
+            sell = cloth['sell']
+            source = ', '.join(cloth['source']) 
+            if cloth['sourceNotes'] != None:
+                source += ' (' + cloth['sourceNotes'] + ')'
+            seasonal = cloth['seasonalAvailability']
+            villager = cloth['villagerEquippable']
+            themes = ', '.join(cloth['themes'])
+            if 'variation' in cloth and cloth['variation'] == None:
+                variations = None
+            else:
+                variant_list = []
+                for variant in cloth['variations']:
+                    variant_list.append(str(variant['variation']))
+                variations = ", ".join(variant_list)
+            id = index
+            new_item = Clothes(name = name, image = image, sourceSheet = sourceSheet, buy = buy, sell = sell,
+                source = source, seasonal = seasonal, villager = villager, themes = themes, variations = variations, id = id)
+            db.session.add(new_item)
+            db.session.commit()
+            index += 1
 
 def create_search():
     searchID = 1
@@ -404,6 +408,22 @@ def create_search():
         db.session.commit()
         index += 1
         searchID += 1
+    #clothing add
+    clothes_list = ['accessories.json', 'bags.json', 'bottoms.json', 'clothing_other.json', 'dress_up.json',
+        'headwear.json', 'shoes.json', 'socks.json', 'tops.json']
+    index = 1
+    for clothes in clothes_list:
+        cloth = load_json(clothes)
+        for c in cloth:
+            name = c['name']
+            category = 'clothes'
+            id = index
+            new_item = Search(name = name, category = category, id = id, searchID = searchID)
+            db.session.add(new_item)
+            db.session.commit()
+            index += 1
+            searchID += 1
+        
     
     
 
