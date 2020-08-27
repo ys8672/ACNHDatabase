@@ -103,7 +103,6 @@ class Items(db.Model):
     __tablename__= 'items'
     
     name = db.Column(db.String(256), nullable = False)
-    canCustomize = db.Column(db.Boolean, nullable = False)
     kitCost = db.Column(db.String(256), nullable = True)
     size = db.Column(db.String(256), nullable = False)
     source = db.Column(db.String(256), nullable = False)
@@ -111,9 +110,10 @@ class Items(db.Model):
     name = db.Column(db.String(256), nullable = False)
     buyPrice = db.Column(db.Integer, nullable = True)
     sellPrice = db.Column(db.Integer, nullable = True)
-    image = db.Column(db.String(256), nullable = False)
+    image = db.Column(db.String(8192), nullable = False)
     category = db.Column(db.String(256), nullable = False)
-    variant = db.Column(db.String(65536), nullable = False)
+    variant = db.Column(db.String(1024), nullable = False)
+    pattern = db.Column(db.String(1024), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
 
     

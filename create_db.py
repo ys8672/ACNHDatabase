@@ -183,7 +183,6 @@ def create_items_helper(files):
         housewares = load_json(string)
         for (k, item) in housewares.items():
             name = item[0]['name']['name-USen']
-            canCustomize = (item[0]['canCustomizeBody'] or item[0]['canCustomizePattern'])
             kitCost = item[0]['kit-cost']
             if kitCost == None:
                 kitCost = -1
@@ -194,22 +193,33 @@ def create_items_helper(files):
                 isInteractive = True
             buyPrice = item[0]['buy-price']
             sellPrice = item[0]['sell-price']
-            image = item[0]['image_uri']
             category = item[0]['tag']
             if category == "":
                 category = str('N/A')
-            variant_list = []          
+            variant_list = []
+            image_list = []  
+            pattern_list = []
             for i in item:
                 v = i['variant']
                 if not v in variant_list:
                     variant_list.append(v)
+                img = i['image_uri']
+                if not img in image_list:
+                    image_list.append(img)
+                p = i['pattern']
+                if not p in pattern_list:
+                    pattern_list.append(p)
             variant = ""
             if variant_list[0] != None:
                 variant = ', '.join(variant_list)
+            image = ','.join(image_list)
+            pattern = ""
+            if pattern_list[0] != None:
+                pattern = ', '.join(pattern_list)
             id = index
-            new_item = Items(name = name, canCustomize = canCustomize, kitCost = kitCost, size = size,
+            new_item = Items(name = name, kitCost = kitCost, size = size,
                 source = source, isInteractive = isInteractive, buyPrice = buyPrice, sellPrice = sellPrice,
-                image = image, category = category, variant = variant, id = id)
+                image = image, category = category, variant = variant, pattern = pattern, id = id)
             db.session.add(new_item)
             db.session.commit()
             index += 1       

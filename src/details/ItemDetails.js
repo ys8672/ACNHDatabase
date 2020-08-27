@@ -1,6 +1,8 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import AliceCarousel from 'react-alice-carousel';
+import "react-alice-carousel/lib/alice-carousel.css";
 
 class ItemDetails extends React.Component {
 	constructor(props) {
@@ -54,19 +56,38 @@ class ItemDetails extends React.Component {
 			return cell
 		}
 		
+		function imageFormatter(image){
+			var cell = String(image)
+			var imageArray = cell.split(',');
+			const img = imageArray.map(str => 
+				<img src={str} class="card-img" alt=""
+					style={{maxHeight: '100%', maxWidth: '100%'}}/>
+			)
+            return (
+				<div>
+					<AliceCarousel
+						items={img}
+						autoPlayInterval={3000}
+						autoPlay={true}
+						fadeOutAnimation={true}
+						mouseTrackingEnabled={true}
+						disableAutoPlayOnAction={true}
+					  />
+				</div>
+            );
+		}
+		
 		function card(){
 			return(
 				<div>
 					{canShow && <div class="borderdiv">
 						<div class="row no-gutters">
 							<div class="col-md-4">
-								<img src={item.image} class="card-img" alt=""
-									 style={{maxHeight: '100%', maxWidth: '100%'}}/>
+								{imageFormatter(item.image)}
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
 									<h1 class="card-title capitalize"><b>Name: {item.name}</b></h1>
-									<p class="card-text"><b>Customizable?:</b> {booleanFormatter(item.canCustomize)} </p>
 									<p class="card-text"><b>Customize Kit Cost:</b> {kitCostFormatter(item.kitCost)} </p>
 									<p class="card-text"><b>Size: </b> {item.size} </p>
 									<p class="card-text"><b>Where To Find:</b> {item.source} </p>
@@ -75,6 +96,7 @@ class ItemDetails extends React.Component {
 									<p class="card-text"><b>Selling Price:</b> {item.sellPrice} </p>
 									<p class="card-text"><b>Category:</b> {item.category} </p>
 									<p class="card-text"><b>Variants:</b> {emptyFormatter(item.variant)} </p>
+									<p class="card-text"><b>Patterns:</b> {emptyFormatter(item.pattern)} </p>
 								</div>
 							</div>
 						</div>

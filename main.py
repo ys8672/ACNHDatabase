@@ -180,9 +180,9 @@ def reaction_by_ID(reaction_id):
 
 #items
 def get_item_dict(item):
-    return {'name': item.name, 'canCustomize': item.canCustomize, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
+    return {'name': item.name, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
         'isInteractive': item.isInteractive, 'buyPrice': item.buyPrice, 'sellPrice': item.sellPrice, 'image': item.image, 
-        'category': item.category, 'variant': item.variant, 'id': item.id}
+        'category': item.category, 'variant': item.variant, 'pattern': item.pattern, 'id': item.id}
         
 @app.route('/api/items/')
 def item_data():
