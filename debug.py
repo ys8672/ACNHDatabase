@@ -1,3 +1,5 @@
+#This is just the file I use for debugging stuff. You can ignore.
+
 import json
 from models import app, db, Construction, Recipes
 

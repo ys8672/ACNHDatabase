@@ -293,7 +293,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/art/${art.id}`}}>More details</Link>
+										<Link to={{pathname: `/art/${art.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  
@@ -314,7 +314,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/bugs/${bug.id}`}}>More details</Link>
+										<Link to={{pathname: `/bugs/${bug.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  
@@ -335,7 +335,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/construction/${cons.id}`}}>More details</Link>
+										<Link to={{pathname: `/construction/${cons.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  
@@ -356,7 +356,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/fish/${fish.id}`}}>More details</Link>
+										<Link to={{pathname: `/fish/${fish.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  
@@ -377,7 +377,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/fossils/${fossil.id}`}}>More details</Link>
+										<Link to={{pathname: `/fossils/${fossil.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  
@@ -398,7 +398,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/items/${item.id}`}}>More details</Link>
+										<Link to={{pathname: `/items/${item.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  
@@ -419,7 +419,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/reactions/${reaction.id}`}}>More details</Link>
+										<Link to={{pathname: `/reactions/${reaction.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  
@@ -439,7 +439,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/recipes/${recipe.id}`}}>More details</Link>
+										<Link to={{pathname: `/recipes/${recipe.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  
@@ -460,7 +460,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/sea/${sea.id}`}}>More details</Link>
+										<Link to={{pathname: `/sea/${sea.id}/`}}>More details</Link>
 									</div> 
 								</div>
 							)}  
@@ -481,7 +481,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/songs/${song.id}`}}>More details</Link>
+										<Link to={{pathname: `/songs/${song.id}/`}}>More details</Link>
 									</div> 
 								</div>
 							)}  
@@ -502,7 +502,7 @@ class Search extends React.Component {
 										/>
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
-										<Link to={{pathname: `/villagers/${villager.id}`}}>More details</Link>
+										<Link to={{pathname: `/villagers/${villager.id}/`}}>More details</Link>
 									</div> 
 								</div>
 							)}

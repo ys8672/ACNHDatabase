@@ -46,7 +46,7 @@ class Villagers extends React.Component {
 		function villagerFormatter(cell, row) {
             return (
 				<div>
-					<b><Link to={{pathname: `/villagers/${row.id}`}}>{cell}</Link></b>
+					<b><Link to={{pathname: `/villagers/${row.id}/`}}>{cell}</Link></b>
 				</div>
                 
             );

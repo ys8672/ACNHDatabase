@@ -28,7 +28,7 @@ class Arts extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/art/${row.id}`}}>{cell}</Link></b> 
+                <b className="capitalize"><Link to={{pathname: `/art/${row.id}/`}}>{cell}</Link></b> 
             );
         }
 		

@@ -59,6 +59,20 @@ class FrontPage extends React.Component{
 				<br/>
 				<div class="card w-100 border-success">
 					<div class="card-body">
+						<h5 class="card-title" className='text-center'><b>Clothes</b></h5>
+						<p class="card-text" className = 'text-center'> Clothing are a big part of Animal Crossing: New Horizons and
+							play a big role in the customizability of your avatar. From hats, tops, socks, to other types of clothing,
+							your choices of playing dress-up are nearly infinite.</p>
+						<div class="text-center">
+						<LinkContainer to="/clothes">
+							<Button variant="outline-success" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="card w-100 border-success">
+					<div class="card-body">
 						<h5 class="card-title" className='text-center'><b>Construction</b></h5>
 						<p class="card-text" className = 'text-center'> To decorate your island, Tom Nook can help you build various
 						construction projects to make your island prettier. These include your bridges across bodies of water,

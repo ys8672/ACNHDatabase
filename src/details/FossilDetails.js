@@ -13,7 +13,7 @@ class FossilDetails extends React.Component {
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}/`).then(r => r.json()).then(fossil_by_ID => {
+		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(fossil_by_ID => {
 			this.setState({fossil: fossil_by_ID})
 			if('code' in fossil_by_ID){
 				this.setState({canShow: false});

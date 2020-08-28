@@ -336,6 +336,27 @@ def create_clothes():
             db.session.add(new_item)
             db.session.commit()
             index += 1
+    #Umbrella is lacks certain keys, and I didn't want to do more if statements just to check for 1 type of clothing, so it is done here.
+    umbrellas = load_json('umbrellas.json')
+    for umbrella in umbrellas:
+        name = umbrella['name']
+        image = umbrella['closetImage']
+        sourceSheet = umbrella['sourceSheet']
+        buy = umbrella['buy']
+        sell = umbrella['sell']
+        source = ', '.join(umbrella['source']) 
+        if umbrella['sourceNotes'] != None:
+            source += ' (' + umbrella['sourceNotes'] + ')'
+        seasonal = "All Year"
+        villager = umbrella['villagerEquippable']
+        themes = "N/A"
+        variations = None
+        id = index
+        new_item = Clothes(name = name, image = image, sourceSheet = sourceSheet, buy = buy, sell = sell,
+            source = source, seasonal = seasonal, villager = villager, themes = themes, variations = variations, id = id)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1
 
 def create_search():
     searchID = 1
@@ -424,7 +445,7 @@ def create_search():
         searchID += 1
     #clothing add
     clothes_list = ['accessories.json', 'bags.json', 'bottoms.json', 'clothing_other.json', 'dress_up.json',
-        'headwear.json', 'shoes.json', 'socks.json', 'tops.json']
+        'headwear.json', 'shoes.json', 'socks.json', 'tops.json', 'umbrellas.json']
     index = 1
     for clothes in clothes_list:
         cloth = load_json(clothes)

@@ -28,7 +28,7 @@ class Construction extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/construction/${row.id}`}}>{cell}</Link></b> 
+                <b className="capitalize"><Link to={{pathname: `/construction/${row.id}/`}}>{cell}</Link></b> 
             );
         }
 		

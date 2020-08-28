@@ -28,7 +28,7 @@ class Fish extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/fish/${row.id}`}}>{cell}</Link></b> 
+                <b className="capitalize"><Link to={{pathname: `/fish/${row.id}/`}}>{cell}</Link></b> 
             );
         }
 		

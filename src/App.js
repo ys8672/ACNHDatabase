@@ -21,6 +21,8 @@ import Fish from "./Fish";
 import FishDetails from "./details/FishDetails";
 import Construction from "./Construction";
 import ConstructionDetails from "./details/ConstructionDetails";
+import Clothes from "./Clothes";
+import ClothDetails from "./details/ClothDetails";
 import Bugs from "./Bugs";
 import BugDetails from "./details/BugDetails";
 import Arts from "./Arts";
@@ -55,6 +57,8 @@ class App extends React.Component{
 						<Route path="/fish/:id/" component={FishDetails}/>
 						<Route exact path="/construction" component={Construction}/>
 						<Route path="/construction/:id" component={ConstructionDetails}/>
+						<Route exact path="/clothes" component={Clothes}/>
+						<Route path="/clothes/:id" component={ClothDetails}/>
 						<Route exact path="/bugs" component={Bugs}/>
 						<Route path="/bugs/:id" component={BugDetails}/>
 						<Route exact path="/art" component={Arts}/>
