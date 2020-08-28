@@ -1,10 +1,10 @@
 #This is just the file I use for debugging stuff. You can ignore.
 
 import json
-from models import app, db, Construction, Recipes
+from models import app, db, Construction, Recipes, Clothes
 
 def load_json(filename):
-    with open(filename) as file:
+    with open(filename ,encoding='utf-8') as file:
         jsn = json.load(file)
         file.close()
     return jsn
@@ -42,11 +42,15 @@ def load_json(filename):
 def create_cons():
     index = 0
     slist = [] 
-    construction = load_json('json/recipes.json')
-    for item in construction:                   
-        v = item['cardColor']
-        if not v in slist and v != None:
-            slist.append(v)
+    clothes_list = ['accessories.json', 'bags.json', 'bottoms.json', 'clothing_other.json', 'dress_up.json',
+        'headwear.json', 'shoes.json', 'socks.json', 'tops.json']
+    for clothes in clothes_list:
+        construction = load_json('json/' + clothes)
+        for item in construction:  
+            #source = ', '.join(cloth['source'])         
+            v = item['seasonalAvailability']
+            if not v in slist and v != None:
+                slist.append(v)
                     
     slist.sort()
     real_list = []
