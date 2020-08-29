@@ -368,7 +368,7 @@ class Clothes extends React.Component {
 						data={ clothes }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory( {sizePerPage: 25} ) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 						

@@ -265,7 +265,7 @@ class Recipes extends React.Component {
                 text: 'Recipe Name',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Name: <Link to={{pathname: `/recipes/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Name: <Link to={{pathname: `/recipes/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				},
 				align: "center",
@@ -375,7 +375,7 @@ class Recipes extends React.Component {
 						data={ recipes }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory({sizePerPage: 25}) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 						

@@ -54,7 +54,7 @@ class App extends React.Component{
 						<Route exact path="/fossils" component={Fossils}/>
 						<Route path="/fossils/:id" component={FossilDetails}/>
 						<Route exact path="/fish" component={Fish}/>
-						<Route path="/fish/:id/" component={FishDetails}/>
+						<Route path="/fish/:id" component={FishDetails}/>
 						<Route exact path="/construction" component={Construction}/>
 						<Route path="/construction/:id" component={ConstructionDetails}/>
 						<Route exact path="/clothes" component={Clothes}/>

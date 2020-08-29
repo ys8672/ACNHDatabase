@@ -30,14 +30,14 @@ class Items extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/items/${row.id}/`}}>{cell}</Link></b>
+                <b><Link to={{pathname: `/items/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b>
             );
         }
 		
         function imageFormatter(cell, row) {
 			var imageArray = cell.split(',');
 			const img = imageArray.map(str => 
-                <img src={str} alt=""/>
+                <img src={str} alt="" style={{maxHeight: '100%', maxWidth: '100%'}}/>
 			)
             return (
 				<div>
@@ -472,7 +472,7 @@ class Items extends React.Component {
 						data={ items }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory({sizePerPage: 25}) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 						

@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ShowMoreText from 'react-show-more-text';
 
 const TITLE = 'AC:NH Art'
 
@@ -47,13 +48,19 @@ class Arts extends React.Component {
 		}
 		
 		function truncate(cell, row) {
-		   if (cell.length > 128) {
-				var link = <Link to={{pathname: `/art/${row.id}`}}>...</Link>;
-				return (
-					<div> {cell.substring(0, 128)}{link} </div>
-				)
-		   }
-		   return cell;
+		   return(
+				<ShowMoreText
+					/* Default options */
+					lines={5}
+					more='Show more'
+					less='Show less'
+					anchorClass=''
+					onClick={this.executeOnClick}
+					expanded={false}
+				>
+					{cell}
+				</ShowMoreText>
+		   )
 		};
 		
 		const selectFake= {
@@ -147,7 +154,7 @@ class Arts extends React.Component {
                 text: 'Art Name',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Name: <Link to={{pathname: `/art/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Name: <Link to={{pathname: `/art/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				},
 				align: "center",
@@ -215,7 +222,7 @@ class Arts extends React.Component {
 						data={ arts }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory( {sizePerPage: 25} ) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 						

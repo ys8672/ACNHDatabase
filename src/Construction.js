@@ -135,7 +135,7 @@ class Construction extends React.Component {
                 text: 'Construction Name',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Name: <Link to={{pathname: `/construction/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Name: <Link to={{pathname: `/construction/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				},
 				align: "center",
@@ -154,7 +154,7 @@ class Construction extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Purchase Price: <Link to={{pathname: `/sea/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Purchase Price: <div className="capitalize">{cell}</div></b></h5>
 					);
 				}
             }, {
@@ -202,7 +202,7 @@ class Construction extends React.Component {
 						data={ cons }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory( {sizePerPage: 25} ) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 						

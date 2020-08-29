@@ -32,6 +32,8 @@ class Search extends React.Component {
 			fishFiltered: [],
 			construction: [],
 			constructionFiltered: [],
+			clothes: [],
+			clothesFiltered: [],
 			bugs: [],
 			bugsFiltered: [],
 			art: [],
@@ -40,6 +42,7 @@ class Search extends React.Component {
 		this.searchData = this.searchData.bind(this)
 		this.scrollDivArt = React.createRef();
 		this.scrollDivBugs = React.createRef();
+		this.scrollDivClothes = React.createRef();
 		this.scrollDivConstruction = React.createRef();
 		this.scrollDivFish = React.createRef();
 		this.scrollDivFossils = React.createRef();
@@ -56,6 +59,7 @@ class Search extends React.Component {
             let search = search_data.search
 			let art2 = []
 			let bugs2 = []
+			let clothes2 = []
 			let construction2 = []
 			let fish2 = []
 			let fossils2 = []
@@ -74,6 +78,9 @@ class Search extends React.Component {
 						break;
 					case (cat === 'bugs'):
 						bugs2.push(search[i]);
+						break;
+					case (cat === 'clothes'):
+						clothes2.push(search[i]);
 						break;
 					case (cat === 'construction'):
 						construction2.push(search[i]);
@@ -108,6 +115,7 @@ class Search extends React.Component {
 			} 
 			this.setState({art: art2})
 			this.setState({bugs: bugs2})
+			this.setState({clothes: clothes2})
 			this.setState({construction: construction2})
 			this.setState({fish: fish2})
 			this.setState({fossils: fossils2})
@@ -162,6 +170,7 @@ class Search extends React.Component {
 			this.setState({fossilsFiltered: []})
 			this.setState({fishFiltered: []})
 			this.setState({constructionFiltered: []})
+			this.setState({clothesFiltered: []})
 			this.setState({bugsFiltered: []})
 			this.setState({artFiltered: []})
 		}
@@ -194,6 +203,9 @@ class Search extends React.Component {
 			//fish
 			var fishList = this.sortFunc(inputSplit, this.state.fish)
 			this.setState({fishFiltered: fishList})
+			//clothes
+			var clothList = this.sortFunc(inputSplit, this.state.clothes)
+			this.setState({clothesFiltered: clothList})
 			//construction
 			var constructionList = this.sortFunc(inputSplit, this.state.construction)
 			this.setState({constructionFiltered: constructionList})
@@ -241,6 +253,9 @@ class Search extends React.Component {
 										this.scrollDivBugs.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Bugs</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivClothes.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Clothes</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
 										this.scrollDivConstruction.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Construction</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
@@ -276,7 +291,8 @@ class Search extends React.Component {
 					<h5 className='text-center'>Total Number of results: {(this.state.seaFiltered).length + (this.state.villagersFiltered).length
 						+ (this.state.songsFiltered).length + (this.state.recipesFiltered).length + (this.state.itemsFiltered).length
 						+ (this.state.fossilsFiltered).length + (this.state.fishFiltered).length + (this.state.constructionFiltered).length
-						+ (this.state.bugsFiltered).length + (this.state.artFiltered).length + (this.state.reactionsFiltered).length}</h5>
+						+ (this.state.bugsFiltered).length + (this.state.artFiltered).length + (this.state.reactionsFiltered).length
+						+ (this.state.clothesFiltered).length}</h5>
 					<br/>
 
 					<div ref={this.scrollDivArt}>
@@ -315,6 +331,27 @@ class Search extends React.Component {
 									</b></h5>
 									<div style={{display: 'flex', justifyContent: 'center'}}>
 										<Link to={{pathname: `/bugs/${bug.id}/`}}>More details</Link>
+									</div>
+								</div>
+							)}  
+					</div>
+					<br/>
+					
+					<div ref={this.scrollDivClothes}>
+						<h3 className='text-center'><b>Clothes: </b></h3>
+						<h5 className='text-center'>Number of clothes: {(this.state.clothesFiltered).length}</h5>
+							{(this.state.clothesFiltered).map((cloth, i) =>
+								<div class="borderdiv" key={i}>
+									<h5 className='text-center capitalize'><b>
+										<Highlighter
+											highlightClassName="YourHighlightClass"
+											searchWords={this.state.searchTextArray}
+											autoEscape={true}
+											textToHighlight={cloth.name}
+										/>
+									</b></h5>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/clothes/${cloth.id}/`}}>More details</Link>
 									</div>
 								</div>
 							)}  

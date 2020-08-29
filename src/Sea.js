@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ShowMoreText from 'react-show-more-text';
 
 const TITLE = 'AC:NH Sea Creatures'
 
@@ -261,13 +262,20 @@ class Sea extends React.Component {
 		}];
 			
 		function truncate(cell, row) {
-		   if (cell.length > 64) {
-				var link = <Link to={{pathname: `/sea/${row.id}`}}>...</Link>;
-				return (
-					<div> {cell.substring(0, 64)}{link} </div>
-				)
-		   }
-		   return cell;
+		   return(
+				<ShowMoreText
+					/* Default options */
+					lines={5}
+					more='Show more'
+					less='Show less'
+					anchorClass=''
+					onClick={this.executeOnClick}
+					expanded={false}
+
+				>
+					{cell}
+				</ShowMoreText>
+			)
 		};
 		
         const {seas} = this.state
@@ -381,7 +389,7 @@ class Sea extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Name: <Link to={{pathname: `/sea/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Name: <Link to={{pathname: `/sea/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				}
             }, {
@@ -498,7 +506,7 @@ class Sea extends React.Component {
 						data={ seas }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory({sizePerPage: 25}) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 					/>
