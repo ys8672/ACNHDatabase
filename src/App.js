@@ -11,6 +11,8 @@ import Sea from "./Sea";
 import SeaDetails from "./details/SeaDetails";
 import Recipes from "./Recipes";
 import RecipeDetails from "./details/RecipeDetails";
+import Reactions from "./Reactions"
+import ReactionDetails from "./details/ReactionDetails";
 import Items from "./Items";
 import ItemDetails from "./details/ItemDetails";
 import Fossils from "./Fossils";
@@ -19,6 +21,8 @@ import Fish from "./Fish";
 import FishDetails from "./details/FishDetails";
 import Construction from "./Construction";
 import ConstructionDetails from "./details/ConstructionDetails";
+import Clothes from "./Clothes";
+import ClothDetails from "./details/ClothDetails";
 import Bugs from "./Bugs";
 import BugDetails from "./details/BugDetails";
 import Arts from "./Arts";
@@ -43,14 +47,18 @@ class App extends React.Component{
 						<Route path="/sea/:id" component={SeaDetails}/>
 						<Route exact path="/recipes" component={Recipes}/>
 						<Route path="/recipes/:id" component={RecipeDetails}/>
+						<Route exact path="/reactions" component={Reactions}/>
+						<Route path="/reactions/:id" component={ReactionDetails}/>
 						<Route exact path="/items" component={Items}/>
 						<Route path="/items/:id" component={ItemDetails}/>
 						<Route exact path="/fossils" component={Fossils}/>
 						<Route path="/fossils/:id" component={FossilDetails}/>
 						<Route exact path="/fish" component={Fish}/>
-						<Route path="/fish/:id/" component={FishDetails}/>
+						<Route path="/fish/:id" component={FishDetails}/>
 						<Route exact path="/construction" component={Construction}/>
 						<Route path="/construction/:id" component={ConstructionDetails}/>
+						<Route exact path="/clothes" component={Clothes}/>
+						<Route path="/clothes/:id" component={ClothDetails}/>
 						<Route exact path="/bugs" component={Bugs}/>
 						<Route path="/bugs/:id" component={BugDetails}/>
 						<Route exact path="/art" component={Arts}/>

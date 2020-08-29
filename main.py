@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction, Recipes, Search
+    Construction, Recipes, Search, Reactions, Clothes
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -16,10 +16,12 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/songs/')
 @app.route('/sea/')
 @app.route('/recipes/')
+@app.route('/reactions/')
 @app.route('/items/')
 @app.route('/fossils/')
 @app.route('/fish/')
 @app.route('/construction/')
+@app.route('/clothes/')
 @app.route('/bugs/')
 @app.route('/art/')
 @app.route('/about/')
@@ -27,14 +29,16 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 def index():
     return app.send_static_file('index.html')
     
-@app.route('/villagers/<int:user_id>')
-@app.route('/songs/<int:user_id>')
-@app.route('/sea/<int:user_id>')
-@app.route('/recipes/<int:user_id>')
-@app.route('/items/<int:user_id>')
-@app.route('/fossils/<int:user_id>')
-@app.route('/fish/<int:user_id>')
+@app.route('/villagers/<int:user_id>/')
+@app.route('/songs/<int:user_id>/')
+@app.route('/sea/<int:user_id>/')
+@app.route('/recipes/<int:user_id>/')
+@app.route('/reactions/<int:user_id>/')
+@app.route('/items/<int:user_id>/')
+@app.route('/fossils/<int:user_id>/')
+@app.route('/fish/<int:user_id>/')
 @app.route('/construction/<int:user_id>/')
+@app.route('/clothes/<int:user_id>/')
 @app.route('/bugs/<int:user_id>/')
 @app.route('/art/<int:user_id>/')
 def data_detail(user_id):
@@ -150,11 +154,35 @@ def recipe_by_ID(recipe_id):
         new_dict = get_recipe_dict(recipe)
     return new_dict
     
+#reactions
+def get_reaction_dict(reaction):
+    return {'name': reaction.name, 'image': reaction.image, 'source': reaction.source, 'sourceNotes': reaction.sourceNotes,
+        'id': reaction.id}
+
+@app.route('/api/reactions/')
+def reaction_data():
+    response = []
+    reaction_list = db.session.query(Reactions).all()
+    for reaction in reaction_list:
+        new_one = get_reaction_dict(reaction)
+        response.append(new_one)
+    new_list = {'reactions': response}
+    return new_list
+
+@app.route('/api/reactions/<int:reaction_id>/')
+def reaction_by_ID(reaction_id):
+    if reaction_id <= 0 or reaction_id > db.session.query(Reactions).count():
+        new_dict = {'code': 404, 'message': 'Reaction not found'}
+    else:
+        reaction = db.session.query(Reactions).filter_by(id = reaction_id).one()
+        new_dict = get_reaction_dict(reaction)
+    return new_dict
+
 #items
 def get_item_dict(item):
-    return {'name': item.name, 'canCustomize': item.canCustomize, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
+    return {'name': item.name, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
         'isInteractive': item.isInteractive, 'buyPrice': item.buyPrice, 'sellPrice': item.sellPrice, 'image': item.image, 
-        'category': item.category, 'variant': item.variant, 'id': item.id}
+        'category': item.category, 'variant': item.variant, 'pattern': item.pattern, 'id': item.id}
         
 @app.route('/api/items/')
 def item_data():
@@ -246,6 +274,31 @@ def construction_by_ID(cons_id):
     else:
         cons = db.session.query(Construction).filter_by(id=cons_id).one()
         new_dict = get_construction_dict(cons)
+    return new_dict
+
+#clothes
+def get_cloth_dict(cloth):
+    return {'name': cloth.name, 'image': cloth.image, 'sourceSheet': cloth.sourceSheet, 'buy': cloth.buy, 'sell': cloth.sell,
+        'source': cloth.source, 'seasonal': cloth.seasonal, 'villager': cloth.villager, 'themes': cloth.themes,
+        'variations': cloth.variations, 'id': cloth.id}
+        
+@app.route('/api/clothes/')
+def clothes_data():
+    response = []
+    clothes_list = db.session.query(Clothes).all()
+    for cloth in clothes_list:
+        new_one = get_cloth_dict(cloth)
+        response.append(new_one)
+    new_list = {'clothes': response}
+    return new_list
+    
+@app.route('/api/clothes/<int:cloth_id>/')
+def cloth_by_ID(cloth_id):
+    if cloth_id <= 0 or cloth_id > db.session.query(Clothes).count():
+        new_dict = {'code':404, 'message': 'Clothe not found'}
+    else:
+        cloth = db.session.query(Clothes).filter_by(id=cloth_id).one()
+        new_dict = get_cloth_dict(cloth)
     return new_dict
 
 #bugs

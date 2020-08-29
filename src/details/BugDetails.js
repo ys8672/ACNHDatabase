@@ -77,6 +77,9 @@ class BugDetails extends React.Component {
 				var monthOneEnd = switchMonth(parseInt(monthOne[1]));
 				var monthTwoBegin = switchMonth(parseInt(monthTwo[0]));
 				var monthTwoEnd = switchMonth(parseInt(monthTwo[1]));
+				if (Number.isNaN(monthTwoEnd)){
+					return monthOneBegin + " - " + monthOneEnd + ", " + monthTwoBegin;
+				}
 				return monthOneBegin + " - " + monthOneEnd + ", " + monthTwoBegin + " - " + monthTwoEnd;
 			}
 			else if (cell.includes("-")){

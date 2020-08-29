@@ -1,27 +1,26 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+import {Link} from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, { textFilter, numberFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import ShowMoreText from 'react-show-more-text';
 
-const TITLE = 'AC:NH Fossils'
+const TITLE = 'AC:NH Reactions'
 
-class Fossils extends React.Component {
+class Reactions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fossils: []
+            reactions: []
         }
     }
 
     componentDidMount() {
-        fetch('/api/fossils/').then(r => r.json()).then(fossil_data => {
-            this.setState({fossils: fossil_data.fossils})
+        fetch('/api/reactions/').then(r => r.json()).then(reaction_data => {
+            this.setState({reactions: reaction_data.reactions})
         })
 
     }
@@ -29,43 +28,39 @@ class Fossils extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/fossils/${row.id}/`}}>{cell}</Link></b> 
+                <b className="capitalize"><Link to={{pathname: `/reactions/${row.id}/`}}>{cell}</Link></b> 
             );
         }
 		
-        function imageFormatter(cell, row) {
+		function imageFormatter(cell, row) {
             return (
                 <img className="img" src={cell} alt=""
-                     style={{maxHeight: '75%', maxWidth: '75%'}}/>
+                     style={{maxHeight: '100%', maxWidth: '100%'}}/>
             );
         }
 		
+		const selectSource={
+			'All Villagers': 'All Villagers',
+			'Big Sister Villagers': 'Big Sister Villagers',
+			'Cranky Villagers': 'Cranky Villagers',
+			'Jock Villagers': 'Jock Villagers',
+			'Lazy Villagers': 'Lazy Villagers',
+			'Normal Villagers': 'Normal Villagers',
+			'Peppy Villagers': 'Peppy Villagers',
+			'Smug Villagers': 'Smug Villagers',
+			'Snooty Villagers': 'Snooty Villagers'
+		}
+
 		const defaultSorted = [{
 			dataField: 'id',
-			order: 'asce'
+			order: 'asc'
 		}];
 		
-		function truncate(cell, row) {
-		   return(
-				<ShowMoreText
-					/* Default options */
-					lines={5}
-					more='Show more'
-					less='Show less'
-					anchorClass=''
-					onClick={this.executeOnClick}
-					expanded={false}
-				>
-					{cell}
-				</ShowMoreText>
-			)
-		};
-		
-        const {fossils} = this.state
+        const {reactions} = this.state
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Fossil Name',
+                text: 'Reaction Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
@@ -73,81 +68,78 @@ class Fossils extends React.Component {
 				filter: textFilter()
             },{
                 dataField: 'image',
-                text: 'Fossil Image',
+                text: 'Image',
                 sort: false,
-                formatter: imageFormatter,
-				searchable: false,
 				align: "center",
-				headerAlign: 'center'
-			},{
-                dataField: 'price',
-                text: 'Sell Price',
+				headerAlign: 'center',
+				formatter: imageFormatter
+            },{
+                dataField: 'source',
+                text: 'Where to Acquire:',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: numberFilter()
-            }, {
-                dataField: 'museumPhrase',
-                text: 'Museum Description',
-                sort: true,
+				formatter: cell => selectSource[cell],
+				filter: selectFilter({
+					options: selectSource
+				})
+            },{
+                dataField: 'sourceNotes',
+                text: 'Important Notes',
+                sort: false,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter(),
-				formatter: truncate
-            }, {
+				filter: textFilter()
+            },{
                 dataField: 'id',
                 text: 'ID',
                 sort: true,
-                hidden: true,
+                hidden: true
             }
             ]
         }
 		
 		//mobile
 		const { SearchBar } = Search;
-		const {mobilecolumns} = {
+        const {mobilecolumns} = {
             mobilecolumns: [{
                 dataField: 'name',
-                text: 'Fossil Name',
+                text: 'Reaction Name',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Name: </b> {nameFormatter(cell, row)} </div>
+						<h5><b>Name: <Link to={{pathname: `/reactions/${row.id}/`}}>{cell}</Link></b></h5>
 					);
 				},
-				align: "center",
-				headerAlign: 'center',
-            },{
-                dataField: 'image',
-                text: 'Fossil Image',
-                formatter: (cell, row) => {
-					return(
-						<div>{imageFormatter(cell, row)}</div>
-					);
-				},
-				searchable: false,
 				align: "center",
 				headerAlign: 'center'
-			},{
-                dataField: 'price',
-                text: 'Sell Price',
+            },{
+                dataField: 'image',
+                text: 'Image',
+                searchable: false,
+				align: "center",
+				headerAlign: 'center',
+				formatter: imageFormatter
+            },{
+                dataField: 'source',
+                text: 'Where to Acquire:',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Sell Price: </b> {cell} </div>
+						<div><b>Source: </b> {cell} </div>
 					);
 				}
-            }, {
-                dataField: 'museumPhrase',
-                text: 'Museum Description',
+            },{
+                dataField: 'sourceNotes',
+                text: 'Important Notes',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Museum Phrase: </b> {truncate(cell, row)} </div>
+						<div><b>Source Notes: </b> {cell} </div>
 					);
-				},
-            }, {
+				}
+            },{
                 dataField: 'id',
                 text: 'ID',
                 sort: true,
@@ -156,20 +148,20 @@ class Fossils extends React.Component {
             }
             ]
         }
-	
+		
         return (
             <div>
 				<Helmet>
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Fossils</h1>
+                <h1 className="text-center">Reactions</h1>
 
 				<BrowserView>
-					<BootstrapTable 
+					<BootstrapTable
 						bootstrap4
 						keyField = "id"
-						data={ fossils }
+						data={ reactions }
 						columns={ columns }
 						striped
 						pagination={ paginationFactory({sizePerPage: 25}) }
@@ -182,7 +174,7 @@ class Fossils extends React.Component {
 				<MobileView>
 					<ToolkitProvider
 					  keyField="id"
-					  data={ fossils }
+					  data={ reactions }
 					  columns={ mobilecolumns }
 					  search>
 					  {
@@ -208,4 +200,4 @@ class Fossils extends React.Component {
 }
 
 
-export default Fossils;
+export default Reactions;

@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 const TITLE = 'AC:NH Songs'
 
@@ -26,7 +28,7 @@ class Songs extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/songs/${row.id}`}}>{cell}</Link></b>
+                <b className="capitalize"><Link to={{pathname: `/songs/${row.id}/`}}>{cell}</Link></b>
             );
         }
 		
@@ -135,6 +137,90 @@ class Songs extends React.Component {
             ]
         }
 	
+		//mobile functions
+		function mobileName(cell, row){
+			return (
+				<div>
+					<h5><b>Song Name: <Link to={{pathname: `/songs/${row.id}/`}}>{cell}</Link></b></h5>
+				</div>
+            );
+		}
+		
+		function mobileOrderable(cell, row){
+			return (
+				<div>
+					<b>Is Orderable?: </b> {cell}
+				</div>
+            );
+		}
+		
+		function mobileBuyPrice(cell, row){
+			return (
+				<div>
+					<b>Purchase Price: </b> {buyPriceFormatter(cell, row)}
+				</div>
+            );
+		}
+		
+		function mobileSellPrice(cell, row){
+			return (
+				<div>
+					<b>Selling Price: </b> {cell}
+				</div>
+            );
+		}
+		
+		const { SearchBar } = Search;
+		const { mobilecol } = {
+            mobilecol:
+			[{
+                dataField: 'name',
+                text: 'Song Name',
+				formatter: mobileName,
+				align: "center",
+				headerAlign: 'center',
+            },{
+                dataField: 'image',
+                text: 'Song Cover Photo',
+                formatter: imageFormatter,
+				searchable: false,
+				align: "center",
+				headerAlign: 'center'
+			},{
+                dataField: 'isOrderable',
+                text: 'Purchasable?',
+				align: "center",
+				headerAlign: 'center',
+				formatter: mobileOrderable
+            }, {
+                dataField: 'buyPrice',
+                text: 'Purchase Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: mobileBuyPrice,
+				filterValue: buyPriceFormatter
+            }, {
+                dataField: 'sellPrice',
+                text: 'Sell Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: mobileSellPrice
+            }, {
+                dataField: 'music',
+                text: 'Music',
+                searchable: false,
+				align: "center",
+				headerAlign: 'center',
+				formatter: musicFormatter
+            }, {
+                dataField: 'id',
+                text: 'ID',
+                sort: true,
+                hidden: true,
+				searchable: false
+            }]
+		}; 
+		
         return (
             <div>
 				<Helmet>
@@ -143,20 +229,44 @@ class Songs extends React.Component {
 
                 <h1 className="text-center">Songs</h1>
 
-				<div>
-
+				<BrowserView>
 					<BootstrapTable
 						bootstrap4
 						keyField = "id"
 						data={ songs }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory({sizePerPage: 25}) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 						
 					/>
-				</div>
+				</BrowserView>
+				
+				<MobileView>
+					<ToolkitProvider
+					  keyField="id"
+					  data={ songs }
+					  columns={ mobilecol }
+					  search
+					>
+					  {
+						props => (
+						  <div>
+							<div style={{display: 'flex', justifyContent: 'center'}}>
+								<SearchBar { ...props.searchProps }/>
+							</div> 
+							<hr />
+							<BootstrapTable
+							  { ...props.baseProps }
+							  striped
+							  pagination={ paginationFactory() }
+							/>
+						  </div>
+						)
+					  }
+					</ToolkitProvider>
+				</MobileView>
 			</div>
         )
     }
