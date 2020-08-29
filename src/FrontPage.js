@@ -71,7 +71,7 @@ class FrontPage extends React.Component{
 					</div>
 				</div>
 				<br/>
-				<div class="card w-100 border-success">
+				<div class="card w-100 border-danger">
 					<div class="card-body">
 						<h5 class="card-title" className='text-center'><b>Construction</b></h5>
 						<p class="card-text" className = 'text-center'> To decorate your island, Tom Nook can help you build various
@@ -79,13 +79,13 @@ class FrontPage extends React.Component{
 						slopes to go up levels, and even your owner house! </p>
 						<div class="text-center">
 						<LinkContainer to="/construction">
-							<Button variant="outline-success" size="lg"> Click Here To Learn More </Button>
+							<Button variant="outline-danger" size="lg"> Click Here To Learn More </Button>
 						</LinkContainer>
 						</div>
 					</div>
 				</div>
 				<br/>
-				<div class="card w-100 border-danger">
+				<div class="card w-100 border-warning">
 					<div class="card-body">
 						<h5 class="card-title" className='text-center'><b>Fish</b></h5>
 						<p class="card-text" className = 'text-center'> Swimming underwater in bodies of water, you can find fish
@@ -93,13 +93,13 @@ class FrontPage extends React.Component{
 						for Blather's Museum, your personal collection, your Critterpedia, or even for C. J. </p>
 						<div class="text-center">
 						<LinkContainer to="/fish">
-							<Button variant="outline-danger" size="lg"> Click Here To Learn More </Button>
+							<Button variant="outline-warning" size="lg"> Click Here To Learn More </Button>
 						</LinkContainer>
 						</div>
 					</div>
 				</div>		
 				<br/>
-				<div class="card w-100 border-warning">
+				<div class="card w-100 border-info">
 					<div class="card-body">
 						<h5 class="card-title" className='text-center'><b>Fossils</b></h5>
 						<p class="card-text" className = 'text-center'> Re-spawning every day at different locations, fossils are
@@ -108,50 +108,7 @@ class FrontPage extends React.Component{
 						your friends may have planted a pitfall for you to fall into if they have visited your island. </p>
 						<div class="text-center">
 						<LinkContainer to="/fossils">
-							<Button variant="outline-warning" size="lg"> Click Here To Learn More </Button>
-						</LinkContainer>
-						</div>
-					</div>
-				</div>
-				<br/>
-				<div class="card w-100 border-info">
-					<div class="card-body">
-						<h5 class="card-title" className='text-center'><b>Items</b></h5>
-						<p class="card-text" className = 'text-center'> Probably the longest table, up to hundreds of items
-							are used to decorate your island. From instruments to furniture to posters, these items will
-							be sure to make your island look extremely pretty.</p>
-						<div class="text-center">
-						<LinkContainer to="/items">
 							<Button variant="outline-info" size="lg"> Click Here To Learn More </Button>
-						</LinkContainer>
-						</div>
-					</div>
-				</div>
-				<br/>
-				<div class="card w-100 border-info">
-					<div class="card-body">
-						<h5 class="card-title" className='text-center'><b>Reactions</b></h5>
-						<p class="card-text" className = 'text-center'> From happy faces to heartbroken symbols, reactions
-						can be used by all villagers and players to show their feelings. Use these to communicate with your
-						friends and even take more accuracte photos with an appropriate reaction mixed in.</p>
-						<div class="text-center">
-						<LinkContainer to="/reactions">
-							<Button variant="outline-info" size="lg"> Click Here To Learn More </Button>
-						</LinkContainer>
-						</div>
-					</div>
-				</div>
-				<br/>
-				<div class="card w-100 border-dark">
-					<div class="card-body">
-						<h5 class="card-title" className='text-center'><b>Recipes</b></h5>
-						<p class="card-text" className = 'text-center'> A new feature in the series, crafting has allowed
-						players to take materials they have already acquired to craft into a completely new item. Did you know
-						that some DIY recipes can only be given by certain villagers with a specific personality? And that
-						some DIYs require a specific number previously learned before it is available? I did not.</p>
-						<div class="text-center">
-						<LinkContainer to="/recipes">
-							<Button variant="outline-dark" size="lg"> Click Here To Learn More </Button>
 						</LinkContainer>
 						</div>
 					</div>
@@ -159,13 +116,12 @@ class FrontPage extends React.Component{
 				<br/>
 				<div class="card w-100 border-primary">
 					<div class="card-body">
-						<h5 class="card-title" className='text-center'><b>Sea Creatures</b></h5>
-						<p class="card-text" className = 'text-center'> Added in the Wave One of the Summer Update of 2020, you can
-						go to Nook's Cranny and buy a swimsuit to swim in the ocean. A key element also included diving for more
-						sea creatures previously inaccessible via a fishing rod. You may have to be quick, as these animals
-						can swim away from you if you are not fast enough to catch them! </p>
+						<h5 class="card-title" className='text-center'><b>Items</b></h5>
+						<p class="card-text" className = 'text-center'> Probably the longest table, up to hundreds of items
+							are used to decorate your island. From instruments to furniture to posters, these items will
+							be sure to make your island look extremely pretty.</p>
 						<div class="text-center">
-						<LinkContainer to="/sea">
+						<LinkContainer to="/items">
 							<Button variant="outline-primary" size="lg"> Click Here To Learn More </Button>
 						</LinkContainer>
 						</div>
@@ -174,12 +130,12 @@ class FrontPage extends React.Component{
 				<br/>
 				<div class="card w-100 border-secondary">
 					<div class="card-body">
-						<h5 class="card-title" className='text-center'><b>Songs</b></h5>
-						<p class="card-text" className = 'text-center'> After reaching three stars on your island, talk
-						to Isabelle to invite K. K. Slider for a concert. Afterwards, he will visit your island every Saturday.
-						By then, you can talk to the talented K. K. Slider and request for any song to listen to while the credits roll.</p>
+						<h5 class="card-title" className='text-center'><b>Reactions</b></h5>
+						<p class="card-text" className = 'text-center'> From happy faces to heartbroken symbols, reactions
+						can be used by all villagers and players to show their feelings. Use these to communicate with your
+						friends and even take more accuracte photos with an appropriate reaction mixed in.</p>
 						<div class="text-center">
-						<LinkContainer to="/songs">
+						<LinkContainer to="/reactions">
 							<Button variant="outline-secondary" size="lg"> Click Here To Learn More </Button>
 						</LinkContainer>
 						</div>
@@ -188,12 +144,56 @@ class FrontPage extends React.Component{
 				<br/>
 				<div class="card w-100 border-success">
 					<div class="card-body">
+						<h5 class="card-title" className='text-center'><b>Recipes</b></h5>
+						<p class="card-text" className = 'text-center'> A new feature in the series, crafting has allowed
+						players to take materials they have already acquired to craft into a completely new item. Did you know
+						that some DIY recipes can only be given by certain villagers with a specific personality? And that
+						some DIYs require a specific number previously learned before it is available? I did not.</p>
+						<div class="text-center">
+						<LinkContainer to="/recipes">
+							<Button variant="outline-success" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="card w-100 border-danger">
+					<div class="card-body">
+						<h5 class="card-title" className='text-center'><b>Sea Creatures</b></h5>
+						<p class="card-text" className = 'text-center'> Added in the Wave One of the Summer Update of 2020, you can
+						go to Nook's Cranny and buy a swimsuit to swim in the ocean. A key element also included diving for more
+						sea creatures previously inaccessible via a fishing rod. You may have to be quick, as these animals
+						can swim away from you if you are not fast enough to catch them! </p>
+						<div class="text-center">
+						<LinkContainer to="/sea">
+							<Button variant="outline-danger" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="card w-100 border-warning">
+					<div class="card-body">
+						<h5 class="card-title" className='text-center'><b>Songs</b></h5>
+						<p class="card-text" className = 'text-center'> After reaching three stars on your island, talk
+						to Isabelle to invite K. K. Slider for a concert. Afterwards, he will visit your island every Saturday.
+						By then, you can talk to the talented K. K. Slider and request for any song to listen to while the credits roll.</p>
+						<div class="text-center">
+						<LinkContainer to="/songs">
+							<Button variant="outline-warning" size="lg"> Click Here To Learn More </Button>
+						</LinkContainer>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="card w-100 border-info">
+					<div class="card-body">
 						<h5 class="card-title" className='text-center'><b>Villagers</b></h5>
 						<p class="card-text" className = 'text-center'> With around 400 villagers in the game, these NPCs can
 						move onto your island to live in and is sure to brighten up your town. </p>
 						<div class="text-center">
 						<LinkContainer to="/villagers">
-							<Button variant="outline-success" size="lg"> Click Here To Learn More </Button>
+							<Button variant="outline-info" size="lg"> Click Here To Learn More </Button>
 						</LinkContainer>
 						</div>
 					</div>
