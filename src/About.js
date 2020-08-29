@@ -61,6 +61,7 @@ class About extends React.Component{
 				an AC:NH database community and for all the information I needed to look up many things on the website. Thank you. I am on the Discord of this group (which you
 				can find in the README of the link above) if you want to talk to me from there. I go by the tag CapK.</p>
 				<p class="card-text"><a href="https://github.com/acdb-team/google-sheets-to-json">ACDB-Team</a> for the information on recipes and construction. Thank you. </p>
+				<p class="card-text"><a href="https://github.com/Norviah/animal-crossing/tree/master/json">Norviah</a> for the information on clothes and reactions. Thank you. </p>
 			  </div>
 			</div>
 			<br/>

@@ -11,7 +11,7 @@ class SeaDetails extends React.Component {
     }
 	
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}/`).then(r => r.json()).then(sea_by_ID => {
+		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(sea_by_ID => {
 			this.setState({sea: sea_by_ID})
 			if('code' in sea_by_ID){
 				this.setState({canShow: false});

@@ -22,15 +22,15 @@ class Villagers(db.Model):
     """
     __tablename__ = 'villagers'
 
-    name = db.Column(db.String(256), nullable = False)
-    personality = db.Column(db.String(256), nullable = False)
-    birthday = db.Column(db.String(256), nullable = False)
-    birthdayString = db.Column(db.String(256), nullable = False)
-    species = db.Column(db.String(256), nullable = False)
-    gender = db.Column(db.String(256), nullable = False)
-    catchPhrase = db.Column(db.String(256), nullable = False)
-    image = db.Column(db.String(256), nullable = False)
-    icon = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
+    personality = db.Column(db.String(64), nullable = False)
+    birthday = db.Column(db.String(64), nullable = False)
+    birthdayString = db.Column(db.String(64), nullable = False)
+    species = db.Column(db.String(64), nullable = False)
+    gender = db.Column(db.String(64), nullable = False)
+    catchPhrase = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(64), nullable = False)
+    icon = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
 class Songs(db.Model):
@@ -46,12 +46,12 @@ class Songs(db.Model):
     """
     __tablename__= 'songs'
     
-    name = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
     buyPrice = db.Column(db.Integer, nullable = False)
     sellPrice = db.Column(db.Integer, nullable = False)
-    isOrderable = db.Column(db.String(256), nullable = False)
-    image = db.Column(db.String(256), nullable = False)
-    music = db.Column(db.String(256), nullable = False)
+    isOrderable = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(64), nullable = False)
+    music = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
 class Sea(db.Model):
@@ -72,48 +72,48 @@ class Sea(db.Model):
     '''
     __tablename__= 'sea'
     
-    name = db.Column(db.String(256), nullable = False)
-    monthNorth = db.Column(db.String(256), nullable = False)
-    monthSouth = db.Column(db.String(256), nullable = False)
-    time = db.Column(db.String(256), nullable = False)
-    speed = db.Column(db.String(256), nullable = False)
-    shadow = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
+    monthNorth = db.Column(db.String(64), nullable = False)
+    monthSouth = db.Column(db.String(64), nullable = False)
+    time = db.Column(db.String(64), nullable = False)
+    speed = db.Column(db.String(64), nullable = False)
+    shadow = db.Column(db.String(64), nullable = False)
     price = db.Column(db.Integer, nullable = False)
     catchPhrase = db.Column(db.String(256), nullable = False)
-    museumPhrase = db.Column(db.String(65536), nullable = False)
-    image = db.Column(db.String(256), nullable = False)
-    icon = db.Column(db.String(256), nullable = False)
+    museumPhrase = db.Column(db.String(8192), nullable = False)
+    image = db.Column(db.String(64), nullable = False)
+    icon = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
 class Recipes(db.Model):
     __tablename__ = 'recipes'
     
-    name = db.Column(db.String(256), nullable = False)
-    buyPrice = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
+    buyPrice = db.Column(db.String(64), nullable = False)
     sellPrice = db.Column(db.Integer, nullable = False)
-    source = db.Column(db.String(256), nullable = False)
+    source = db.Column(db.String(128), nullable = False)
     recipesToUnlock = db.Column(db.Integer, nullable = False)
-    category = db.Column(db.String(256), nullable = False)
-    cardColor = db.Column(db.String(256), nullable = False)
-    materials = db.Column(db.String(256), nullable = False)
+    category = db.Column(db.String(128), nullable = False)
+    cardColor = db.Column(db.String(64), nullable = False)
+    materials = db.Column(db.String(128), nullable = False)
     sourceNotes = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
 class Items(db.Model):
     __tablename__= 'items'
     
-    name = db.Column(db.String(256), nullable = False)
-    canCustomize = db.Column(db.Boolean, nullable = False)
-    kitCost = db.Column(db.String(256), nullable = True)
-    size = db.Column(db.String(256), nullable = False)
-    source = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
+    kitCost = db.Column(db.String(64), nullable = True)
+    size = db.Column(db.String(64), nullable = False)
+    source = db.Column(db.String(64), nullable = False)
     isInteractive = db.Column(db.Boolean, nullable = False)
-    name = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
     buyPrice = db.Column(db.Integer, nullable = True)
     sellPrice = db.Column(db.Integer, nullable = True)
-    image = db.Column(db.String(256), nullable = False)
-    category = db.Column(db.String(256), nullable = False)
-    variant = db.Column(db.String(65536), nullable = False)
+    image = db.Column(db.String(8192), nullable = False)
+    category = db.Column(db.String(64), nullable = False)
+    variant = db.Column(db.String(1024), nullable = False)
+    pattern = db.Column(db.String(1024), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
 
     
@@ -128,10 +128,10 @@ class Fossils(db.Model):
     '''
     __tablename__ = 'fossils'
     
-    name = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
     price = db.Column(db.Integer, nullable = False)
-    museumPhrase = db.Column(db.String(65536), nullable = False)
-    image = db.Column(db.String(256), nullable = False)
+    museumPhrase = db.Column(db.String(8192), nullable = False)
+    image = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
 class Fishes(db.Model):
@@ -153,18 +153,18 @@ class Fishes(db.Model):
     '''
     __tablename__ = 'fishes'
     
-    name = db.Column(db.String(256), nullable = False)
-    monthNorth = db.Column(db.String(256), nullable = False)
-    monthSouth = db.Column(db.String(256), nullable = False)
-    time = db.Column(db.String(256), nullable = False)
-    location = db.Column(db.String(256), nullable = False)
-    rarity = db.Column(db.String(256), nullable = False)
-    shadow = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
+    monthNorth = db.Column(db.String(64), nullable = False)
+    monthSouth = db.Column(db.String(64), nullable = False)
+    time = db.Column(db.String(64), nullable = False)
+    location = db.Column(db.String(64), nullable = False)
+    rarity = db.Column(db.String(64), nullable = False)
+    shadow = db.Column(db.String(64), nullable = False)
     price = db.Column(db.Integer, nullable = False)
     catchPhrase = db.Column(db.String(256), nullable = False)
-    museumPhrase = db.Column(db.String(65536), nullable = False)
-    image = db.Column(db.String(256), nullable = False)
-    icon = db.Column(db.String(256), nullable = False)
+    museumPhrase = db.Column(db.String(8192), nullable = False)
+    image = db.Column(db.String(64), nullable = False)
+    icon = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
 class Bugs(db.Model):
@@ -185,49 +185,74 @@ class Bugs(db.Model):
     '''
     __tablename__ = 'bugs'
     
-    name = db.Column(db.String(256), nullable = False)
-    monthNorth = db.Column(db.String(256), nullable = False)
-    monthSouth = db.Column(db.String(256), nullable = False)
-    time = db.Column(db.String(256), nullable = False)
-    location = db.Column(db.String(256), nullable = False)
-    rarity = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
+    monthNorth = db.Column(db.String(64), nullable = False)
+    monthSouth = db.Column(db.String(64), nullable = False)
+    time = db.Column(db.String(64), nullable = False)
+    location = db.Column(db.String(64), nullable = False)
+    rarity = db.Column(db.String(64), nullable = False)
     price = db.Column(db.Integer, nullable = False)
     catchPhrase = db.Column(db.String(256), nullable = False)
-    museumPhrase = db.Column(db.String(65536), nullable = False)
-    image = db.Column(db.String(256), nullable = False)
-    icon = db.Column(db.String(256), nullable = False)
+    museumPhrase = db.Column(db.String(8192), nullable = False)
+    image = db.Column(db.String(64), nullable = False)
+    icon = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
 
 class Arts(db.Model):
 
     __tablename__ = 'arts'
     
-    name = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
     hasFake = db.Column(db.Boolean, nullable = False)
     buyPrice = db.Column(db.Integer, nullable = False)
     sellPrice = db.Column(db.Integer, nullable = False)
-    image = db.Column(db.String(256), nullable = False)
-    museum = db.Column(db.String(65536), nullable = False)
+    image = db.Column(db.String(64), nullable = False)
+    museum = db.Column(db.String(8192), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
     
 class Construction(db.Model):
     
     __tablename__ = 'construction'
     
-    name = db.Column(db.String(256), nullable = False)
-    image = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(128), nullable = False)
     buyPrice = db.Column(db.Integer, nullable = False)
+    source = db.Column(db.String(64), nullable = False)
+    category = db.Column(db.String(64), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
+    
+class Reactions(db.Model):
+    __tablename__ = 'reactions'
+    
+    name = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(64), nullable = False)
+    source = db.Column(db.String(64), nullable = False)
+    sourceNotes = db.Column(db.String(128), nullable = True)
+    id = db.Column(db.Integer, primary_key = True)
+    
+class Clothes(db.Model):
+    __tablename__ = 'clothes'
+    
+    name = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(8192), nullable = False)
+    sourceSheet = db.Column(db.String(64), nullable = False)
+    buy = db.Column(db.Integer, nullable = False)
+    sell = db.Column(db.Integer, nullable = False)
     source = db.Column(db.String(256), nullable = False)
-    category = db.Column(db.String(256), nullable = False)
+    seasonal = db.Column(db.String(64), nullable = False)
+    villager = db.Column(db.Boolean, nullable = False)
+    themes = db.Column(db.String(256), nullable = False)
+    variations = db.Column(db.String(256), nullable = True)
     id = db.Column(db.Integer, primary_key = True)
 
 class Search(db.Model):
     __tablename__ = 'search'
     
-    name = db.Column(db.String(256), nullable = False)
-    category = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(64), nullable = False)
+    category = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, nullable = False)
     searchID = db.Column(db.Integer, primary_key = True)
     
+
     
 db.create_all()

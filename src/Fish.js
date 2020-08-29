@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import ShowMoreText from 'react-show-more-text';
 
 const TITLE = 'AC:NH Fish'
 
@@ -28,7 +29,7 @@ class Fish extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/fish/${row.id}`}}>{cell}</Link></b> 
+                <b className="capitalize"><Link to={{pathname: `/fish/${row.id}/`}}>{cell}</Link></b> 
             );
         }
 		
@@ -288,14 +289,19 @@ class Fish extends React.Component {
 		}];
 			
 		function truncate(cell, row) {
-		   if (cell.length > 64) {
-			    var link = <Link to={{pathname: `/fish/${row.id}`}}>...</Link>;
-				return (
-					<div> {cell.substring(0, 64)}{link} </div>
-				)
-				//return cell.substring(0, 64) + "...";
-		   }
-		   return cell;
+		   return(
+				<ShowMoreText
+					/* Default options */
+					lines={5}
+					more='Show more'
+					less='Show less'
+					anchorClass=''
+					onClick={this.executeOnClick}
+					expanded={false}
+				>
+					{cell}
+				</ShowMoreText>
+		   )
 		};
 		
         const {fishes} = this.state
@@ -416,7 +422,7 @@ class Fish extends React.Component {
                 text: 'Fish Name',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Name: <Link to={{pathname: `/fish/${row.id}`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Name: <Link to={{pathname: `/fish/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				},
 				align: "center",
@@ -546,7 +552,7 @@ class Fish extends React.Component {
 						data={ fishes }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory( {sizePerPage: 25} ) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 					/>

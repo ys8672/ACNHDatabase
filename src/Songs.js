@@ -28,7 +28,7 @@ class Songs extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/songs/${row.id}`}}>{cell}</Link></b>
+                <b className="capitalize"><Link to={{pathname: `/songs/${row.id}/`}}>{cell}</Link></b>
             );
         }
 		
@@ -141,7 +141,7 @@ class Songs extends React.Component {
 		function mobileName(cell, row){
 			return (
 				<div>
-					<h5><b>Song Name: <Link to={{pathname: `/songs/${row.id}`}}>{cell}</Link></b></h5>
+					<h5><b>Song Name: <Link to={{pathname: `/songs/${row.id}/`}}>{cell}</Link></b></h5>
 				</div>
             );
 		}
@@ -236,7 +236,7 @@ class Songs extends React.Component {
 						data={ songs }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory({sizePerPage: 25}) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 						

@@ -1,14 +1,14 @@
 import json
 from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
-    Recipes, Search
+    Recipes, Search, Reactions, Clothes
     
 #Run this file with 'python create_db.py' to create the database.
 
 #Loads JSON file 
 def load_json(filename):
     realfilename = str('json/') + filename
-    with open(realfilename) as file:
+    with open(realfilename, encoding='utf-8') as file:
         jsn = json.load(file)
         file.close()
     return jsn
@@ -183,7 +183,6 @@ def create_items_helper(files):
         housewares = load_json(string)
         for (k, item) in housewares.items():
             name = item[0]['name']['name-USen']
-            canCustomize = (item[0]['canCustomizeBody'] or item[0]['canCustomizePattern'])
             kitCost = item[0]['kit-cost']
             if kitCost == None:
                 kitCost = -1
@@ -194,22 +193,33 @@ def create_items_helper(files):
                 isInteractive = True
             buyPrice = item[0]['buy-price']
             sellPrice = item[0]['sell-price']
-            image = item[0]['image_uri']
             category = item[0]['tag']
             if category == "":
                 category = str('N/A')
-            variant_list = []          
+            variant_list = []
+            image_list = []  
+            pattern_list = []
             for i in item:
                 v = i['variant']
                 if not v in variant_list:
                     variant_list.append(v)
+                img = i['image_uri']
+                if not img in image_list:
+                    image_list.append(img)
+                p = i['pattern']
+                if not p in pattern_list:
+                    pattern_list.append(p)
             variant = ""
             if variant_list[0] != None:
                 variant = ', '.join(variant_list)
+            image = ','.join(image_list)
+            pattern = ""
+            if pattern_list[0] != None:
+                pattern = ', '.join(pattern_list)
             id = index
-            new_item = Items(name = name, canCustomize = canCustomize, kitCost = kitCost, size = size,
+            new_item = Items(name = name, kitCost = kitCost, size = size,
                 source = source, isInteractive = isInteractive, buyPrice = buyPrice, sellPrice = sellPrice,
-                image = image, category = category, variant = variant, id = id)
+                image = image, category = category, variant = variant, pattern = pattern, id = id)
             db.session.add(new_item)
             db.session.commit()
             index += 1       
@@ -267,6 +277,86 @@ def create_recipes():
         db.session.add(new_item)
         db.session.commit()
         index += 1  
+        
+def create_reactions():
+    db.session.query(Reactions).delete()
+    reactions = load_json('reactions.json')
+    index = 1
+    for reaction in reactions:
+        name = reaction['name']
+        image = reaction['image']
+        source = reaction['source'][0] + " Villagers"
+        sourceNotes = reaction['sourceNotes']
+        id = index
+        new_item = Reactions(name = name, image = image, source = source, sourceNotes = sourceNotes, id = id)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1
+            
+def create_clothes():
+    db.session.query(Clothes).delete()
+    #Note: umbrellas are not current used.
+    clothes_list = ['accessories.json', 'bags.json', 'bottoms.json', 'clothing_other.json', 'dress_up.json',
+        'headwear.json', 'shoes.json', 'socks.json', 'tops.json']
+    index = 1
+    for string in clothes_list:
+        clothes = load_json(string)
+        for cloth in clothes:
+            name = cloth['name']
+            # Get first from variation if this does not exist.
+            image = ''
+            if 'closetImage' in cloth:
+                image = cloth['closetImage']
+            # else:
+                # variant = cloth['variations'][0]
+                # image = variant['closetImage']
+            if 'variation' in cloth and cloth['variation'] == None:
+                variations = None
+            else:
+                variant_list = []
+                image_list = []
+                for variant in cloth['variations']:
+                    variant_list.append(str(variant['variation']))
+                    image_list.append(str(variant['closetImage']))
+                variations = ", ".join(variant_list)
+                image = ",".join(image_list)
+                
+            sourceSheet = cloth['sourceSheet']
+            buy = cloth['buy']
+            sell = cloth['sell']
+            source = ', '.join(cloth['source']) 
+            if cloth['sourceNotes'] != None:
+                source += ' (' + cloth['sourceNotes'] + ')'
+            seasonal = cloth['seasonalAvailability']
+            villager = cloth['villagerEquippable']
+            themes = ', '.join(cloth['themes'])
+            id = index
+            new_item = Clothes(name = name, image = image, sourceSheet = sourceSheet, buy = buy, sell = sell,
+                source = source, seasonal = seasonal, villager = villager, themes = themes, variations = variations, id = id)
+            db.session.add(new_item)
+            db.session.commit()
+            index += 1
+    #Umbrella is lacks certain keys, and I didn't want to do more if statements just to check for 1 type of clothing, so it is done here.
+    umbrellas = load_json('umbrellas.json')
+    for umbrella in umbrellas:
+        name = umbrella['name']
+        image = umbrella['closetImage']
+        sourceSheet = umbrella['sourceSheet']
+        buy = umbrella['buy']
+        sell = umbrella['sell']
+        source = ', '.join(umbrella['source']) 
+        if umbrella['sourceNotes'] != None:
+            source += ' (' + umbrella['sourceNotes'] + ')'
+        seasonal = "All Year"
+        villager = umbrella['villagerEquippable']
+        themes = "N/A"
+        variations = None
+        id = index
+        new_item = Clothes(name = name, image = image, sourceSheet = sourceSheet, buy = buy, sell = sell,
+            source = source, seasonal = seasonal, villager = villager, themes = themes, variations = variations, id = id)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1
 
 def create_search():
     searchID = 1
@@ -341,6 +431,34 @@ def create_search():
         db.session.commit()
         index += 1  
         searchID += 1
+    #reactions add
+    reactions = load_json('reactions.json')
+    index = 1
+    for reaction in reactions:
+        name = reaction['name']
+        category = 'reactions'
+        id = index
+        new_item = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_item)
+        db.session.commit()
+        index += 1
+        searchID += 1
+    #clothing add
+    clothes_list = ['accessories.json', 'bags.json', 'bottoms.json', 'clothing_other.json', 'dress_up.json',
+        'headwear.json', 'shoes.json', 'socks.json', 'tops.json', 'umbrellas.json']
+    index = 1
+    for clothes in clothes_list:
+        cloth = load_json(clothes)
+        for c in cloth:
+            name = c['name']
+            category = 'clothes'
+            id = index
+            new_item = Search(name = name, category = category, id = id, searchID = searchID)
+            db.session.add(new_item)
+            db.session.commit()
+            index += 1
+            searchID += 1
+        
     
     
 
@@ -357,6 +475,8 @@ def create_database():
     create_arts()
     create_construction()
     create_recipes()
+    create_reactions()
+    create_clothes()
     create_search()
 
 create_database()

@@ -46,7 +46,7 @@ class Villagers extends React.Component {
 		function villagerFormatter(cell, row) {
             return (
 				<div>
-					<b><Link to={{pathname: `/villagers/${row.id}`}}>{cell}</Link></b>
+					<b><Link to={{pathname: `/villagers/${row.id}/`}}>{cell}</Link></b>
 				</div>
                 
             );
@@ -278,7 +278,7 @@ class Villagers extends React.Component {
 		function mobileName(cell, row){
 			return (
 				<div>
-					<h5><b>Villager Name: <Link to={{pathname: `/villagers/${row.id}`}}>{cell}</Link></b></h5>
+					<h5><b>Villager Name: <Link to={{pathname: `/villagers/${row.id}/`}}>{cell}</Link></b></h5>
 				</div>
             );
 		}
@@ -393,7 +393,7 @@ class Villagers extends React.Component {
 						data={ villagers }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory({sizePerPage: 25}) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 					/>

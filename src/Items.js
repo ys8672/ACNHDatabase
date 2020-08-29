@@ -7,6 +7,8 @@ import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import AliceCarousel from 'react-alice-carousel';
+import "react-alice-carousel/lib/alice-carousel.css";
 
 const TITLE = 'AC:NH Items'
 
@@ -28,14 +30,28 @@ class Items extends React.Component {
     render() {
 		function nameFormatter(cell, row) {
             return (
-                <b className="capitalize"><Link to={{pathname: `/items/${row.id}`}}>{cell}</Link></b>
+                <b><Link to={{pathname: `/items/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b>
             );
         }
 		
         function imageFormatter(cell, row) {
+			var imageArray = cell.split(',');
+			const img = imageArray.map(str => 
+                <img src={str} alt="" style={{maxHeight: '100%', maxWidth: '100%'}}/>
+			)
             return (
-                <img className="img" src={cell} alt=""
-                     style={{maxHeight: '75%', maxWidth: '75%'}}/>
+				<div>
+					<AliceCarousel
+						items={img}
+						autoPlayInterval={3000}
+						autoPlay={true}
+						fadeOutAnimation={true}
+						mouseTrackingEnabled={true}
+						disableAutoPlayOnAction={true}
+						dotsDisabled={true}
+						buttonsDisabled={true}
+					  />
+				</div>
             );
         }
 		
@@ -221,16 +237,6 @@ class Items extends React.Component {
 				align: "center",
 				headerAlign: 'center'
 			},{
-                dataField: 'canCustomize',
-                text: 'Customizable?',
-                sort: true,
-				align: "center",
-				headerAlign: 'center',
-				formatter: booleanFormatter,
-				filter: selectFilter({
-					options: selectBoolean
-				})
-			},{
                 dataField: 'kitCost',
                 text: 'Customization Kit Cost',
                 sort: true,
@@ -303,6 +309,14 @@ class Items extends React.Component {
 				formatter: emptyFormatter,
 				filter: textFilter()
 			},{
+                dataField: 'pattern',
+                text: 'List of Patterns',
+                sort: false,
+				align: "center",
+				headerAlign: 'center',
+				formatter: emptyFormatter,
+				filter: textFilter()
+			},{
                 dataField: 'id',
                 text: 'ID',
                 sort: true,
@@ -335,17 +349,6 @@ class Items extends React.Component {
 				searchable: false,
 				align: "center",
 				headerAlign: 'center'
-			},{
-                dataField: 'canCustomize',
-                text: 'Customizable?',
-				align: "center",
-				headerAlign: 'center',
-				formatter: (cell, row) => {
-					return(
-						<div><b>Customizable?: </b> {booleanFormatter(cell, row)} </div>
-					);
-				},
-				filterValue: booleanFormatter
 			},{
                 dataField: 'kitCost',
                 text: 'Customization Kit Cost',
@@ -428,7 +431,18 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Purchase Price: </b> {emptyFormatter(cell, row)} </div>
+						<div><b>List of Variants: </b> {emptyFormatter(cell, row)} </div>
+					);
+				},
+				filterValue: emptyFormatter
+			},{
+                dataField: 'pattern',
+                text: 'List of Patterns',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>List of Patterns: </b> {emptyFormatter(cell, row)} </div>
 					);
 				},
 				filterValue: emptyFormatter
@@ -458,7 +472,7 @@ class Items extends React.Component {
 						data={ items }
 						columns={ columns }
 						striped
-						pagination={ paginationFactory() }
+						pagination={ paginationFactory({sizePerPage: 25}) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
 						
