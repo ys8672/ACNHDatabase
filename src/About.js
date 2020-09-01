@@ -16,7 +16,7 @@ class About extends React.Component{
 				<h1 class="display-4 text-center"><b>About This Website</b></h1>
 				<p class="lead">Hello, Welcome to the Animal Crossing: New Horizons Database. This website is
 					my attempt at creating a database of information about Animal Crossing: New Horizons. Currently,
-					I have catalogued art pieces, bugs, construction, fish, fossils, items, recipes, deep sea creatures, K.K. Slider
+					I have catalogued art pieces, bugs, clothings, construction, fish, fossils, items, reactions, recipes, deep sea creatures, K.K. Slider
 					songs, and villagers into tables that are convienent to search and filter through for the
 					average user. I do plan on updating my website from time to time, so look forward to updates
 					in the future. </p>
@@ -29,7 +29,7 @@ class About extends React.Component{
 
 			<div class="card mb-3 w-100 border-secondary">
 			  <div class="row no-gutters">
-				<div class="col-md-4">
+				<div class="col-md-4" style={{display: 'flex', justifyContent: 'center'}}>
 				  <img src={process.env.PUBLIC_URL + '/avatar.png'} class="card-img" alt="" />
 				</div>
 				<div class="col-md-8">
@@ -56,12 +56,11 @@ class About extends React.Component{
 				<h1 class="card-title" className="text-center"><b> Special Shoutouts To: </b></h1>
 				<p class="card-text"><a href="http://acnhapi.com/">ACNH API</a> for the for helping me with getting most of the information I needed to make this website,
 					including art pieces, bugs, fish, fossils, items, sea creatures, songs, and villagers. I would
-					have had a way harder time creating the database for this website otherwise. Thank you. </p>
+					have had a way harder time creating the database for this website otherwise.</p>
 				<p class="Card-text"><a href="https://docs.google.com/spreadsheets/d/13d_LAJPlxMa_DubPTuirkIV4DERBMXbrWQsmSh8ReK4/edit#gid=93332535">ACNH Spreadsheet</a> for
-				an AC:NH database community and for all the information I needed to look up many things on the website. Thank you. I am on the Discord of this group (which you
-				can find in the README of the link above) if you want to talk to me from there. I go by the tag CapK.</p>
-				<p class="card-text"><a href="https://github.com/acdb-team/google-sheets-to-json">ACDB-Team</a> for the information on recipes and construction. Thank you. </p>
-				<p class="card-text"><a href="https://github.com/Norviah/animal-crossing/tree/master/json">Norviah</a> for the information on clothes and reactions. Thank you. </p>
+				an AC:NH database community and for all the information I needed to look up many things on the website.</p>
+				<p class="card-text"><a href="https://github.com/acdb-team/google-sheets-to-json">ACDB-Team</a> for the information on recipes and construction.</p>
+				<p class="card-text"><a href="https://github.com/Norviah/animal-crossing/tree/master/json">Norviah</a> for the information on clothes and reactions. </p>
 			  </div>
 			</div>
 			<br/>

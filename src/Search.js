@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import Highlighter from "react-highlight-words"
 import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
 
-const TITLE = 'ACNH Image Search'
+const TITLE = 'ACNH Search'
 
 class Search extends React.Component {
 	constructor(props) {
@@ -220,7 +220,7 @@ class Search extends React.Component {
 	
 	render() {
 		return(
-			<div class="frontpagepadding">
+			<div class="frontpagepadding background-blue">
 				<Helmet>
 				  <title>{ TITLE }</title>
 				</Helmet>
