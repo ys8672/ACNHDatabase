@@ -232,7 +232,7 @@ class FrontPage extends React.Component{
 								<img className="img-center" src="https://i.imgur.com/PvMcwbp.png" alt=""/>
 							</div> 
 							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<img className="img-center" src="https://i.imgur.com/DUKk72n.png" alt=""/>
+								<img className="img-center" src="https://i.imgur.com/DUKk72n.png" alt="Welcome to the Animal Crossing: New Horizons Database"/>
 							</div> 
 						</div>
 					</BrowserView>

@@ -413,15 +413,16 @@ class Villagers extends React.Component {
 		  fontFamily: 'sans-serif',
 		};
 				
-		//for some reason if I don't have charts as the defaultActiveKey first the bubble chart text starts at the center instead
-		//of being centered. Until this is figured out I have no choice but to keep it like this for now.
         return (
             <div>
 				<Helmet>
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Villagers</h1>				
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/villagers.png'} class="card-img" alt="Villagers" 
+					style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
 				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
 				  <Tab eventKey="table" title="Table">		
 					<BrowserView>

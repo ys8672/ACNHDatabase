@@ -169,7 +169,10 @@ class Reactions extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Reactions</h1>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/reactions.png'} class="card-img" alt="Reactions" 
+					style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
 				
 				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
 				  <Tab eventKey="table" title="Table">		
