@@ -3,7 +3,7 @@ import './index.css';
 import { Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { LinkContainer } from 'react-router-bootstrap';
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 
 const TITLE = 'AC:NH Database'
 
@@ -20,7 +20,7 @@ class FrontPage extends React.Component{
 					<h4 className='text-center'>
 						Hello there! Do you want to know more about Animal Crossing: New Horizons for
 						the Nintendo Switch? Well look no further. We have 12 interesting pages, each with unique topics
-						about this relaxing game. Use the search bar 
+						about this relaxing game. Go to our search page
 						or click on any of the links below to learn more about that specific topic. 
 					</h4>
 				</div>	
@@ -29,10 +29,9 @@ class FrontPage extends React.Component{
 				<div>
 					<h1 className='text-center'><b> Search: </b></h1>
 					<div style={{display: 'flex', justifyContent: 'center'}}>
-						<input class="form-control form-control-lg" type="text" id="searchBar"
-							   placeholder="Search Anything Here:"></input>
-						<button type="submit" class="btn btn-primary btn-lg" onClick=''>Search
-						</button>
+							<LinkContainer to="/search">
+								<Button variant="btn btn-success" size="lg"> Go To Search Page </Button>
+							</LinkContainer>
 					</div>
 					<br/>
 				</div>

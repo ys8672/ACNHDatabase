@@ -4,9 +4,11 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter} from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import { PieChart } from 'react-minimal-pie-chart';
+import { Tabs, Tab, Carousel } from 'react-bootstrap';
 
 const TITLE = 'AC:NH Villagers'
 
@@ -27,7 +29,16 @@ class Villagers extends React.Component {
 	
 		
     render() {
-		
+		const data = this.state.villagers
+		let res = data.reduce(function(obj, v) {
+		  // increment or set the property
+		  // `(obj[v.status] || 0)` returns the property value if defined
+		  // or 0 ( since `undefined` is a falsy value
+		  obj[v.gender] = (obj[v.gender] || 0) + 1;
+		  // return the updated object
+		  return obj;
+		  // set the initial value as an object
+		}, {})
 		
         function imageFormatter(cell, row) {
             return (
@@ -377,8 +388,14 @@ class Villagers extends React.Component {
 				searchable: false
             }]
 		}; 
+		
+		const defaultLabelStyle = {
+		  fontSize: '5px',
+		  fontFamily: 'sans-serif',
+		};
 				
         return (
+
             <div>
 				<Helmet>
 				  <title>{ TITLE }</title>
@@ -386,44 +403,69 @@ class Villagers extends React.Component {
 
                 <h1 className="text-center">Villagers</h1>
 				
-				<BrowserView>
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">
+					<BrowserView>
 					<BootstrapTable
-						bootstrap4
-						keyField = "id"
-						data={ villagers }
-						columns={ columns }
-						striped
-						pagination={ paginationFactory({sizePerPage: 25}) }
-						defaultSorted={ defaultSorted } 
-						filter={ filterFactory() }
-					/>
-				</BrowserView>
-				
-				<MobileView>
-					<ToolkitProvider
-					  keyField="id"
-					  data={ villagers }
-					  columns={ mobilecol }
-					  search
-					>
-					  {
-						props => (
-						  <div>
+							bootstrap4
+							keyField = "id"
+							data={ villagers }
+							columns={ columns }
+							striped
+							pagination={ paginationFactory({sizePerPage: 25}) }
+							defaultSorted={ defaultSorted } 
+							filter={ filterFactory() }
+						/>
+					</BrowserView>
+					
+					<MobileView>
+						<ToolkitProvider
+						  keyField="id"
+						  data={ villagers }
+						  columns={ mobilecol }
+						  search
+						>
+						  {
+							props => (
+							  <div>
+								<div style={{display: 'flex', justifyContent: 'center'}}>
+									<SearchBar { ...props.searchProps }/>
+								</div> 
+								<hr />
+								<BootstrapTable
+								  { ...props.baseProps }
+								  striped
+								  pagination={ paginationFactory() }
+								/>
+							  </div>
+							)
+						  }
+						</ToolkitProvider>
+					</MobileView>
+				  </Tab>
+				  <Tab eventKey="charts" title="Fun Charts">
+					<Carousel>
+					  <Carousel.Item>
+							<h3 className='text-center'> Villagers By Gender </h3>
+							<br/>
 							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<SearchBar { ...props.searchProps }/>
-							</div> 
-							<hr />
-							<BootstrapTable
-							  { ...props.baseProps }
-							  striped
-							  pagination={ paginationFactory() }
-							/>
-						  </div>
-						)
-					  }
-					</ToolkitProvider>
-				</MobileView>
-				
+								<PieChart data={[
+									{ title: 'Male', value: res.Male, color: '#add8e6' },
+									{ title: 'Female', value: res.Female, color: '#FFC0CB' },
+								  ]}
+								label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " Villagers (" + Math.round(dataEntry.percentage) + '%)')}
+								style={{maxHeight: '500px', maxWidth: '500px'}}
+								labelStyle={{
+									...defaultLabelStyle,
+								}}
+								/>
+							</div>
+					  </Carousel.Item>
+					</Carousel>  
+				  </Tab>
+
+				</Tabs>
+					
 			</div>
         )
     }

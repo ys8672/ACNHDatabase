@@ -2,7 +2,7 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 
 export default class Navigation extends React.Component {
     render() {
@@ -17,13 +17,24 @@ export default class Navigation extends React.Component {
 			  <Navbar.Toggle aria-controls="basic-navbar-nav" />
 			  <Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="ml-auto">
-					<LinkContainer to="/art">
-					  <Nav.Link>Art</Nav.Link>
-					</LinkContainer>
 					<LinkContainer to="/clothes">
 					  <Nav.Link>Clothes</Nav.Link>
 					</LinkContainer>
-					<NavDropdown title="Creatures">
+					
+					<LinkContainer to="/construction">
+					  <Nav.Link>Construction</Nav.Link>
+					</LinkContainer>
+					
+					<LinkContainer to="/items">
+					  <Nav.Link>Items</Nav.Link>
+					</LinkContainer>
+					
+					<NavDropdown title="Museum">
+						<NavDropdown.Item id='nav-item'>
+							<LinkContainer to="/art">
+							  <Nav.Link>Art</Nav.Link>
+							</LinkContainer>
+						</NavDropdown.Item>
 						<NavDropdown.Item id='nav-item'>
 							<LinkContainer to="/bugs">
 								<Nav.Link>Bugs</Nav.Link>
@@ -35,20 +46,17 @@ export default class Navigation extends React.Component {
 							</LinkContainer>
 						</NavDropdown.Item>
 						<NavDropdown.Item id='nav-item'>
+							<LinkContainer to="/fossils">
+							  <Nav.Link>Fossils</Nav.Link>
+							</LinkContainer>
+						</NavDropdown.Item>
+						<NavDropdown.Item id='nav-item'>
 							<LinkContainer to="/sea">
 							  <Nav.Link>Sea</Nav.Link>
 							</LinkContainer>
 						</NavDropdown.Item>
 					</NavDropdown>
-					<LinkContainer to="/construction">
-					  <Nav.Link>Construction</Nav.Link>
-					</LinkContainer>
-					<LinkContainer to="/fossils">
-					  <Nav.Link>Fossils</Nav.Link>
-					</LinkContainer>
-					<LinkContainer to="/items">
-					  <Nav.Link>Items</Nav.Link>
-					</LinkContainer>
+					
 					<LinkContainer to="/reactions">
 					  <Nav.Link>Reactions</Nav.Link>
 					</LinkContainer>
