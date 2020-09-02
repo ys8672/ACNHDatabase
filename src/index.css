@@ -70,19 +70,6 @@ ul.dropdown-menu {
 	color: #FFFFFF
 }
 
-.carousel-control-next-icon:after
-{
-  content: '>';
-  font-size: 55px;
-  color: red;
-}
-
-.carousel-control-prev-icon:after {
-  content: '<';
-  font-size: 55px;
-  color: red;
-}
-
 @media 
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {

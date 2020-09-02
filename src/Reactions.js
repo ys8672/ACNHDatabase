@@ -7,6 +7,8 @@ import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { Tabs, Tab } from 'react-bootstrap';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
 
 const TITLE = 'AC:NH Reactions'
 
@@ -26,6 +28,18 @@ class Reactions extends React.Component {
     }
 
     render() {
+		const data = this.state.reactions
+		let sourceChart = data.reduce(function(obj, v) {
+		  obj[v.source] = (obj[v.source] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let sourceList = []
+		for (const key in sourceChart) {
+			let tmp = {label: key, value: sourceChart[key]}
+			sourceList.push(tmp)
+		}
+		
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/reactions/${row.id}/`}}>{cell}</Link></b> 
@@ -156,44 +170,93 @@ class Reactions extends React.Component {
 				</Helmet>
 
                 <h1 className="text-center">Reactions</h1>
-
-				<BrowserView>
-					<BootstrapTable
-						bootstrap4
-						keyField = "id"
-						data={ reactions }
-						columns={ columns }
-						striped
-						pagination={ paginationFactory({sizePerPage: 25}) }
-						defaultSorted={ defaultSorted } 
-						filter={ filterFactory() }
-						
-					/>
-				</BrowserView>
 				
-				<MobileView>
-					<ToolkitProvider
-					  keyField="id"
-					  data={ reactions }
-					  columns={ mobilecolumns }
-					  search>
-					  {
-						props => (
-						  <div>
-							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<SearchBar { ...props.searchProps }/>
-							</div> 
-							<hr />
-							<BootstrapTable
-							  { ...props.baseProps }
-							  striped
-							  pagination={ paginationFactory() }
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">		
+
+					<BrowserView>
+						<BootstrapTable
+							bootstrap4
+							keyField = "id"
+							data={ reactions }
+							columns={ columns }
+							striped
+							pagination={ paginationFactory({sizePerPage: 25}) }
+							defaultSorted={ defaultSorted } 
+							filter={ filterFactory() }
+							
+						/>
+					</BrowserView>
+					
+					<MobileView>
+						<ToolkitProvider
+						  keyField="id"
+						  data={ reactions }
+						  columns={ mobilecolumns }
+						  search>
+						  {
+							props => (
+							  <div>
+								<div style={{display: 'flex', justifyContent: 'center'}}>
+									<SearchBar { ...props.searchProps }/>
+								</div> 
+								<hr />
+								<BootstrapTable
+								  { ...props.baseProps }
+								  striped
+								  pagination={ paginationFactory() }
+								/>
+							  </div>
+							)
+						  }
+						</ToolkitProvider>
+					</MobileView>
+				</Tab>
+				<Tab eventKey="charts" title="Fun Charts">
+				<div class="border border-success">
+					  <h3 className='text-center'> Reactions Taught By Villager Personalities </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={1000}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={sourceList}
 							/>
-						  </div>
-						)
-					  }
-					</ToolkitProvider>
-				</MobileView>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }

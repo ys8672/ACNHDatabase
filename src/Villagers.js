@@ -8,7 +8,7 @@ import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import { PieChart } from 'react-minimal-pie-chart';
-import { Tabs, Tab, Carousel } from 'react-bootstrap';
+import { Tabs, Tab } from 'react-bootstrap';
 import BubbleChart from '@weknow/react-bubble-chart-d3';
 
 const TITLE = 'AC:NH Villagers'
@@ -413,6 +413,8 @@ class Villagers extends React.Component {
 		  fontFamily: 'sans-serif',
 		};
 				
+		//for some reason if I don't have charts as the defaultActiveKey first the bubble chart text starts at the center instead
+		//of being centered. Until this is figured out I have no choice but to keep it like this for now.
         return (
             <div>
 				<Helmet>
@@ -420,7 +422,7 @@ class Villagers extends React.Component {
 				</Helmet>
 
                 <h1 className="text-center">Villagers</h1>				
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
 				  <Tab eventKey="table" title="Table">		
 					<BrowserView>
 					<BootstrapTable
@@ -460,9 +462,10 @@ class Villagers extends React.Component {
 						</ToolkitProvider>
 					</MobileView>
 				  </Tab>
+
 				  <Tab eventKey="charts" title="Fun Charts">
-					<Carousel>
-					  <Carousel.Item>
+
+						<div class="border border-success">
 							<h3 className='text-center'> Villagers By Gender </h3>
 							<div style={{display: 'flex', justifyContent: 'center'}}>
 								<PieChart data={[
@@ -476,9 +479,10 @@ class Villagers extends React.Component {
 								}}
 								/>
 							</div>
-					  </Carousel.Item>
-					  
-					  <Carousel.Item>
+							<br/>
+						</div>
+
+					<div class="border border-success">
 					  <h3 className='text-center'> Villagers By Personality </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
@@ -489,7 +493,7 @@ class Villagers extends React.Component {
 							width={750}
 							height={750}
 							padding={1} // optional value, number that set the padding between bubbles
-							showLegend={false} // optional value, pass false to disable the legend.
+							showLegend={true} // optional value, pass false to disable the legend.
 							legendPercentage={20} // number that represent the % of with that legend going to use.
 							valueFont={{
 								family: 'Arial',
@@ -512,13 +516,13 @@ class Villagers extends React.Component {
 									a non-mobile web browser. </p>
 							</MobileView>
 						</div>
-					  </Carousel.Item>
-					  
-					  <Carousel.Item>
+					</div>
+
+					<div class="border border-success">
 					  <h3 className='text-center'> Villagers By Species </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
-							<BubbleChart className="bubble_chart"
+							<BubbleChart 
 							graph={{
 								zoom: 1.0,
 							}}
@@ -554,8 +558,8 @@ class Villagers extends React.Component {
 									a non-mobile web browser. </p>
 							</MobileView>
 						</div>
-					  </Carousel.Item>					  					
-					</Carousel>  
+					</div>
+
 				  </Tab>
 				</Tabs>
 			</div>
