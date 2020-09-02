@@ -9,6 +9,7 @@ import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import { PieChart } from 'react-minimal-pie-chart';
 import { Tabs, Tab, Carousel } from 'react-bootstrap';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
 
 const TITLE = 'AC:NH Villagers'
 
@@ -30,16 +31,34 @@ class Villagers extends React.Component {
 		
     render() {
 		const data = this.state.villagers
+		
 		let res = data.reduce(function(obj, v) {
-		  // increment or set the property
-		  // `(obj[v.status] || 0)` returns the property value if defined
-		  // or 0 ( since `undefined` is a falsy value
 		  obj[v.gender] = (obj[v.gender] || 0) + 1;
-		  // return the updated object
 		  return obj;
-		  // set the initial value as an object
 		}, {})
 		
+		let personalityChart = data.reduce(function(obj, v) {
+		  obj[v.personality] = (obj[v.personality] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let personalityList = []
+		for (const key in personalityChart) {
+			let tmp = {label: key, value: personalityChart[key]}
+			personalityList.push(tmp)
+		}
+		
+		let speciesChart = data.reduce(function(obj, v) {
+		  obj[v.species] = (obj[v.species] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let speciesList = []
+		for (const key in speciesChart) {
+			let tmp = {label: key, value: speciesChart[key]}
+			speciesList.push(tmp)
+		}
+			
         function imageFormatter(cell, row) {
             return (
                 <img className="img" src={cell}
@@ -395,16 +414,14 @@ class Villagers extends React.Component {
 		};
 				
         return (
-
             <div>
 				<Helmet>
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Villagers</h1>
-				
+                <h1 className="text-center">Villagers</h1>				
 				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" class="nav nav-tabs justify-content-center">
-				  <Tab eventKey="table" title="Table">
+				  <Tab eventKey="table" title="Table">		
 					<BrowserView>
 					<BootstrapTable
 							bootstrap4
@@ -447,7 +464,6 @@ class Villagers extends React.Component {
 					<Carousel>
 					  <Carousel.Item>
 							<h3 className='text-center'> Villagers By Gender </h3>
-							<br/>
 							<div style={{display: 'flex', justifyContent: 'center'}}>
 								<PieChart data={[
 									{ title: 'Male', value: res.Male, color: '#add8e6' },
@@ -461,11 +477,87 @@ class Villagers extends React.Component {
 								/>
 							</div>
 					  </Carousel.Item>
+					  
+					  <Carousel.Item>
+					  <h3 className='text-center'> Villagers By Personality </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart
+							graph={{
+								zoom: 1.0,
+							}}
+							width={750}
+							height={750}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={false} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={personalityList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					  </Carousel.Item>
+					  
+					  <Carousel.Item>
+					  <h3 className='text-center'> Villagers By Species </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart className="bubble_chart"
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={1000}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={speciesList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					  </Carousel.Item>					  					
 					</Carousel>  
 				  </Tab>
-
 				</Tabs>
-					
 			</div>
         )
     }
