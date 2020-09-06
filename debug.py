@@ -2,6 +2,8 @@
 
 import json
 from models import app, db, Construction, Recipes, Clothes
+import matplotlib.pyplot as plt 
+import numpy as np 
 
 def load_json(filename):
     with open(filename ,encoding='utf-8') as file:
@@ -66,6 +68,9 @@ def buyPrice():
     construction = load_json('json/construction.json')
     for cons in construction:
         price_list.append(cons['buy'])
-    print(price_list)
+    print(price_list)  
+    fig = plt.figure(figsize =(10, 7)) 
+    plt.boxplot(price_list) 
+    plt.show() 
 
 buyPrice()

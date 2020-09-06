@@ -9,7 +9,8 @@ import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { Tabs, Tab } from 'react-bootstrap';
 import BubbleChart from '@weknow/react-bubble-chart-d3';
-import { Boxplot, computeBoxplotStats } from 'react-boxplot'
+import { VictoryAxis, VictoryChart, VictoryBoxPlot } from 'victory';
+
 
 const TITLE = 'AC:NH Construction'
 
@@ -52,7 +53,10 @@ class Construction extends React.Component {
 			let tmp = {label: key, value: categoryChart[key]}
 			categoryList.push(tmp)
 		}
+		let buyPriceList = data.map(a => a.buyPrice);
+		buyPriceList = buyPriceList.filter(val => val !== 5000);
 		
+		// table code
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/construction/${row.id}/`}}>{cell}</Link></b> 
@@ -264,12 +268,30 @@ class Construction extends React.Component {
 					</MobileView>
 				</Tab>
 
-				<Tab eventKey="charts" title="Fun Charts">
-				
+				<Tab eventKey="charts" title="Fun Charts">	
 					<div class='border border-success'>
-
+						<h3 className='text-center'> Box Plot of Bridge and Incline Costs </h3>
+						<VictoryChart domainPadding={0}>
+						    <VictoryAxis
+							  // tickValues specifies both the number of ticks and where
+							  // they are placed on the axis
+							  tickValues={[1]}
+							  tickFormat={["Purchase Price"]}
+							/>
+							<VictoryAxis
+							  dependentAxis
+							  // tickFormat specifies how ticks should be displayed
+							  tickFormat={(x) => (`$${x / 1000}k`)}
+							/>
+						  <VictoryBoxPlot
+							boxWidth={10}
+							data={[
+							  { x: 'Purchase Price', y: buyPriceList
+							  }
+							]}
+						  />
+						</VictoryChart>			
 					</div>
-				
 					<div class="border border-success">
 					  <h3 className='text-center'> Construction by Source </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
