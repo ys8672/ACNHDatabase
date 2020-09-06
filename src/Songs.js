@@ -293,6 +293,7 @@ class Songs extends React.Component {
 								{ title: 'Yes', value: res.Yes, color: '#add8e6' },
 								{ title: 'No', value: res.No, color: '#FFC0CB' },
 							  ]}
+							animate
 							label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " (" + Math.round(dataEntry.percentage) + '%)')}
 							style={{maxHeight: '500px', maxWidth: '500px'}}
 							labelStyle={{

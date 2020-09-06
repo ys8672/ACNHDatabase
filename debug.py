@@ -39,25 +39,33 @@ def load_json(filename):
 
 # create_construction()
 
-def create_cons():
-    index = 0
-    slist = [] 
-    clothes_list = ['accessories.json', 'bags.json', 'bottoms.json', 'clothing_other.json', 'dress_up.json',
-        'headwear.json', 'shoes.json', 'socks.json', 'tops.json']
-    for clothes in clothes_list:
-        construction = load_json('json/' + clothes)
-        for item in construction:  
-            #source = ', '.join(cloth['source'])         
-            v = item['seasonalAvailability']
-            if not v in slist and v != None:
-                slist.append(v)
+# def create_cons():
+    # index = 0
+    # slist = [] 
+    # clothes_list = ['accessories.json', 'bags.json', 'bottoms.json', 'clothing_other.json', 'dress_up.json',
+        # 'headwear.json', 'shoes.json', 'socks.json', 'tops.json']
+    # for clothes in clothes_list:
+        # construction = load_json('json/' + clothes)
+        # for item in construction:  
+            # #source = ', '.join(cloth['source'])         
+            # v = item['seasonalAvailability']
+            # if not v in slist and v != None:
+                # slist.append(v)
                     
-    slist.sort()
-    real_list = []
-    for i in slist:
-        real_list.append(("'") + str(i) + str("': '") + str(i) + str("'"))
-    variant = ""
-    variant = ',\n'.join(real_list)
-    print(variant)
+    # slist.sort()
+    # real_list = []
+    # for i in slist:
+        # real_list.append(("'") + str(i) + str("': '") + str(i) + str("'"))
+    # variant = ""
+    # variant = ',\n'.join(real_list)
+    # print(variant)
 
-create_cons()
+# create_cons()
+def buyPrice():
+    price_list = []
+    construction = load_json('json/construction.json')
+    for cons in construction:
+        price_list.append(cons['buy'])
+    print(price_list)
+
+buyPrice()

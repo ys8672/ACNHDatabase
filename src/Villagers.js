@@ -469,10 +469,12 @@ class Villagers extends React.Component {
 						<div class="border border-success">
 							<h3 className='text-center'> Villagers By Gender </h3>
 							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<PieChart data={[
+								<PieChart 
+								data={[
 									{ title: 'Male', value: res.Male, color: '#add8e6' },
 									{ title: 'Female', value: res.Female, color: '#FFC0CB' },
 								  ]}
+								animate
 								label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " Villagers (" + Math.round(dataEntry.percentage) + '%)')}
 								style={{maxHeight: '500px', maxWidth: '500px'}}
 								labelStyle={{
@@ -492,7 +494,7 @@ class Villagers extends React.Component {
 								zoom: 1.0,
 							}}
 							width={750}
-							height={750}
+							height={600}
 							padding={1} // optional value, number that set the padding between bubbles
 							showLegend={true} // optional value, pass false to disable the legend.
 							legendPercentage={20} // number that represent the % of with that legend going to use.
@@ -528,7 +530,7 @@ class Villagers extends React.Component {
 								zoom: 1.0,
 							}}
 							width={1000}
-							height={1000}
+							height={800}
 							padding={1} // optional value, number that set the padding between bubbles
 							showLegend={true} // optional value, pass false to disable the legend.
 							legendPercentage={20} // number that represent the % of with that legend going to use.
