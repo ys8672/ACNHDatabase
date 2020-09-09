@@ -9,6 +9,9 @@ import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
+import { PieChart } from 'react-minimal-pie-chart';
+import { Tabs, Tab } from 'react-bootstrap';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
 
 const TITLE = 'AC:NH Clothes'
 
@@ -28,6 +31,54 @@ class Clothes extends React.Component {
     }
 
     render() {
+		//chart stuff
+		const data = this.state.clothes
+		
+		let villagerList = data.reduce(function(obj, v) {
+		  obj[v.villager] = (obj[v.villager] || 0) + 1;
+		  return obj;
+		}, {})
+		
+		let sourceSheetChart = data.reduce(function(obj, v) {
+		  obj[v.sourceSheet] = (obj[v.sourceSheet] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let sourceSheetList = []
+		for (const key in sourceSheetChart) {
+			let tmp = {label: key, value: sourceSheetChart[key]}
+			sourceSheetList.push(tmp)
+		}
+		
+		let sourceChart = data.reduce(function(obj, v) {
+		  var newString = (v.source).replace(/\s*\(.*?\)\s*/g, '').replace(/[()]/g, '');
+		  obj[newString] = (obj[newString] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let sourceList = []
+		for (const key in sourceChart) {
+			let tmp = {label: key, value: sourceChart[key]}
+			sourceList.push(tmp)
+		}
+		
+		let seasonalChart = data.reduce(function(obj, v) {
+		  obj[v.seasonal] = (obj[v.seasonal] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let seasonalList = []
+		for (const key in seasonalChart) {
+			let tmp = {label: key, value: seasonalChart[key]}
+			seasonalList.push(tmp)
+		}
+		
+		const defaultLabelStyle = {
+		  fontSize: '5px',
+		  fontFamily: 'sans-serif',
+		};
+		
+		//table stuff
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/clothes/${row.id}/`}}>{cell}</Link></b>
@@ -359,45 +410,191 @@ class Clothes extends React.Component {
 				</Helmet>
 
                 <h1 className="text-center">Clothes</h1>
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">
 
-				<BrowserView>
+					<BrowserView>
 
-					<BootstrapTable
-						bootstrap4
-						keyField = "id"
-						data={ clothes }
-						columns={ columns }
-						striped
-						pagination={ paginationFactory( {sizePerPage: 25} ) }
-						defaultSorted={ defaultSorted } 
-						filter={ filterFactory() }
-						
-					/>
-				</BrowserView>
-				
-				<MobileView>
- 					<ToolkitProvider
-					  keyField="id"
-					  data={ clothes }
-					  columns={ mobilecolumns }
-					  search>
-					  {
-						props => (
-						  <div>
+						<BootstrapTable
+							bootstrap4
+							keyField = "id"
+							data={ clothes }
+							columns={ columns }
+							striped
+							pagination={ paginationFactory( {sizePerPage: 25} ) }
+							defaultSorted={ defaultSorted } 
+							filter={ filterFactory() }
+							
+						/>
+					</BrowserView>
+					
+					<MobileView>
+						<ToolkitProvider
+						  keyField="id"
+						  data={ clothes }
+						  columns={ mobilecolumns }
+						  search>
+						  {
+							props => (
+							  <div>
+								<div style={{display: 'flex', justifyContent: 'center'}}>
+									<SearchBar { ...props.searchProps }/>
+								</div> 
+								<hr />
+								<BootstrapTable
+								  { ...props.baseProps }
+								  striped
+								  pagination={ paginationFactory() }
+								/>
+							  </div>
+							)
+						  }
+						</ToolkitProvider> 
+					</MobileView>
+					
+					</Tab>
+
+				  <Tab eventKey="charts" title="Fun Charts">
+						<div class="border border-success">
+							<h3 className='text-center'> Can Villagers Wear These Clothes? </h3>
 							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<SearchBar { ...props.searchProps }/>
-							</div> 
-							<hr />
-							<BootstrapTable
-							  { ...props.baseProps }
-							  striped
-							  pagination={ paginationFactory() }
+								<PieChart 
+								data={[
+									{ title: 'Yes', value: villagerList.true, color: '#add8e6' },
+									{ title: 'No', value: villagerList.false, color: '#FFC0CB' },
+								  ]}
+								animate
+								label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " (" + Math.round(dataEntry.percentage) + '%)')}
+								style={{maxHeight: '500px', maxWidth: '500px'}}
+								labelStyle={{
+									...defaultLabelStyle,
+								}}
+								/>
+							</div>
+							<br/>
+						</div>
+
+					<div class="border border-success">
+					  <h3 className='text-center'> Type of Clothing </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart
+							graph={{
+								zoom: 1.0,
+							}}
+							width={750}
+							height={600}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={sourceSheetList}
 							/>
-						  </div>
-						)
-					  }
-					</ToolkitProvider> 
-				</MobileView>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+
+					<div class="border border-success">
+					  <h3 className='text-center'> Source of Clothing </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={sourceList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Clothing By Seasonal Availability </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={seasonalList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }
