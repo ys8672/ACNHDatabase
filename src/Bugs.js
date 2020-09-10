@@ -8,6 +8,9 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import ShowMoreText from 'react-show-more-text';
+import { Tabs, Tab } from 'react-bootstrap';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
+import { VictoryAxis, VictoryChart, VictoryBoxPlot } from 'victory';
 
 const TITLE = 'AC:NH Bugs'
 
@@ -27,6 +30,34 @@ class Bugs extends React.Component {
     }
 
     render() {
+		//chart stuff
+		const data = this.state.bugs
+		
+		let locationChart = data.reduce(function(obj, v) {
+		  obj[v.location] = (obj[v.location] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let locationList = []
+		for (const key in locationChart) {
+			let tmp = {label: key, value: locationChart[key]}
+			locationList.push(tmp)
+		}
+		
+		let rarityChart = data.reduce(function(obj, v) {
+		  obj[v.rarity] = (obj[v.rarity] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let rarityList = []
+		for (const key in rarityChart) {
+			let tmp = {label: key, value: rarityChart[key]}
+			rarityList.push(tmp)
+		}
+		
+		let sellPriceList = data.map(a => a.price);
+		
+		//table stuff
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/bugs/${row.id}/`}}>{cell}</Link></b> 
@@ -515,6 +546,9 @@ class Bugs extends React.Component {
 				</Helmet>
 
                 <h1 className="text-center">Bugs</h1>
+				
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">	
 
 				<BrowserView>
 
@@ -555,6 +589,118 @@ class Bugs extends React.Component {
 					  }
 					</ToolkitProvider>
 				</MobileView>
+				</Tab>
+
+				<Tab eventKey="charts" title="Fun Charts">
+					<div class="border border-success">
+					  <h3 className='text-center'> Bugs By Location </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={locationList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Bugs By Rarity </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={rarityList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class='border border-success'>
+						<h3 className='text-center'> Bugs Selling Price Box-Plot </h3>
+						<VictoryChart domainPadding={0}>
+						    <VictoryAxis
+							  // tickValues specifies both the number of ticks and where
+							  // they are placed on the axis
+							  tickValues={[1]}
+							  tickFormat={["Selling Price"]}
+							/>
+							<VictoryAxis
+							  dependentAxis
+							  // tickFormat specifies how ticks should be displayed
+							  tickFormat={(x) => (`$${x /1000}k`)}
+							/>
+						  <VictoryBoxPlot
+							boxWidth={50}
+							data={[
+							  { x: 'Selling', y: sellPriceList
+							  }
+							]}
+						  />
+						</VictoryChart>			
+					</div>
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }

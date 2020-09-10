@@ -8,6 +8,8 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import ShowMoreText from 'react-show-more-text';
+import { PieChart } from 'react-minimal-pie-chart';
+import { Tabs, Tab } from 'react-bootstrap';
 
 const TITLE = 'AC:NH Art'
 
@@ -27,6 +29,20 @@ class Arts extends React.Component {
     }
 
     render() {
+		//chart stuff
+		const data = this.state.arts
+		
+		let isInteractiveList = data.reduce(function(obj, v) {
+		  obj[v.hasFake] = (obj[v.hasFake] || 0) + 1;
+		  return obj;
+		}, {})
+		
+		const defaultLabelStyle = {
+		  fontSize: '5px',
+		  fontFamily: 'sans-serif',
+		};
+		
+		//table stuff
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/art/${row.id}/`}}>{cell}</Link></b> 
@@ -213,46 +229,71 @@ class Arts extends React.Component {
 				</Helmet>
 
                 <h1 className="text-center">Art</h1>
-
-				<BrowserView>
-
-					<BootstrapTable
-						bootstrap4
-						keyField = "id"
-						data={ arts }
-						columns={ columns }
-						striped
-						pagination={ paginationFactory( {sizePerPage: 25} ) }
-						defaultSorted={ defaultSorted } 
-						filter={ filterFactory() }
-						
-					/>
-				</BrowserView>
 				
-				<MobileView>
-					<ToolkitProvider
-					  keyField="id"
-					  data={ arts }
-					  columns={ mobilecolumns }
-					  search
-					>
-					  {
-						props => (
-						  <div>
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">		
+
+					<BrowserView>
+
+						<BootstrapTable
+							bootstrap4
+							keyField = "id"
+							data={ arts }
+							columns={ columns }
+							striped
+							pagination={ paginationFactory( {sizePerPage: 25} ) }
+							defaultSorted={ defaultSorted } 
+							filter={ filterFactory() }
+							
+						/>
+					</BrowserView>
+					
+					<MobileView>
+						<ToolkitProvider
+						  keyField="id"
+						  data={ arts }
+						  columns={ mobilecolumns }
+						  search
+						>
+						  {
+							props => (
+							  <div>
+								<div style={{display: 'flex', justifyContent: 'center'}}>
+									<SearchBar { ...props.searchProps }/>
+								</div> 
+								<hr />
+								<BootstrapTable
+								  { ...props.baseProps }
+								  striped
+								  pagination={ paginationFactory() }
+								/>
+							  </div>
+							)
+						  }
+						</ToolkitProvider>
+					</MobileView>
+				  </Tab>					
+				  <Tab eventKey="charts" title="Fun Charts">
+				  		<div class="border border-success">
+							<h3 className='text-center'> Art By Fakes </h3>
 							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<SearchBar { ...props.searchProps }/>
-							</div> 
-							<hr />
-							<BootstrapTable
-							  { ...props.baseProps }
-							  striped
-							  pagination={ paginationFactory() }
-							/>
-						  </div>
-						)
-					  }
-					</ToolkitProvider>
-				</MobileView>
+								<PieChart 
+								data={[
+									{ title: 'Has Fake Version', value: isInteractiveList.true, color: '#add8e6' },
+									{ title: 'No fake Version', value: isInteractiveList.false, color: '#FFC0CB' },
+								  ]}
+								animate
+								label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " (" + Math.round(dataEntry.percentage) + '%)')}
+								style={{maxHeight: '500px', maxWidth: '500px'}}
+								labelStyle={{
+									...defaultLabelStyle,
+								}}
+								/>
+							</div>
+							<br/>
+						</div>
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }

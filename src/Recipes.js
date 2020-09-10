@@ -61,6 +61,18 @@ class Recipes extends React.Component {
 			let tmp = {label: key, value: sourceChart[key]}
 			sourceList.push(tmp)
 		}
+		
+		let recipesToUnlockChart = data.reduce(function(obj, v) {
+		  obj[v.recipesToUnlock] = (obj[v.recipesToUnlock] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let recipesToUnlockList = []
+		for (const key in recipesToUnlockChart) {
+			let tmp = {label: key, value: recipesToUnlockChart[key]}
+			recipesToUnlockList.push(tmp)
+		}
+		
 			
 		//Normal Functions
 		function nameFormatter(cell, row) {
@@ -578,7 +590,47 @@ class Recipes extends React.Component {
 							</MobileView>
 						</div>
 					</div>
-	
+					<div class="border border-success">
+					  <h3 className='text-center'> Recipes By Number of Recipes Required To Unlock </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={recipesToUnlockList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
 				  </Tab>
 				</Tabs>
 			</div>

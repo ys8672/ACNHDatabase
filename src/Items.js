@@ -60,6 +60,17 @@ class Items extends React.Component {
 			sourceList.push(tmp)
 		}
 		
+		let categoryChart = data.reduce(function(obj, v) {
+		  obj[v.category] = (obj[v.category] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let categoryList = []
+		for (const key in categoryChart) {
+			let tmp = {label: key, value: categoryChart[key]}
+			categoryList.push(tmp)
+		}
+		
 		//table stuff
 		function nameFormatter(cell, row) {
             return (
@@ -634,6 +645,48 @@ class Items extends React.Component {
 								weight: 'bold',
 							}}
 							data={sourceList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Items by Category </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1200}
+							height={1400}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={categoryList}
 							/>
 							</BrowserView>
 							
