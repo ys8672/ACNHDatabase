@@ -687,6 +687,7 @@ class Bugs extends React.Component {
 							/>
 							<VictoryAxis
 							  dependentAxis
+							  domain={[0, 16000]}
 							  // tickFormat specifies how ticks should be displayed
 							  tickFormat={(x) => (`$${x /1000}k`)}
 							/>

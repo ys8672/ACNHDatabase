@@ -8,6 +8,9 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import ShowMoreText from 'react-show-more-text';
+import { Tabs, Tab } from 'react-bootstrap';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
+import { VictoryAxis, VictoryChart, VictoryBoxPlot } from 'victory';
 
 const TITLE = 'AC:NH Sea Creatures'
 
@@ -27,6 +30,34 @@ class Sea extends React.Component {
     }
 
     render() {
+		//chart stuff
+		const data = this.state.seas
+		
+		let speedChart = data.reduce(function(obj, v) {
+		  obj[v.speed] = (obj[v.speed] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let speedList = []
+		for (const key in speedChart) {
+			let tmp = {label: key, value: speedChart[key]}
+			speedList.push(tmp)
+		}
+		
+		let shadowChart = data.reduce(function(obj, v) {
+		  obj[v.shadow] = (obj[v.shadow] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let shadowList = []
+		for (const key in shadowChart) {
+			let tmp = {label: key, value: shadowChart[key]}
+			shadowList.push(tmp)
+		}
+		
+		let sellPriceList = data.map(a => a.price);
+		
+		//table stuff
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/sea/${row.id}/`}}>{cell}</Link></b> 
@@ -499,44 +530,158 @@ class Sea extends React.Component {
 
                 <h1 className="text-center">Sea Creatures</h1>
 
-				<BrowserView>
-					<BootstrapTable
-						bootstrap4
-						keyField = "id"
-						data={ seas }
-						columns={ columns }
-						striped
-						pagination={ paginationFactory({sizePerPage: 25}) }
-						defaultSorted={ defaultSorted } 
-						filter={ filterFactory() }
-					/>
-				</BrowserView>
-				
-				<MobileView>
-					<ToolkitProvider
-					  keyField="id"
-					  data={ seas }
-					  columns={ mobilecolumns }
-					  search
-					>
-					  {
-						props => (
-						  <div>
-							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<SearchBar { ...props.searchProps }/>
-							</div> 
-							<hr />
-							<BootstrapTable
-							  { ...props.baseProps }
-							  striped
-							  pagination={ paginationFactory() }
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">	
+					<BrowserView>
+						<BootstrapTable
+							bootstrap4
+							keyField = "id"
+							data={ seas }
+							columns={ columns }
+							striped
+							pagination={ paginationFactory({sizePerPage: 25}) }
+							defaultSorted={ defaultSorted } 
+							filter={ filterFactory() }
+						/>
+					</BrowserView>
+					
+					<MobileView>
+						<ToolkitProvider
+						  keyField="id"
+						  data={ seas }
+						  columns={ mobilecolumns }
+						  search
+						>
+						  {
+							props => (
+							  <div>
+								<div style={{display: 'flex', justifyContent: 'center'}}>
+									<SearchBar { ...props.searchProps }/>
+								</div> 
+								<hr />
+								<BootstrapTable
+								  { ...props.baseProps }
+								  striped
+								  pagination={ paginationFactory() }
+								/>
+							  </div>
+							)
+						  }
+						</ToolkitProvider>
+					</MobileView>
+				</Tab>
+				<Tab eventKey="charts" title="Fun Charts">
+					<div class="border border-success">
+					  <h3 className='text-center'> Sea Creatures By Movement Speed </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={speedList}
 							/>
-						  </div>
-						)
-					  }
-					</ToolkitProvider>
-				</MobileView>
-				
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Sea Creature By Shadow Size </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={shadowList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+
+					<div class='border border-success'>
+						<h3 className='text-center'> Sea Creatures Selling Price Box-Plot </h3>
+						<VictoryChart domainPadding={0}>
+						    <VictoryAxis
+							  // tickValues specifies both the number of ticks and where
+							  // they are placed on the axis
+							  tickValues={[1]}
+							  tickFormat={["Selling Price"]}
+							/>
+							<VictoryAxis
+							  dependentAxis
+							  domain={[0, 16000]}
+							  // tickFormat specifies how ticks should be displayed
+							  tickFormat={(x) => (`$${x /1000}k`)}
+							/>
+						  <VictoryBoxPlot 
+							boxWidth={50}
+							data={[
+							  { x: 'Selling', y: sellPriceList
+							  }
+							]}
+						  />
+						</VictoryChart>			
+					</div>
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }

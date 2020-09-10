@@ -8,6 +8,8 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import ShowMoreText from 'react-show-more-text';
+import { Tabs, Tab } from 'react-bootstrap';
+import { VictoryAxis, VictoryChart, VictoryBoxPlot } from 'victory';
 
 const TITLE = 'AC:NH Fossils'
 
@@ -27,6 +29,9 @@ class Fossils extends React.Component {
     }
 
     render() {
+		const data = this.state.fossils
+		let sellPriceList = data.map(a => a.price);
+		
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/fossils/${row.id}/`}}>{cell}</Link></b> 
@@ -164,44 +169,75 @@ class Fossils extends React.Component {
 				</Helmet>
 
                 <h1 className="text-center">Fossils</h1>
-
-				<BrowserView>
-					<BootstrapTable 
-						bootstrap4
-						keyField = "id"
-						data={ fossils }
-						columns={ columns }
-						striped
-						pagination={ paginationFactory({sizePerPage: 25}) }
-						defaultSorted={ defaultSorted } 
-						filter={ filterFactory() }
-						
-					/>
-				</BrowserView>
 				
-				<MobileView>
-					<ToolkitProvider
-					  keyField="id"
-					  data={ fossils }
-					  columns={ mobilecolumns }
-					  search>
-					  {
-						props => (
-						  <div>
-							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<SearchBar { ...props.searchProps }/>
-							</div> 
-							<hr />
-							<BootstrapTable
-							  { ...props.baseProps }
-							  striped
-							  pagination={ paginationFactory() }
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">	
+					<BrowserView>
+						<BootstrapTable 
+							bootstrap4
+							keyField = "id"
+							data={ fossils }
+							columns={ columns }
+							striped
+							pagination={ paginationFactory({sizePerPage: 25}) }
+							defaultSorted={ defaultSorted } 
+							filter={ filterFactory() }
+							
+						/>
+					</BrowserView>
+					
+					<MobileView>
+						<ToolkitProvider
+						  keyField="id"
+						  data={ fossils }
+						  columns={ mobilecolumns }
+						  search>
+						  {
+							props => (
+							  <div>
+								<div style={{display: 'flex', justifyContent: 'center'}}>
+									<SearchBar { ...props.searchProps }/>
+								</div> 
+								<hr />
+								<BootstrapTable
+								  { ...props.baseProps }
+								  striped
+								  pagination={ paginationFactory() }
+								/>
+							  </div>
+							)
+						  }
+						</ToolkitProvider>
+					</MobileView>
+				</Tab>
+				<Tab eventKey="charts" title="Fun Charts">
+
+					<div class='border border-success'>
+						<h3 className='text-center'> Fish Selling Price Box-Plot </h3>
+						<VictoryChart domainPadding={0}>
+						    <VictoryAxis
+							  // tickValues specifies both the number of ticks and where
+							  // they are placed on the axis
+							  tickValues={[1]}
+							  tickFormat={["Selling Price"]}
 							/>
-						  </div>
-						)
-					  }
-					</ToolkitProvider>
-				</MobileView>
+							<VictoryAxis
+							  dependentAxis
+							  domain={[0, 8000]}
+							  // tickFormat specifies how ticks should be displayed
+							  tickFormat={(x) => (`$${x /1000}k`)}
+							/>
+						  <VictoryBoxPlot 
+							boxWidth={50}
+							data={[
+							  { x: 'Selling', y: sellPriceList
+							  }
+							]}
+						  />
+						</VictoryChart>			
+					</div>
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }

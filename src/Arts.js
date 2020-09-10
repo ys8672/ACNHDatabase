@@ -280,7 +280,7 @@ class Arts extends React.Component {
 								<PieChart 
 								data={[
 									{ title: 'Has Fake Version', value: isInteractiveList.true, color: '#add8e6' },
-									{ title: 'No fake Version', value: isInteractiveList.false, color: '#FFC0CB' },
+									{ title: 'No Fake Version', value: isInteractiveList.false, color: '#FFC0CB' },
 								  ]}
 								animate
 								label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " (" + Math.round(dataEntry.percentage) + '%)')}
