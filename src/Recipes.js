@@ -466,7 +466,7 @@ class Recipes extends React.Component {
 
 				<div class="border border-success">
 					  <h3 className='text-center'> Recipes By Source </h3>
-					  <h5 className='text-center'> Hint: Hover over the circles or label text to see the label. </h5>
+					  <BrowserView><h5 className='text-center'> Hint: Hover over the circles or label text to see the label. </h5> </BrowserView>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 

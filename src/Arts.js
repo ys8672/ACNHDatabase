@@ -209,7 +209,7 @@ class Arts extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Museum Description: </b> {truncate(cell, row)} </div>
+						<div><b>Museum Description: </b> {cell} </div>
 					);
 				}
             }, {
