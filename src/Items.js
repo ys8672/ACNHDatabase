@@ -511,7 +511,10 @@ class Items extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Items</h1>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/items.png'} class="card-img" alt="Items" 
+					style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
 				
 				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
 				  <Tab eventKey="table" title="Table">		

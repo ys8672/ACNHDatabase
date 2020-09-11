@@ -36,7 +36,7 @@ class Recipes extends React.Component {
 		}, {})
 		let cardColorList = []
 		for (const key in cardColorChart) {
-			let tmp = {label: key, value: cardColorChart[key]}
+			let tmp = {label: key.charAt(0).toUpperCase() + key.slice(1), value: cardColorChart[key]}
 			cardColorList.push(tmp)
 		}
 		

@@ -130,9 +130,9 @@ class Sea extends React.Component {
 				return monthOneBegin + " - " + monthOneEnd + ", " + monthTwoBegin + " - " + monthTwoEnd;
 			}
 			else{
-				var field = cell.split("-");
-				var monthBegin = switchMonth(parseInt(field[0]));
-				var monthEnd = switchMonth(parseInt(field[1]));
+				var field2 = cell.split("-");
+				var monthBegin = switchMonth(parseInt(field2[0]));
+				var monthEnd = switchMonth(parseInt(field2[1]));
 				return monthBegin + " - " + monthEnd;
 			}
 		}
@@ -181,20 +181,20 @@ class Sea extends React.Component {
 					|| bMonth2Begin - aMonth2Begin || bMonth2End - aMonth2End;
 			}
 			
-			var aField = a.split("-");
-			var bField = b.split("-");
+			var aField2 = a.split("-");
+			var bField2 = b.split("-");
 			if(a.includes("&")){
 				var oneField = a.split("&");
-				aField = (oneField[0]).split("-");
+				aField2 = (oneField[0]).split("-");
 			}
 			if(b.includes("&")){
 				var twoField = b.split("&");
-				bField = (twoField[0]).split("-");
+				bField2 = (twoField[0]).split("-");
 			}
-			var aMonthBegin = parseInt(aField[0]);
-			var aMonthEnd = parseInt(aField[1]);
-			var bMonthBegin= parseInt(bField[0]);
-			var bMonthEnd = parseInt(bField[1]);
+			var aMonthBegin = parseInt(aField2[0]);
+			var aMonthEnd = parseInt(aField2[1]);
+			var bMonthBegin= parseInt(bField2[0]);
+			var bMonthEnd = parseInt(bField2[1]);
 			if (aMonthBegin > aMonthEnd){
 				aMonthEnd += 12;
 			}
@@ -528,7 +528,10 @@ class Sea extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Sea Creatures</h1>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/sea_creatures.png'} class="card-img" alt="Sea Creatures" 
+					style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
 
 				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
 				  <Tab eventKey="table" title="Table">	

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import {BrowserView, MobileView} from "react-device-detect";
 
 class FishDetails extends React.Component {
 	constructor(props) {
@@ -81,9 +80,9 @@ class FishDetails extends React.Component {
 				return monthOneBegin + " - " + monthOneEnd + ", " + monthTwoBegin + " - " + monthTwoEnd;
 			}
 			else if (cell.includes("-")){
-				var field = cell.split("-");
-				var monthBegin = switchMonth(parseInt(field[0]));
-				var monthEnd = switchMonth(parseInt(field[1]));
+				var field2 = cell.split("-");
+				var monthBegin = switchMonth(parseInt(field2[0]));
+				var monthEnd = switchMonth(parseInt(field2[1]));
 				return monthBegin + " - " + monthEnd;
 			}
 			else{

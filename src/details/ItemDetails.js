@@ -88,7 +88,7 @@ class ItemDetails extends React.Component {
 							<div class="col-md-8">
 								<div class="card-body">
 									<h1 class="card-title capitalize"><b>Name: {item.name}</b></h1>
-									<p class="card-text"><b>Customize Kit Cost:</b> {kitCostFormatter(item.kitCost)} </p>
+									<p class="card-text"><b>Customization Kit Cost:</b> {kitCostFormatter(item.kitCost)} </p>
 									<p class="card-text"><b>Size: </b> {item.size} </p>
 									<p class="card-text"><b>Where To Find:</b> {item.source} </p>
 									<p class="card-text"><b>Interactable?:</b> {booleanFormatter(item.isInteractive)} </p>

@@ -168,7 +168,10 @@ class Fossils extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Fossils</h1>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/fossils.png'} class="card-img" alt="Fossils" 
+					style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
 				
 				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
 				  <Tab eventKey="table" title="Table">	
@@ -213,7 +216,7 @@ class Fossils extends React.Component {
 				<Tab eventKey="charts" title="Fun Charts">
 
 					<div class='border border-success'>
-						<h3 className='text-center'> Fish Selling Price Box-Plot </h3>
+						<h3 className='text-center'> Fossil Selling Price Box-Plot </h3>
 						<VictoryChart domainPadding={0}>
 						    <VictoryAxis
 							  // tickValues specifies both the number of ticks and where

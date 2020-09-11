@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import { Helmet } from 'react-helmet';
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 
 const TITLE = 'AC:NH About'
 

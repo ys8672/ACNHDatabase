@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from 'react-helmet'
 import {Link} from 'react-router-dom';
 import Highlighter from "react-highlight-words"
-import {BrowserView, MobileView} from "react-device-detect";
+import {BrowserView} from "react-device-detect";
 
 const TITLE = 'ACNH Search'
 

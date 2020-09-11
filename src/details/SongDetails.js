@@ -17,7 +17,6 @@ class SongDetails extends React.Component {
 			if('code' in song_by_ID){
 				this.setState({canShow: false});
 			}
-			const canShow = this.state.canShow
         })
 	}
 	

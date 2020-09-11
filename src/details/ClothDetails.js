@@ -77,14 +77,14 @@ class ClothDetails extends React.Component {
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h1 class="card-title capitalize"><b>Clothing Name: {cloth.name}</b></h1>
+									<h1 class="card-title capitalize"><b>Name: {cloth.name}</b></h1>
 									<p class="card-text"><b>Clothing Type: </b> {cloth.sourceSheet} </p>
 									<p class="card-text"><b>Purchase Price: </b> {buyFormatter(cloth.buy)} </p>
-									<p class="card-text"><b>Selling Price </b> {cloth.sell} </p>
+									<p class="card-text"><b>Selling Price: </b> {cloth.sell} </p>
 									<p class="card-text"><b>Where To Find?: </b> {cloth.source} </p>
 									<p class="card-text"><b>Seasons Available: </b> {cloth.seasonal} </p>
 									<p class="card-text"><b>Villager Equippable?: </b> {booleanFormatter(cloth.villager)} </p>
-									<p class="card-text"><b>Themes: </b> {cloth.themes} </p>
+									<p class="card-text capitalize"><b>Themes: </b> {cloth.themes} </p>
 									<p class="card-text"><b>Variations: </b> {variationFormatter(cloth.variations)} </p>
 								</div>
 							</div>
