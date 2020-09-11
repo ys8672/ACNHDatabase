@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 
@@ -88,7 +88,7 @@ class ItemDetails extends React.Component {
 							<div class="col-md-8">
 								<div class="card-body">
 									<h1 class="card-title capitalize"><b>Name: {item.name}</b></h1>
-									<p class="card-text"><b>Customize Kit Cost:</b> {kitCostFormatter(item.kitCost)} </p>
+									<p class="card-text"><b>Customization Kit Cost:</b> {kitCostFormatter(item.kitCost)} </p>
 									<p class="card-text"><b>Size: </b> {item.size} </p>
 									<p class="card-text"><b>Where To Find:</b> {item.source} </p>
 									<p class="card-text"><b>Interactable?:</b> {booleanFormatter(item.isInteractive)} </p>

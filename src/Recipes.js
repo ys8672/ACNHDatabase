@@ -5,8 +5,10 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { Tabs, Tab } from 'react-bootstrap';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
 
 const TITLE = 'AC:NH Recipes'
 
@@ -26,6 +28,53 @@ class Recipes extends React.Component {
     }
 
     render() {
+		const data = this.state.recipes
+		//graphs code setup
+		let cardColorChart = data.reduce(function(obj, v) {
+		  obj[v.cardColor] = (obj[v.cardColor] || 0) + 1;
+		  return obj;
+		}, {})
+		let cardColorList = []
+		for (const key in cardColorChart) {
+			let tmp = {label: key.charAt(0).toUpperCase() + key.slice(1), value: cardColorChart[key]}
+			cardColorList.push(tmp)
+		}
+		
+		let categoryChart = data.reduce(function(obj, v) {
+		  obj[v.category] = (obj[v.category] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let categoryList = []
+		for (const key in categoryChart) {
+			let tmp = {label: key, value: categoryChart[key]}
+			categoryList.push(tmp)
+		}
+		
+		let sourceChart = data.reduce(function(obj, v) {
+		  obj[v.source] = (obj[v.source] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let sourceList = []
+		for (const key in sourceChart) {
+			let tmp = {label: key, value: sourceChart[key]}
+			sourceList.push(tmp)
+		}
+		
+		let recipesToUnlockChart = data.reduce(function(obj, v) {
+		  obj[v.recipesToUnlock] = (obj[v.recipesToUnlock] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let recipesToUnlockList = []
+		for (const key in recipesToUnlockChart) {
+			let tmp = {label: key, value: recipesToUnlockChart[key]}
+			recipesToUnlockList.push(tmp)
+		}
+		
+			
+		//Normal Functions
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/recipes/${row.id}/`}}>{cell}</Link></b> 
@@ -125,7 +174,7 @@ class Recipes extends React.Component {
 			'Zipper': 'Zipper'
 		}
 		
-		const selectRecipesToUnlock={
+		const selectrecipesToUnlock={
 			'0': '0',
 			'50': '50',
 			'100': '100',
@@ -213,7 +262,7 @@ class Recipes extends React.Component {
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectRecipesToUnlock
+					options: selectrecipesToUnlock
 				})
             }, {
                 dataField: 'category',
@@ -361,50 +410,229 @@ class Recipes extends React.Component {
         }
 		
         return (
+
+		
             <div>
 				<Helmet>
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Recipes</h1>
+				<div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/recipes.png'} class="card-img" alt="Recipes" 
+						style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
 
-				<BrowserView>
-					<BootstrapTable
-						bootstrap4
-						keyField = "id"
-						data={ recipes }
-						columns={ columns }
-						striped
-						pagination={ paginationFactory({sizePerPage: 25}) }
-						defaultSorted={ defaultSorted } 
-						filter={ filterFactory() }
-						
-					/>
-				</BrowserView>
-				
-				<MobileView>
-					<ToolkitProvider
-					  keyField="id"
-					  data={ recipes }
-					  columns={ mobilecolumns }
-					  search>
-					  {
-						props => (
-						  <div>
-							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<SearchBar { ...props.searchProps }/>
-							</div> 
-							<hr />
-							<BootstrapTable
-							  { ...props.baseProps }
-							  striped
-							  pagination={ paginationFactory() }
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">		
+					<BrowserView>
+						<BootstrapTable
+							bootstrap4
+							keyField = "id"
+							data={ recipes }
+							columns={ columns }
+							striped
+							pagination={ paginationFactory({sizePerPage: 25}) }
+							defaultSorted={ defaultSorted } 
+							filter={ filterFactory() }
+							
+						/>
+					</BrowserView>
+					
+					<MobileView>
+						<ToolkitProvider
+						  keyField="id"
+						  data={ recipes }
+						  columns={ mobilecolumns }
+						  search>
+						  {
+							props => (
+							  <div>
+								<div style={{display: 'flex', justifyContent: 'center'}}>
+									<SearchBar { ...props.searchProps }/>
+								</div> 
+								<hr />
+								<BootstrapTable
+								  { ...props.baseProps }
+								  striped
+								  pagination={ paginationFactory() }
+								/>
+							  </div>
+							)
+						  }
+						</ToolkitProvider>
+					</MobileView>
+				</Tab>
+				<Tab eventKey="charts" title="Fun Charts">
+
+				<div class="border border-success">
+					  <h3 className='text-center'> Recipes By Source </h3>
+					  <BrowserView><h5 className='text-center'> Hint: Hover over the circles or label text to see the label. </h5> </BrowserView>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1250}
+							height={1250}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendFont={{
+								family: 'Arial',
+								size: 10,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							bubbleClickFunc={this.bubbleClick}
+							data={sourceList}
 							/>
-						  </div>
-						)
-					  }
-					</ToolkitProvider>
-				</MobileView>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+
+					<div class="border border-success">
+					  <h3 className='text-center'> Recipes By Category </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={categoryList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+				
+					<div class="border border-success">
+					  <h3 className='text-center'> Recipes By Card Color </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={cardColorList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					<div class="border border-success">
+					  <h3 className='text-center'> Recipes By Number of Recipes Required To Unlock </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={recipesToUnlockList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }

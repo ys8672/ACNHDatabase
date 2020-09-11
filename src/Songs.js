@@ -5,8 +5,10 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { PieChart } from 'react-minimal-pie-chart';
+import { Tabs, Tab } from 'react-bootstrap';
 
 const TITLE = 'AC:NH Songs'
 
@@ -26,6 +28,16 @@ class Songs extends React.Component {
     }
 
     render() {
+		const data = this.state.songs
+		let res = data.reduce(function(obj, v) {
+		  obj[v.isOrderable] = (obj[v.isOrderable] || 0) + 1;
+		  return obj;
+		}, {})
+		const defaultLabelStyle = {
+		  fontSize: '5px',
+		  fontFamily: 'sans-serif',
+		};
+		
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/songs/${row.id}/`}}>{cell}</Link></b>
@@ -227,8 +239,13 @@ class Songs extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Songs</h1>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/songs.png'} class="card-img" alt="Songs" 
+					style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
 
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">		
 				<BrowserView>
 					<BootstrapTable
 						bootstrap4
@@ -267,6 +284,27 @@ class Songs extends React.Component {
 					  }
 					</ToolkitProvider>
 				</MobileView>
+				</Tab>
+				<Tab eventKey="charts" title="Fun Charts">
+				<div class="border border-success">
+					<h3 className='text-center'> Songs By Orderability </h3>
+					<div style={{display: 'flex', justifyContent: 'center'}}>
+							<PieChart data={[
+								{ title: 'Yes', value: res.Yes, color: '#add8e6' },
+								{ title: 'No', value: res.No, color: '#FFC0CB' },
+							  ]}
+							animate
+							label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " (" + Math.round(dataEntry.percentage) + '%)')}
+							style={{maxHeight: '500px', maxWidth: '500px'}}
+							labelStyle={{
+								...defaultLabelStyle,
+							}}
+							/>
+						</div>
+						<br/>
+					</div>
+				</Tab>
+			  </Tabs>
 			</div>
         )
     }

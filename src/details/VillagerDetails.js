@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 
 class VillagerDetails extends React.Component {
 	constructor(props) {

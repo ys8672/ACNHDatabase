@@ -4,9 +4,12 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter} from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
+import { PieChart } from 'react-minimal-pie-chart';
+import { Tabs, Tab } from 'react-bootstrap';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
 
 const TITLE = 'AC:NH Villagers'
 
@@ -27,8 +30,35 @@ class Villagers extends React.Component {
 	
 		
     render() {
+		const data = this.state.villagers
 		
+		let res = data.reduce(function(obj, v) {
+		  obj[v.gender] = (obj[v.gender] || 0) + 1;
+		  return obj;
+		}, {})
 		
+		let personalityChart = data.reduce(function(obj, v) {
+		  obj[v.personality] = (obj[v.personality] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let personalityList = []
+		for (const key in personalityChart) {
+			let tmp = {label: key, value: personalityChart[key]}
+			personalityList.push(tmp)
+		}
+		
+		let speciesChart = data.reduce(function(obj, v) {
+		  obj[v.species] = (obj[v.species] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let speciesList = []
+		for (const key in speciesChart) {
+			let tmp = {label: key, value: speciesChart[key]}
+			speciesList.push(tmp)
+		}
+			
         function imageFormatter(cell, row) {
             return (
                 <img className="img" src={cell}
@@ -377,6 +407,11 @@ class Villagers extends React.Component {
 				searchable: false
             }]
 		}; 
+		
+		const defaultLabelStyle = {
+		  fontSize: '5px',
+		  fontFamily: 'sans-serif',
+		};
 				
         return (
             <div>
@@ -384,46 +419,152 @@ class Villagers extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Villagers</h1>
-				
-				<BrowserView>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/villagers.png'} class="card-img" alt="Villagers" 
+					style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">		
+					<BrowserView>
 					<BootstrapTable
-						bootstrap4
-						keyField = "id"
-						data={ villagers }
-						columns={ columns }
-						striped
-						pagination={ paginationFactory({sizePerPage: 25}) }
-						defaultSorted={ defaultSorted } 
-						filter={ filterFactory() }
-					/>
-				</BrowserView>
-				
-				<MobileView>
-					<ToolkitProvider
-					  keyField="id"
-					  data={ villagers }
-					  columns={ mobilecol }
-					  search
-					>
-					  {
-						props => (
-						  <div>
+							bootstrap4
+							keyField = "id"
+							data={ villagers }
+							columns={ columns }
+							striped
+							pagination={ paginationFactory({sizePerPage: 25}) }
+							defaultSorted={ defaultSorted } 
+							filter={ filterFactory() }
+						/>
+					</BrowserView>
+					
+					<MobileView>
+						<ToolkitProvider
+						  keyField="id"
+						  data={ villagers }
+						  columns={ mobilecol }
+						  search
+						>
+						  {
+							props => (
+							  <div>
+								<div style={{display: 'flex', justifyContent: 'center'}}>
+									<SearchBar { ...props.searchProps }/>
+								</div> 
+								<hr />
+								<BootstrapTable
+								  { ...props.baseProps }
+								  striped
+								  pagination={ paginationFactory() }
+								/>
+							  </div>
+							)
+						  }
+						</ToolkitProvider>
+					</MobileView>
+				  </Tab>
+
+				  <Tab eventKey="charts" title="Fun Charts">
+
+						<div class="border border-success">
+							<h3 className='text-center'> Villagers By Gender </h3>
 							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<SearchBar { ...props.searchProps }/>
-							</div> 
-							<hr />
-							<BootstrapTable
-							  { ...props.baseProps }
-							  striped
-							  pagination={ paginationFactory() }
+								<PieChart 
+								data={[
+									{ title: 'Male', value: res.Male, color: '#add8e6' },
+									{ title: 'Female', value: res.Female, color: '#FFC0CB' },
+								  ]}
+								animate
+								label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " Villagers (" + Math.round(dataEntry.percentage) + '%)')}
+								style={{maxHeight: '500px', maxWidth: '500px'}}
+								labelStyle={{
+									...defaultLabelStyle,
+								}}
+								/>
+							</div>
+							<br/>
+						</div>
+
+					<div class="border border-success">
+					  <h3 className='text-center'> Villagers By Personality </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart
+							graph={{
+								zoom: 1.0,
+							}}
+							width={750}
+							height={600}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={personalityList}
 							/>
-						  </div>
-						)
-					  }
-					</ToolkitProvider>
-				</MobileView>
-				
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+
+					<div class="border border-success">
+					  <h3 className='text-center'> Villagers By Species </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={speciesList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }

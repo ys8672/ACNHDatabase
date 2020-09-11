@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 
 class SongDetails extends React.Component {
 	constructor(props) {
@@ -17,7 +17,6 @@ class SongDetails extends React.Component {
 			if('code' in song_by_ID){
 				this.setState({canShow: false});
 			}
-			const canShow = this.state.canShow
         })
 	}
 	

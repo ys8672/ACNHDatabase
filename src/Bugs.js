@@ -5,9 +5,12 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter, selectFilter, numberFilter  } from 'react-bootstrap-table2-filter';
 import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
-import {BrowserView, MobileView, isBrowser, isMobile} from "react-device-detect";
+import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import ShowMoreText from 'react-show-more-text';
+import { Tabs, Tab } from 'react-bootstrap';
+import BubbleChart from '@weknow/react-bubble-chart-d3';
+import { VictoryAxis, VictoryChart, VictoryBoxPlot } from 'victory';
 
 const TITLE = 'AC:NH Bugs'
 
@@ -27,6 +30,34 @@ class Bugs extends React.Component {
     }
 
     render() {
+		//chart stuff
+		const data = this.state.bugs
+		
+		let locationChart = data.reduce(function(obj, v) {
+		  obj[v.location] = (obj[v.location] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let locationList = []
+		for (const key in locationChart) {
+			let tmp = {label: key, value: locationChart[key]}
+			locationList.push(tmp)
+		}
+		
+		let rarityChart = data.reduce(function(obj, v) {
+		  obj[v.rarity] = (obj[v.rarity] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let rarityList = []
+		for (const key in rarityChart) {
+			let tmp = {label: key, value: rarityChart[key]}
+			rarityList.push(tmp)
+		}
+		
+		let sellPriceList = data.map(a => a.price);
+		
+		//table stuff
 		function nameFormatter(cell, row) {
             return (
                 <b className="capitalize"><Link to={{pathname: `/bugs/${row.id}/`}}>{cell}</Link></b> 
@@ -102,9 +133,9 @@ class Bugs extends React.Component {
 				return monthOneBegin + " - " + monthOneEnd + ", " + monthTwoBegin + " - " + monthTwoEnd;
 			}
 			else if (cell.includes("-")){
-				var field = cell.split("-");
-				var monthBegin = switchMonth(parseInt(field[0]));
-				var monthEnd = switchMonth(parseInt(field[1]));
+				var field2 = cell.split("-");
+				var monthBegin = switchMonth(parseInt(field2[0]));
+				var monthEnd = switchMonth(parseInt(field2[1]));
 				return monthBegin + " - " + monthEnd;
 			}
 			else{
@@ -164,20 +195,20 @@ class Bugs extends React.Component {
 					|| bMonth2Begin - aMonth2Begin || bMonth2End - aMonth2End;
 			}
 			
-			var aField = a.split("-");
-			var bField = b.split("-");
+			var aField2 = a.split("-");
+			var bField2 = b.split("-");
 			if(a.includes("&")){
 				var oneField = a.split("&");
-				aField = (oneField[0]).split("-");
+				aField2 = (oneField[0]).split("-");
 			}
 			if(b.includes("&")){
 				var twoField = b.split("&");
-				bField = (twoField[0]).split("-");
+				bField2 = (twoField[0]).split("-");
 			}
-			var aMonthBegin = parseInt(aField[0]);
-			var aMonthEnd = parseInt(aField[1]);
-			var bMonthBegin= parseInt(bField[0]);
-			var bMonthEnd = parseInt(bField[1]);
+			var aMonthBegin = parseInt(aField2[0]);
+			var aMonthEnd = parseInt(aField2[1]);
+			var bMonthBegin= parseInt(bField2[0]);
+			var bMonthEnd = parseInt(bField2[1]);
 			
 			if (aMonthBegin > aMonthEnd){
 				aMonthEnd += 12;
@@ -495,7 +526,7 @@ class Bugs extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Museum Phrase: </b> {truncate(cell, row)} </div>
+						<div><b>Museum Phrase: </b> {cell} </div>
 					);
 				}
             },{
@@ -514,7 +545,13 @@ class Bugs extends React.Component {
 				  <title>{ TITLE }</title>
 				</Helmet>
 
-                <h1 className="text-center">Bugs</h1>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+				  <img src={process.env.PUBLIC_URL + '/bugs.png'} class="card-img" alt="Bugs" 
+					style={{maxHeight: '300px', maxWidth: '300px'}}/>
+				</div>
+				
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="table" title="Table">	
 
 				<BrowserView>
 
@@ -555,6 +592,119 @@ class Bugs extends React.Component {
 					  }
 					</ToolkitProvider>
 				</MobileView>
+				</Tab>
+
+				<Tab eventKey="charts" title="Fun Charts">
+					<div class="border border-success">
+					  <h3 className='text-center'> Bugs By Location </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={locationList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Bugs By Rarity </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1000}
+							height={800}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={rarityList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class='border border-success'>
+						<h3 className='text-center'> Bugs Selling Price Box-Plot </h3>
+						<VictoryChart domainPadding={0}>
+						    <VictoryAxis
+							  // tickValues specifies both the number of ticks and where
+							  // they are placed on the axis
+							  tickValues={[1]}
+							  tickFormat={["Selling Price"]}
+							/>
+							<VictoryAxis
+							  dependentAxis
+							  domain={[0, 16000]}
+							  // tickFormat specifies how ticks should be displayed
+							  tickFormat={(x) => (`$${x /1000}k`)}
+							/>
+						  <VictoryBoxPlot
+							boxWidth={50}
+							data={[
+							  { x: 'Selling', y: sellPriceList
+							  }
+							]}
+						  />
+						</VictoryChart>			
+					</div>
+				  </Tab>
+				</Tabs>
 			</div>
         )
     }
