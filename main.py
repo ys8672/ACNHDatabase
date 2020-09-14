@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction, Recipes, Search, Reactions, Clothes
+    Construction, Recipes, Search, Reactions, Clothes, Tools
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -13,6 +13,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.route('/')
 @app.route('/villagers/')
+@app.route('/tools/')
 @app.route('/songs/')
 @app.route('/sea/')
 @app.route('/recipes/')
@@ -30,6 +31,7 @@ def index():
     return app.send_static_file('index.html')
     
 @app.route('/villagers/<int:user_id>/')
+@app.route('/tools/<int:user_id>/')
 @app.route('/songs/<int:user_id>/')
 @app.route('/sea/<int:user_id>/')
 @app.route('/recipes/<int:user_id>/')
@@ -78,6 +80,30 @@ def villager_by_ID(villager_id):
     else:
         villager = db.session.query(Villagers).filter_by(id=villager_id).one()
         dict = get_villager_dict(villager)
+    return dict
+    
+#tools
+def get_tool_dict(tool):
+    return{"name": tool.name, "image": tool.image, "variations": tool.variations, "diy": tool.diy, "kitcost": tool.kitcost,
+        "uses": tool.uses, "stacksize": tool.stacksize, "buy": tool.buy, "sell": tool.sell, "source": tool.source, "id": tool.id}
+        
+@app.route('/api/tools/')
+def tool_data():
+    response = []
+    tools_list = db.session.query(Tools).all()
+    for tool in tools_list:
+        new_one = get_tool_dict(tool)
+        response.append(new_one)
+    new_list = {'tools': response}
+    return new_list
+    
+@app.route('/api/tools/<int:tool_id>/')
+def tool_by_ID(tool_id):
+    if tool_id <= 0 or tool_id > db.session.query(Tools).count():
+        dict = {'code': 404, 'message': 'Tool not found'}
+    else:
+        tool = db.session.query(Tools).filter_by(id=tool_id).one()
+        dict = get_villager_dict(tool)
     return dict
 
 #songs

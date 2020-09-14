@@ -244,6 +244,21 @@ class Clothes(db.Model):
     themes = db.Column(db.String(256), nullable = False)
     variations = db.Column(db.String(256), nullable = True)
     id = db.Column(db.Integer, primary_key = True)
+    
+class Tools(db.Model):
+    __tablename__ = 'tools'
+    
+    name = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(8192), nullable = False)
+    variations = db.Column(db.String(256), nullable = True)
+    diy = db.Column(db.String(256), nullable = True)
+    kitcost = db.Column(db.Integer, nullable = True)
+    uses = db.Column(db.Integer, nullable = False)
+    stacksize = db.Column(db.Integer, nullable = False)
+    buy = db.Column(db.Integer, nullable = False)
+    sell = db.Column(db.Integer, nullable = False)
+    source = db.Column(db.String(256), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
 
 class Search(db.Model):
     __tablename__ = 'search'

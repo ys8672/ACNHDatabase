@@ -1,7 +1,7 @@
 import json
 from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
-    Recipes, Search, Reactions, Clothes
+    Recipes, Search, Reactions, Clothes, Tools
     
 #Run this file with 'python create_db.py' to create the database.
 
@@ -358,6 +358,55 @@ def create_clothes():
         db.session.commit()
         index += 1
 
+def create_tools():
+    db.session.query(Tools).delete()
+    tools = load_json('tools.json')
+    index = 1
+    for tool in tools:
+        name = tool['name']
+        image = ''
+        if 'image' in tool:
+            image = tool['image']
+        if 'variation' in tool and tool['variation'] == None:
+            variations = None
+        else:
+            variant_list = []
+            image_list = []
+            for variant in tool['variations']:
+                variant_list.append(str(variant['variation']))
+                image_list.append(str(variant['image']))
+            variations = ", ".join(variant_list)
+            image = ",".join(image_list)
+        diy = "Not Craftable"
+        if tool['diy'] == True:
+            material_list = []
+            for (key, value) in tool['recipe']['materials'].items():
+                material_list.append(str(value) + " " + key + "(s)")
+            diy = ", ".join(material_list)
+        kitcost = tool['kitCost']
+        uses = ''
+        if 'uses' in tool:
+            uses = tool['uses']
+        else:
+            uses = tool['variations'][0]['uses']
+        if 'stackSize' in tool:
+            stacksize = tool['stackSize']
+        else:
+            stacksize = tool['variations'][0]['stackSize']
+        buy = tool['buy']
+        sell = tool['sell']
+        source = ', '.join(tool['source']) 
+        if tool['sourceNotes'] != None:
+            source += ' (' + tool['sourceNotes'] + ')'
+        id = index
+        new_tool = Tools(name = name, image = image, variations = variations, diy = diy, kitcost = kitcost, uses = uses,
+            stacksize = stacksize, buy = buy, sell = sell, source = source, id = id)
+        db.session.add(new_tool)
+        db.session.commit()
+        index += 1
+        
+
+
 def create_search():
     searchID = 1
     def create_search_normal(file):
@@ -458,6 +507,18 @@ def create_search():
             db.session.commit()
             index += 1
             searchID += 1
+    #tools add
+    tools = load_json('tools.json')
+    index = 1
+    for tool in tools:
+        name = tool['name']
+        category = 'tools'
+        id = index
+        new_tool = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_tool)
+        db.session.commit()
+        index += 1
+        searchID += 1
         
     
     
@@ -477,6 +538,7 @@ def create_database():
     create_recipes()
     create_reactions()
     create_clothes()
+    create_tools()
     create_search()
 
 create_database()
