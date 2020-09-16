@@ -275,6 +275,43 @@ class Floors(db.Model):
     concepts = db.Column(db.String(64), nullable = False)
     tag = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
+    
+class Wallpapers(db.Model):
+    __tablename__ = 'wallpapers'
+    
+    name = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(128), nullable = False)
+    vfxtype = db.Column(db.String(64), nullable = True)
+    buy = db.Column(db.Integer, nullable = False)
+    sell = db.Column(db.Integer, nullable = False)
+    color = db.Column(db.String(64), nullable = False)
+    source = db.Column(db.String(256), nullable = False)
+    windowtype = db.Column(db.String(64), nullable = True)
+    ceilingtype = db.Column(db.String(64), nullable = True)
+    curtaintype = db.Column(db.String(64), nullable = True)
+    points = db.Column(db.Integer, nullable = False)
+    series = db.Column(db.String(64), nullable = True)
+    concepts = db.Column(db.String(64), nullable = False)
+    tag = db.Column(db.String(64), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
+    
+class Rugs(db.Model):
+    __tablename__ = 'rugs'
+    
+    name = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(128), nullable = False)
+    buy = db.Column(db.Integer, nullable = False)
+    sell = db.Column(db.Integer, nullable = False)
+    color = db.Column(db.String(64), nullable = False)
+    size = db.Column(db.String(64), nullable = False)
+    sizecategory = db.Column(db.String(64), nullable = False)
+    source = db.Column(db.String(256), nullable = False)
+    points = db.Column(db.Integer, nullable = False)
+    series = db.Column(db.String(64), nullable = True)
+    concepts = db.Column(db.String(64), nullable = False)
+    tag = db.Column(db.String(64), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
+    
 
 class Search(db.Model):
     __tablename__ = 'search'

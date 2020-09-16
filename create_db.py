@@ -1,7 +1,8 @@
 import json
 from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
-    Recipes, Search, Reactions, Clothes, Tools, Floors
+    Recipes, Search, Reactions, Clothes, Tools, Floors, \
+    Wallpapers, Rugs
     
 #Run this file with 'python create_db.py' to create the database.
 
@@ -435,6 +436,73 @@ def create_floors():
         db.session.commit()
         index += 1
 
+def create_wallpapers():
+    db.session.query(Wallpapers).delete()
+    wallpapers = load_json('wallpapers.json')
+    index = 1
+    for wallpaper in wallpapers:
+        name = wallpaper['name']
+        image = wallpaper['image']
+        vfxtype = wallpaper['vfxType']
+        buy = wallpaper['buy']
+        sell = wallpaper['sell']
+        color = ", ".join(wallpaper['colors'])
+        source = ', '.join(wallpaper['source'])
+        if wallpaper['diy'] == True:
+            material_list = []
+            for (key, value) in wallpaper['recipe']['materials'].items():
+                material_list.append(str(value) + " " + key)
+            source += " (Recipe: " + ", ".join(material_list) + ")"
+        if wallpaper['sourceNotes'] != None:
+            source += ' (' + wallpaper['sourceNotes'] + ')'
+        windowtype = wallpaper['windowType']
+        ceilingtype = wallpaper['ceilingType']
+        curtaintype = wallpaper['curtainType']
+        points = wallpaper['hhaBasePoints']
+        series = wallpaper['series']
+        concepts = ', '.join(wallpaper['concepts'])
+        tag = wallpaper['tag']
+        id = index
+        new_wallpaper = Wallpapers(name = name, image = image, vfxtype = vfxtype, buy = buy, 
+            sell = sell, color = color, source = source,
+            windowtype = windowtype, ceilingtype = ceilingtype, curtaintype = curtaintype, 
+            points = points, series = series, concepts = concepts, tag = tag, id = id)
+        db.session.add(new_wallpaper)
+        db.session.commit()
+        index += 1
+    
+def create_rugs():
+    db.session.query(Rugs).delete()
+    rugs = load_json('rugs.json')
+    index = 1
+    for rug in rugs:
+        name = rug['name']
+        image = rug['image']
+        buy = rug['buy']
+        sell = rug['sell']
+        color = ", ".join(rug['colors'])
+        source = ', '.join(rug['source'])
+        size = rug['size']
+        sizecategory = rug['sizeCategory']
+        if rug['diy'] == True:
+            material_list = []
+            for (key, value) in rug['recipe']['materials'].items():
+                material_list.append(str(value) + " " + key)
+            source += " (Recipe: " + ", ".join(material_list) + ")"
+        if rug['sourceNotes'] != None:
+            source += ' (' + rug['sourceNotes'] + ')'
+        points = rug['hhaBasePoints']
+        series = rug['series']
+        concepts = ', '.join(rug['concepts'])
+        tag = rug['tag']
+        id = index
+        new_rug = Rugs(name = name, image = image, buy = buy, sell = sell, color = color, 
+            size = size, sizecategory = sizecategory, source = source,
+            points = points, series = series, concepts = concepts, tag = tag, id = id)
+        db.session.add(new_rug)
+        db.session.commit()
+        index += 1
+
 def create_search():
     searchID = 1
     def create_search_normal(file):
@@ -559,8 +627,30 @@ def create_search():
         db.session.commit()
         index += 1
         searchID += 1
-        
-    
+    #wallpaper add
+    wallpapers = load_json('wallpapers.json')
+    index = 1
+    for wallpaper in wallpapers:
+        name = wallpaper['name']
+        category = 'wallpapers'
+        id = index
+        new_wallpaper = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_wallpaper)
+        db.session.commit()
+        index += 1
+        searchID += 1
+    #rug add
+    rugs = load_json('rugs.json')
+    index = 1
+    for rug in rugs:
+        name = rug['name']
+        category = 'rugs'
+        id = index
+        new_rug = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_rug)
+        db.session.commit()
+        index += 1
+        searchID += 1
     
 
 
@@ -580,6 +670,8 @@ def create_database():
     create_clothes()
     create_tools()
     create_floors()
+    create_wallpapers()
+    create_rugs()
     create_search()
 
 create_database()

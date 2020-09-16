@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction, Recipes, Search, Reactions, Clothes, Tools, Floors
+    Construction, Recipes, Search, Reactions, Clothes, Tools, Floors, Wallpapers, Rugs
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -12,10 +12,12 @@ CORS(app)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.route('/')
+@app.route('/wallpapers/')
 @app.route('/villagers/')
 @app.route('/tools/')
 @app.route('/songs/')
 @app.route('/sea/')
+@app.route('/rugs/')
 @app.route('/recipes/')
 @app.route('/reactions/')
 @app.route('/items/')
@@ -31,10 +33,12 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 def index():
     return app.send_static_file('index.html')
     
+@app.route('/wallpapers/<int:user_id>/')
 @app.route('/villagers/<int:user_id>/')
 @app.route('/tools/<int:user_id>/')
 @app.route('/songs/<int:user_id>/')
 @app.route('/sea/<int:user_id>/')
+@app.route('/rugs/<int:user_id>/')
 @app.route('/recipes/<int:user_id>/')
 @app.route('/reactions/<int:user_id>/')
 @app.route('/items/<int:user_id>/')
@@ -58,6 +62,9 @@ def search_data():
         response.append(new_one)
     new_list = {'search': response}
     return new_list
+
+#wallpapers
+    
     
 #villagers
 def get_villager_dict(villager):
