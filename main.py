@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction, Recipes, Search, Reactions, Clothes, Tools
+    Construction, Recipes, Search, Reactions, Clothes, Tools, Floors
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -20,6 +20,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.route('/reactions/')
 @app.route('/items/')
 @app.route('/fossils/')
+@app.route('/floors/')
 @app.route('/fish/')
 @app.route('/construction/')
 @app.route('/clothes/')
@@ -38,6 +39,7 @@ def index():
 @app.route('/reactions/<int:user_id>/')
 @app.route('/items/<int:user_id>/')
 @app.route('/fossils/<int:user_id>/')
+@app.route('/floors/<int:user_id>/')
 @app.route('/fish/<int:user_id>/')
 @app.route('/construction/<int:user_id>/')
 @app.route('/clothes/<int:user_id>/')

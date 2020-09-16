@@ -259,6 +259,22 @@ class Tools(db.Model):
     sell = db.Column(db.Integer, nullable = False)
     source = db.Column(db.String(256), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
+    
+class Floors(db.Model):
+    __tablename__ = 'floors'
+    
+    name = db.Column(db.String(64), nullable = False)
+    image = db.Column(db.String(128), nullable = False)
+    vfx = db.Column(db.Boolean, nullable = False)
+    buy = db.Column(db.Integer, nullable = False)
+    sell = db.Column(db.Integer, nullable = False)
+    color = db.Column(db.String(64), nullable = False)
+    source = db.Column(db.String(256), nullable = False)
+    points = db.Column(db.Integer, nullable = False)
+    series = db.Column(db.String(64), nullable = True)
+    concepts = db.Column(db.String(64), nullable = False)
+    tag = db.Column(db.String(64), nullable = False)
+    id = db.Column(db.Integer, primary_key = True)
 
 class Search(db.Model):
     __tablename__ = 'search'

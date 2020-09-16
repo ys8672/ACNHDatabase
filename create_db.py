@@ -1,7 +1,7 @@
 import json
 from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
-    Recipes, Search, Reactions, Clothes, Tools
+    Recipes, Search, Reactions, Clothes, Tools, Floors
     
 #Run this file with 'python create_db.py' to create the database.
 
@@ -405,7 +405,35 @@ def create_tools():
         db.session.commit()
         index += 1
         
-
+def create_floors():
+    db.session.query(Floors).delete()
+    floors = load_json('floors.json')
+    index = 1
+    for floor in floors:
+        name = floor['name']
+        image = floor['image']
+        vfx = floor['vfx']
+        buy = floor['buy']
+        sell = floor['sell']
+        color = ", ".join(floor['colors'])
+        source = ', '.join(floor['source'])
+        if floor['diy'] == True:
+            material_list = []
+            for (key, value) in floor['recipe']['materials'].items():
+                material_list.append(str(value) + " " + key)
+            source += " (Recipe: " + ", ".join(material_list) + ")"
+        if floor['sourceNotes'] != None:
+            source += ' (' + floor['sourceNotes'] + ')'
+        points = floor['hhaBasePoints']
+        series = floor['series']
+        concepts = ', '.join(floor['concepts'])
+        tag = floor['tag']
+        id = index
+        new_floor = Floors(name = name, image = image, vfx = vfx, buy = buy, sell = sell, color = color, source = source,
+            points = points, series = series, concepts = concepts, tag = tag, id = id)
+        db.session.add(new_floor)
+        db.session.commit()
+        index += 1
 
 def create_search():
     searchID = 1
@@ -519,6 +547,18 @@ def create_search():
         db.session.commit()
         index += 1
         searchID += 1
+    #floor add
+    floors = load_json('floors.json')
+    index = 1
+    for floor in floors:
+        name = floor['name']
+        category = 'floors'
+        id = index
+        new_floor = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_floor)
+        db.session.commit()
+        index += 1
+        searchID += 1
         
     
     
@@ -539,6 +579,7 @@ def create_database():
     create_reactions()
     create_clothes()
     create_tools()
+    create_floors()
     create_search()
 
 create_database()
