@@ -64,7 +64,30 @@ def search_data():
     return new_list
 
 #wallpapers
+def get_wallpaper_dict(wallpaper):
+    return {"name": wallpaper.name, "image": wallpaper.image, "vfxType": wallpaper.vfxtype, "buy": wallpaper.buy,
+        "sell": wallpaper.sell, "color": wallpaper.color, "source": wallpaper.source, "windowType": wallpaper.windowtype,
+        "ceilingType": wallpaper.ceilingtype, "curtainType": wallpaper.curtaintype, "points": wallpaper.points,
+        "series": wallpaper.series, "concepts": wallpaper.concepts, "tag": wallpaper.tag, "id": wallpaper.id}
+
+@app.route('/api/wallpapers/')
+def wallpaper_data():
+    response = []
+    wallpapers_list = db.session.query(Wallpapers).all()
+    for wallpaper in wallpapers_list:
+        new_one = get_wallpaper_dict(wallpaper)
+        response.append(new_one)
+    new_list = {'wallpapers': response}
+    return new_list
     
+@app.route('/api/wallpapers/<int:wallpaper_id>/')
+def wallpaper_by_ID(wallpaper_id):
+    if wallpaper_id <= 0 or wallpaper_id > db.session.query(Wallpapers).count():
+        dict = {'code': 404, 'message': 'Wallpaper not found'}
+    else:
+        wallpaper = db.session.query(Wallpapers).filter_by(id=wallpaper_id).one()
+        dict = get_wallpaper_dict(wallpaper)
+    return dict
     
 #villagers
 def get_villager_dict(villager):
@@ -164,6 +187,31 @@ def sea_by_ID(sea_id):
         dict = get_sea_dict(sea)
     return dict
     
+#rugs
+def get_rug_dict(rug):
+    return {"name": rug.name, "image": rug.image, "buy": rug.buy, "sell": rug.sell, "color": rug.color,
+        "size": rug.size, "sizeCategory": rug.sizecategory, "source": rug.source, "points": rug.points,
+        "series": rug.series, "concepts": rug.concepts, "tag": rug.tag, "id": rug.id}
+
+@app.route('/api/rugs/')
+def rug_data():
+    response = []
+    rugs_list = db.session.query(Rugs).all()
+    for rug in rugs_list:
+        new_one = get_rug_dict(rug)
+        response.append(new_one)
+    new_list = {'rugs': response}
+    return new_list
+    
+@app.route('/api/rugs/<int:rug_id>/')
+def rug_by_ID(rug_id):
+    if rug_id <= 0 or rug_id > db.session.query(Rugs).count():
+        dict = {'code': 404, 'message': 'rug not found'}
+    else:
+        rug = db.session.query(Rugs).filter_by(id=rug_id).one()
+        dict = get_rug_dict(rug)
+    return dict
+
 #recipes
 def get_recipe_dict(recipe):
     return {'name': recipe.name, 'buyPrice': recipe.buyPrice, 'sellPrice': recipe.sellPrice, "source": recipe.source,
@@ -261,6 +309,31 @@ def fossil_by_ID(fossil_id):
         fossil = db.session.query(Fossils).filter_by(id=fossil_id).one()
         new_dict = get_fossil_dict(fossil)
     return new_dict
+
+#floors
+def get_floor_dict(floor):
+    return {"name": floor.name, "image": floor.image, "vfx": floor.vfx, "buy": floor.buy, "sell": floor.sell,
+        "color": floor.color, "source": floor.source, "points": floor.points, "series": floor.series,
+        "concepts": floor.concepts, "tag": floor.tag, "id": floor.id}
+
+@app.route('/api/floors/')
+def floor_data():
+    response = []
+    floors_list = db.session.query(Floors).all()
+    for floor in floors_list:
+        new_one = get_floor_dict(floor)
+        response.append(new_one)
+    new_list = {'floors': response}
+    return new_list
+    
+@app.route('/api/floors/<int:floor_id>/')
+def floor_by_ID(floor_id):
+    if floor_id <= 0 or floor_id > db.session.query(Floors).count():
+        dict = {'code': 404, 'message': 'floor not found'}
+    else:
+        floor = db.session.query(Floors).filter_by(id=floor_id).one()
+        dict = get_floor_dict(floor)
+    return dict
 
 #fish
 def get_fish_dict(fish):

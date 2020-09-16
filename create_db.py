@@ -416,7 +416,7 @@ def create_floors():
         vfx = floor['vfx']
         buy = floor['buy']
         sell = floor['sell']
-        color = ", ".join(floor['colors'])
+        color = ", ".join(list(set(floor['colors'])))
         source = ', '.join(floor['source'])
         if floor['diy'] == True:
             material_list = []
@@ -446,7 +446,7 @@ def create_wallpapers():
         vfxtype = wallpaper['vfxType']
         buy = wallpaper['buy']
         sell = wallpaper['sell']
-        color = ", ".join(wallpaper['colors'])
+        color = ", ".join(list(set(wallpaper['colors'])))
         source = ', '.join(wallpaper['source'])
         if wallpaper['diy'] == True:
             material_list = []
@@ -480,7 +480,7 @@ def create_rugs():
         image = rug['image']
         buy = rug['buy']
         sell = rug['sell']
-        color = ", ".join(rug['colors'])
+        color = ", ".join(list(set(rug['colors'])))
         source = ', '.join(rug['source'])
         size = rug['size']
         sizecategory = rug['sizeCategory']
