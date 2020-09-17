@@ -94,6 +94,7 @@ class ItemDetails extends React.Component {
 									<p class="card-text"><b>Interactable?:</b> {booleanFormatter(item.isInteractive)} </p>
 									<p class="card-text"><b>Purchase Price:</b> {buyFormatter(item.buyPrice)} </p>
 									<p class="card-text"><b>Selling Price:</b> {item.sellPrice} </p>
+									<p class="card-text"><b>Type of Item:</b> {item.typeof} </p>
 									<p class="card-text"><b>Category:</b> {item.category} </p>
 									<p class="card-text"><b>Variants:</b> {emptyFormatter(item.variant)} </p>
 									<p class="card-text"><b>Patterns:</b> {emptyFormatter(item.pattern)} </p>

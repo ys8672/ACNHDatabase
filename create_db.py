@@ -217,10 +217,11 @@ def create_items_helper(files):
             pattern = ""
             if pattern_list[0] != None:
                 pattern = ', '.join(pattern_list)
+            typeof = string.split('.')[0].capitalize()
             id = index
             new_item = Items(name = name, kitCost = kitCost, size = size,
                 source = source, isInteractive = isInteractive, buyPrice = buyPrice, sellPrice = sellPrice,
-                image = image, category = category, variant = variant, pattern = pattern, id = id)
+                image = image, category = category, variant = variant, pattern = pattern, typeof = typeof, id = id)
             db.session.add(new_item)
             db.session.commit()
             index += 1       

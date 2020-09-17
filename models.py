@@ -114,6 +114,7 @@ class Items(db.Model):
     category = db.Column(db.String(64), nullable = False)
     variant = db.Column(db.String(1024), nullable = False)
     pattern = db.Column(db.String(1024), nullable = False)
+    typeof = db.Column(db.String(64), nullable = False)
     id = db.Column(db.Integer, primary_key = True)
 
     

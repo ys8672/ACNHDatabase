@@ -71,6 +71,17 @@ class Items extends React.Component {
 			categoryList.push(tmp)
 		}
 		
+		let typeofChart = data.reduce(function(obj, v) {
+		  obj[v.typeof] = (obj[v.typeof] || 0) + 1;
+		  return obj;
+
+		}, {})
+		let typeofList = []
+		for (const key in typeofChart) {
+			let tmp = {label: key, value: typeofChart[key]}
+			typeofList.push(tmp)
+		}
+		
 		//table stuff
 		function nameFormatter(cell, row) {
             return (
@@ -250,6 +261,12 @@ class Items extends React.Component {
 			'Work Bench': 'Work Bench'
 		}
 		
+		const selectTypeOf = {
+			"Houseware": "Houseware",
+			"Misc": "Misc",
+			"Wallmounted": "Wallmounted"
+		}
+		
 		function emptyFormatter(cell, row) {
 			if(cell === ''){
 				return "N/A"
@@ -334,6 +351,15 @@ class Items extends React.Component {
 				align: "center",
 				headerAlign: 'center',
 				filter: numberFilter()
+			},{
+				dataField: 'typeof',
+				text: 'Type of Item',
+				sort: true,
+				align: 'center',
+				headerAlign: 'center',
+				filter: selectFilter({
+					options: selectTypeOf
+				})
 			},{
                 dataField: 'category',
                 text: 'Category',
@@ -458,6 +484,16 @@ class Items extends React.Component {
 					);
 				}
 			},{
+				dataField: 'typeof',
+				text: 'Type of Item',
+				align: 'center',
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Type of Item: </b> {cell} </div>
+					);
+				}
+			},{
                 dataField: 'category',
                 text: 'Category',
 				align: "center",
@@ -561,24 +597,66 @@ class Items extends React.Component {
 
 				  <Tab eventKey="charts" title="Fun Charts">
 
-						<div class="border border-success">
-							<h3 className='text-center'> Items by Interactability </h3>
-							<div style={{display: 'flex', justifyContent: 'center'}}>
-								<PieChart 
-								data={[
-									{ title: 'Yes', value: isInteractiveList.true, color: '#add8e6' },
-									{ title: 'No', value: isInteractiveList.false, color: '#FFC0CB' },
-								  ]}
-								animate
-								label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " (" + Math.round(dataEntry.percentage) + '%)')}
-								style={{maxHeight: '500px', maxWidth: '500px'}}
-								labelStyle={{
-									...defaultLabelStyle,
-								}}
-								/>
-							</div>
-							<br/>
+					<div class="border border-success">
+						<h3 className='text-center'> Items by Interactability </h3>
+						<div style={{display: 'flex', justifyContent: 'center'}}>
+							<PieChart 
+							data={[
+								{ title: 'Yes', value: isInteractiveList.true, color: '#add8e6' },
+								{ title: 'No', value: isInteractiveList.false, color: '#FFC0CB' },
+							  ]}
+							animate
+							label={({ dataEntry }) => (dataEntry.value + " " + dataEntry.title + " (" + Math.round(dataEntry.percentage) + '%)')}
+							style={{maxHeight: '500px', maxWidth: '500px'}}
+							labelStyle={{
+								...defaultLabelStyle,
+							}}
+							/>
 						</div>
+						<br/>
+					</div>
+						
+					<div class="border border-success">
+					  <h3 className='text-center'> Type Of Items </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={800}
+							height={600}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={typeofList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
 
 					<div class="border border-success">
 					  <h3 className='text-center'> Items by Size </h3>

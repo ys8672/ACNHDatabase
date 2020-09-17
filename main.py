@@ -265,7 +265,7 @@ def reaction_by_ID(reaction_id):
 def get_item_dict(item):
     return {'name': item.name, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
         'isInteractive': item.isInteractive, 'buyPrice': item.buyPrice, 'sellPrice': item.sellPrice, 'image': item.image, 
-        'category': item.category, 'variant': item.variant, 'pattern': item.pattern, 'id': item.id}
+        'category': item.category, 'variant': item.variant, 'pattern': item.pattern, 'typeof': item.typeof, 'id': item.id}
         
 @app.route('/api/items/')
 def item_data():
