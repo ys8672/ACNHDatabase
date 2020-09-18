@@ -100,8 +100,8 @@ class Wallpapers extends React.Component {
 		}
 		
 		const selectVFX= {
-			'Lights Off': 'Lights Off',
 			'None': 'None',
+			'Lights Off': 'Lights Off',
 			'Random': 'Random',
 			'Synchro': 'Synchro'
 		};
@@ -141,6 +141,131 @@ class Wallpapers extends React.Component {
 			'Nook Miles Redemption': 'Nook Miles Redemption',
 			"Nook's Cranny": "Nook's Cranny",
 			'Saharah': 'Saharah'
+		}
+		
+		const selectWindowType = {
+			'None': 'None',
+			'Arch': 'Arch',
+			'Circle': 'Circle',
+			'Four Pane': 'Four Pane',
+			'Single Pane': 'Single Pane',
+			'Sliding Pane': 'Sliding Pane'
+		}
+		
+		const selectCeilingType = {
+			'Cloth': 'Cloth',
+			'Gold': 'Gold',
+			'Plain': 'Plain',
+			'Stone': 'Stone',
+			'Tile': 'Tile',
+			'Wood': 'Wood'
+		}
+		
+		const selectCurtainType = {
+			'None': 'None',
+			'Curtains': 'Curtains',
+			'Roller Shades': 'Roller Shades',
+			'Slatted Blinds': 'Slatted Blinds'
+		}
+		
+		function capitalFormatter(cell, row) {
+            return (
+                <div className="capitalize">{cell}</div>
+            );
+        }
+		
+		const selectSeries = {
+			'Bunny Day': 'Bunny Day',
+			'None': 'None',
+			'bamboo': 'Bamboo',
+			'cherry blossoms': 'Cherry Blossoms',
+			'festive': 'Festive',
+			'frozen': 'Frozen',
+			'fruits': 'Fruits',
+			'golden': 'Golden',
+			'mermaid': 'Mermaid',
+			'mush': 'Mush',
+			'pirate': 'Pirate',
+			'stars': 'Stars',
+			"tree's bounty or leaves ": "Tree's Bounty Or Leaves ",
+			'wedding': 'Wedding'
+		}
+		
+		const selectThemes = {
+			'bathroom': 'Bathroom',
+			"child's room": "Child's Room",
+			'den': 'Den',
+			'expensive': 'Expensive',
+			'facility': 'Facility',
+			'fancy': 'Fancy',
+			'fitness': 'Fitness',
+			'folk art': 'Folk Art',
+			'freezing cold': 'Freezing Cold',
+			'garage': 'Garage',
+			'garden': 'Garden',
+			'horror': 'Horror',
+			'kitchen': 'Kitchen',
+			'living room': 'Living Room',
+			'music': 'Music',
+			'ocean': 'Ocean',
+			'office': 'Office',
+			'outdoors': 'Outdoors',
+			'party': 'Party',
+			'school': 'School',
+			'shop': 'Shop',
+			'space': 'Space',
+			'zen-style': 'Zen-style'
+		}
+		
+		const selectTag = {
+			'Art Deco Walls': 'Art Deco Walls',
+			'Asia': 'Asia',
+			'Brick': 'Brick',
+			'Camouflage': 'Camouflage',
+			'Chocolate': 'Chocolate',
+			'Cloth Walls': 'Cloth Walls',
+			'Country': 'Country',
+			'Crown Walls': 'Crown Walls',
+			'Cute Walls': 'Cute Walls',
+			'Diner Walls': 'Diner Walls',
+			'Dollhouse Walls': 'Dollhouse Walls',
+			'Dot': 'Dot',
+			'Flower Pop Walls': 'Flower Pop Walls',
+			'Flower Walls': 'Flower Walls',
+			'Fruit Walls': 'Fruit Walls',
+			'Hall Walls': 'Hall Walls',
+			'Heart Walls': 'Heart Walls',
+			'Herringbone': 'Herringbone',
+			'Honeycomb': 'Honeycomb',
+			'Iron Walls': 'Iron Walls',
+			'Japanese Style': 'Japanese Style',
+			'Library Walls': 'Library Walls',
+			'Manor Walls': 'Manor Walls',
+			'Metro Walls': 'Metro Walls',
+			'Morocco': 'Morocco',
+			'Nature Walls': 'Nature Walls',
+			'Neta Walls': 'Neta Walls',
+			'Painted Wood': 'Painted Wood',
+			'Panel Mold Walls': 'Panel Mold Walls',
+			'Pegboard Walls': 'Pegboard Walls',
+			'Puzzle Walls': 'Puzzle Walls',
+			'Rose Walls': 'Rose Walls',
+			'Simple Walls': 'Simple Walls',
+			'Special Cool Nature Walls': 'Special Cool Nature Walls',
+			'Special Inorganic Walls': 'Special Inorganic Walls',
+			'Special Walls': 'Special Walls',
+			'Special Warm Nature Walls': 'Special Warm Nature Walls',
+			'Stone Walls': 'Stone Walls',
+			'Stripe Walls': 'Stripe Walls',
+			'Stucco Walls': 'Stucco Walls',
+			'Tea Room Walls': 'Tea Room Walls',
+			'Tile Walls': 'Tile Walls',
+			'Tin Walls': 'Tin Walls',
+			'Toy Walls': 'Toy Walls',
+			'Two-Tone Tile Walls': 'Two-Tone Tile Walls',
+			'Wood Plank Walls': 'Wood Plank Walls',
+			'Wood Tile Walls': 'Wood Tile Walls',
+			'Wood Walls': 'Wood Walls'
 		}
 		
 		const defaultSorted = [{
@@ -219,58 +344,70 @@ class Wallpapers extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				//filter: numberFilter()
+				filter: selectFilter({
+					placeholder: 'All',
+					options: selectWindowType
+				})
 			},{
 				dataField: 'ceilingType',
 				text: 'Type of Ceiling',
 				sort: true,
 				align: 'center',
 				headerAlign: 'center',
-/* 				filter: selectFilter({
-					options: selectTypeOf
-				}) */
+				filter: selectFilter({
+					placeholder: 'All',
+					options: selectCeilingType
+				})
 			},{
                 dataField: 'curtainType',
                 text: 'Type of Curtain',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-/* 				formatter: emptyFormatter,
 				filter: selectFilter({
-					options: selectCategory
-				}) */
+					placeholder: 'All',
+					options: selectCurtainType
+				})
 			},{
                 dataField: 'points',
                 text: 'HHA Points',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-/* 				formatter: emptyFormatter,
-				filter: textFilter() */
+				filter: numberFilter({placeholder: 'Num'})
 			},{
                 dataField: 'series',
                 text: 'HHA Series',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-/* 				formatter: emptyFormatter,
-				filter: textFilter() */
+				formatter: capitalFormatter,
+				filter: selectFilter({
+					placeholder: 'All',
+					options: selectSeries
+				})
 			},{
                 dataField: 'concepts',
                 text: 'Themes',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-/* 				formatter: emptyFormatter,
-				filter: textFilter() */
+				formatter: capitalFormatter,
+				filter: selectFilter({
+					placeholder: 'All',
+					options: selectThemes,
+					comparator: Comparator.LIKE
+				})
 			},{
                 dataField: 'tag',
                 text: 'Tags',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-/* 				formatter: emptyFormatter,
-				filter: textFilter() */
+				filter: selectFilter({
+					placeholder: 'All',
+					options: selectTag
+				})
 			},{
                 dataField: 'id',
                 text: 'ID',

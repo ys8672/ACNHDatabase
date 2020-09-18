@@ -461,10 +461,18 @@ def create_wallpapers():
         if wallpaper['sourceNotes'] != None:
             source += ' (' + wallpaper['sourceNotes'] + ')'
         windowtype = wallpaper['windowType']
+        if windowtype == None:
+            windowtype = 'None'
         ceilingtype = wallpaper['ceilingType']
+        if ceilingtype == None:
+            ceilingtype = 'None'
         curtaintype = wallpaper['curtainType']
+        if curtaintype == None:
+            curtaintype = 'None'
         points = wallpaper['hhaBasePoints']
         series = wallpaper['series']
+        if series == None:
+            series = 'None'
         concepts = ', '.join(wallpaper['concepts'])
         tag = wallpaper['tag']
         id = index

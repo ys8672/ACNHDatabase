@@ -76,9 +76,14 @@ def color():
     color_list = []
     file = load_json('json/wallpapers.json')
     for w in file:
-        for c in w['source']:
-            if not c in color_list:
-                color_list.append(c)
+        # for c in w['concepts']:
+            # if not c in color_list:
+                # color_list.append(c)
+        thing = w['tag']
+        if thing == None:
+            thing = 'None'
+        if not thing in color_list:
+            color_list.append(thing)
     color_list.sort()
     real_list = []
     for i in color_list:
