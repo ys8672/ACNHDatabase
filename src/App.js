@@ -3,6 +3,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from "./Navigation";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
+import Wallpapers from "./Wallpapers"
+import WallpaperDetails from "./details/WallpaperDetails"
 import Villagers from "./Villagers";
 import VillagerDetails from "./details/VillagerDetails";
 import Songs from "./Songs";
@@ -39,6 +41,8 @@ class App extends React.Component{
 				<BrowserRouter>
 				<Navigation/>
 					<Switch>
+						<Route exact path="/wallpapers" component={Wallpapers}/>
+						<Route path="/wallpapers/:id" component={WallpaperDetails}/>
 						<Route exact path="/villagers" component={Villagers}/>
 						<Route path="/villagers/:id" component={VillagerDetails}/>
 						<Route exact path="/songs" component={Songs}/>

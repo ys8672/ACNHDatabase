@@ -282,7 +282,7 @@ class Wallpapers(db.Model):
     
     name = db.Column(db.String(64), nullable = False)
     image = db.Column(db.String(128), nullable = False)
-    vfxtype = db.Column(db.String(64), nullable = True)
+    vfxtype = db.Column(db.String(64), nullable = False)
     buy = db.Column(db.Integer, nullable = False)
     sell = db.Column(db.Integer, nullable = False)
     color = db.Column(db.String(64), nullable = False)

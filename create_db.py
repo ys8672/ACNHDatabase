@@ -445,6 +445,10 @@ def create_wallpapers():
         name = wallpaper['name']
         image = wallpaper['image']
         vfxtype = wallpaper['vfxType']
+        if vfxtype == None:
+            vfxtype = 'None'
+        if vfxtype == 'LightOff':
+            vfxtype = "Lights Off"
         buy = wallpaper['buy']
         sell = wallpaper['sell']
         color = ", ".join(list(set(wallpaper['colors'])))

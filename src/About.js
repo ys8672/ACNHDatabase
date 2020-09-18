@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import { Helmet } from 'react-helmet';
 import {BrowserView, MobileView} from "react-device-detect";
+import { Button } from 'react-bootstrap';
 
 const TITLE = 'AC:NH About'
 
@@ -16,9 +17,11 @@ class About extends React.Component{
 				<h1 class="display-4 text-center"><b>About This Website</b></h1>
 				<p class="lead">Hello, Welcome to the Animal Crossing: New Horizons Database. This website is
 					my attempt at creating a database of information about Animal Crossing: New Horizons. Currently,
-					I have catalogued art pieces, bugs, clothings, construction, fish, fossils, items, reactions, recipes, deep sea creatures, K.K. Slider
-					songs, and villagers into tables that are convienent to search and filter through for the
-					average user. I do plan on updating my website from time to time, so look forward to updates
+					I have catalogued art pieces, bugs, clothings, construction, fish, floorings, fossils, items, 
+					reactions, recipes, rugs, deep sea creatures, K.K. Slider
+					songs, tools, villagers, and wallpapers into tables that are convienent to search and filter through. 
+					I have also added interesting graphs based on the data for each topic. 
+					I do plan on updating my website from time to time, so look forward to updates
 					in the future. </p>
 				<p class="lead">Disclaimer: I do not own Animal Crossing: New Horizons, the assets on this website,
 				or anything related to the Animal Crossing franchise. All rights are belong to Nintendo.</p>
@@ -60,7 +63,8 @@ class About extends React.Component{
 				<p class="Card-text"><a href="https://docs.google.com/spreadsheets/d/13d_LAJPlxMa_DubPTuirkIV4DERBMXbrWQsmSh8ReK4/edit#gid=93332535">ACNH Spreadsheet</a> for
 				an AC:NH database community and for all the information I needed to look up many things on the website.</p>
 				<p class="card-text"><a href="https://github.com/acdb-team/google-sheets-to-json">ACDB-Team</a> for the information on recipes and construction.</p>
-				<p class="card-text"><a href="https://github.com/Norviah/animal-crossing/tree/master/json">Norviah</a> for the information on clothes and reactions. </p>
+				<p class="card-text"><a href="https://github.com/Norviah/animal-crossing/tree/master/json">Norviah</a> for the JSON information on clothes, floorings, reactions,
+				 rugs, tools, and wallpapers. </p>
 			  </div>
 			</div>
 			<br/>
@@ -68,8 +72,17 @@ class About extends React.Component{
 			<div class="border border-dark">
 				<h1 className="text-center"> <b> Technical Information </b> </h1>
 				<div class="card-deck abouttech">
-					<div class="card border-danger">
-						<div class="card-body">
+
+					 <div class="card border-danger">
+						<div class="card-body d-flex flex-column">
+						  <h5 class="card-title" className="text-center"><b>GitHub</b></h5>
+						  <p class="card-text">I have made all code for this database and website open-sourced. Feel free to 
+						  clone my repository and give me feedback via Discord. My Discord info is in the About Me Section. </p>
+						  <Button variant="outline-primary mt-auto" size="lg" href="https://github.com/shengye000/ACNHDatabase"> GitHub Repository </Button>
+						</div>
+					 </div>
+					 <div class="card border-warning">
+						<div class="card-body d-flex flex-column">
 						  <h5 class="card-title" className="text-center"><b>Tools Used</b></h5>
 						  <p class="card-text">
 						  <ol>
@@ -82,24 +95,12 @@ class About extends React.Component{
 						  </p>
 						</div>
 					 </div>
-					 <div class="card border-warning">
-						<div class="card-body">
-						  <h5 class="card-title" className="text-center"><b>GitHub</b></h5>
-						  <p class="card-text">I have made all code for this database and website open-sourced. Feel free to 
-						  clone my repository and give me feedback via Discord. My Discord info is in the About Me Section. </p>
-						  <div style={{display: 'flex', justifyContent: 'center'}}>
-							<a href="https://github.com/shengye000/ACNHDatabase" class="btn btn-info">GitHub Repository</a>
-						  </div> 
-						</div>
-					 </div>
 					 <div class="card border-success">
-						<div class="card-body">
+						<div class="card-body d-flex flex-column">
 						  <h5 class="card-title" className="text-center"><b>Postman API</b></h5>
 						  <p class="card-text">I have also made a RESTful API for all of the pages. This will include all
 						  the data shown on the tables in JSON format. Feel free to use however you like. </p>
-						  <div style={{display: 'flex', justifyContent: 'center'}}>
-							<a href="https://www.postman.com/collections/2f87fb9670ad6eb19f90" class="btn btn-info">Postman API</a>
-						  </div> 
+						  <Button variant="outline-primary mt-auto" size="lg" href="https://www.postman.com/collections/2f87fb9670ad6eb19f90"> Postman API </Button>
 						</div>
 					 </div>
 				</div>

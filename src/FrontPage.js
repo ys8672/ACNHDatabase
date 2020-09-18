@@ -19,7 +19,7 @@ class FrontPage extends React.Component{
 					<h1 className='text-center'><b> Introduction: </b></h1>
 					<h4 className='text-center'>
 						Hello there! Do you want to know more about Animal Crossing: New Horizons for
-						the Nintendo Switch? Well look no further. We have 12 interesting pages, each with unique topics
+						the Nintendo Switch? Well look no further. We have 16 interesting pages, each with unique topics
 						about this relaxing game. Go to our search page
 						or click on any of the links below to learn more about that specific topic. 
 					</h4>
