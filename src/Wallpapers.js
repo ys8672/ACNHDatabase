@@ -91,13 +91,6 @@ class Wallpapers extends React.Component {
                      alt="Pic Not Found" style={{maxHeight: '100%', maxWidth: '100%'}}/>
             );
         }
-			
-		function booleanFormatter(cell, row) {
-			if(cell === true){
-				return ("Yes")
-			}
-			return ("No")
-		}
 		
 		const selectVFX= {
 			'None': 'None',
@@ -418,22 +411,23 @@ class Wallpapers extends React.Component {
         }
 		
 		//mobile
-		/* const { SearchBar } = Search;
+		const { SearchBar } = Search;
 		const {mobilecolumns} = {
             mobilecolumns: [{
                 dataField: 'name',
-                text: 'wallpaper Name',
+                text: 'Wallpaper Name',
 				formatter: (cell, row) => {
 					return(
 						<div><b>Name: </b> {nameFormatter(cell, row)} </div>
 					);
 				},
 				align: "center",
-				headerAlign: 'center',
+				headerAlign: 'center'
             },{
                 dataField: 'image',
-                text: 'wallpaper Image',
-                formatter: (cell, row) => {
+                text: 'Wallpaper Image',
+                sort: false,
+				formatter: (cell, row) => {
 					return(
 						<div>{imageFormatter(cell, row)}</div>
 					);
@@ -442,112 +436,124 @@ class Wallpapers extends React.Component {
 				align: "center",
 				headerAlign: 'center'
 			},{
-                dataField: 'kitCost',
-                text: 'Customization Kit Cost',
+                dataField: 'vfxType',
+                text: 'Visual Effects Type',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Customization Kit Cost: </b> {kitCostFormatter(cell, row)} </div>
+						<div><b>VFX Type: </b>{cell}</div>
 					);
-				},
-				filterValue: kitCostFormatter
+				}
 			},{
-                dataField: 'size',
-                text: 'Size of wallpaper',
+                dataField: 'buy',
+                text: 'Purchase Price',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Size of wallpaper: </b> {cell} </div>
+						<div><b>Purchase Price: </b>{buyFormatter(cell)}</div>
+					);
+				}
+			},{
+                dataField: 'sell',
+                text: 'Selling Price',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Selling Price: </b>{cell}</div>
+					);
+				}
+			},{
+                dataField: 'color',
+                text: 'Color(s)',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Color(s): </b>{cell}</div>
 					);
 				}
 			},{
                 dataField: 'source',
-                text: 'How to Acquire',
+                text: 'Source',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Source: </b> {cell} </div>
-					);
-				}
-
-			},{
-                dataField: 'isInteractive',
-                text: 'Interactable?',
-				align: "center",
-				headerAlign: 'center',
-				formatter: (cell, row) => {
-					return(
-						<div><b>Interactable?: </b> {booleanFormatter(cell, row)} </div>
-					);
-				},
-				filterValue: booleanFormatter
-			},{
-                dataField: 'buyPrice',
-                text: 'Price to Buy',
-				align: "center",
-				headerAlign: 'center',
-				formatter: (cell, row) => {
-					return(
-						<div><b>Purchase Price: </b> {buyFormatter(cell, row)} </div>
-					);
-				},
-				filterValue: buyFormatter
-			},{
-                dataField: 'sellPrice',
-                text: 'Price to Sell',
-				align: "center",
-				headerAlign: 'center',
-				formatter: (cell, row) => {
-					return(
-						<div><b>Selling Price: </b> {cell} </div>
+						<div><b>Source: </b>{cell}</div>
 					);
 				}
 			},{
-				dataField: 'typeof',
-				text: 'Type of wallpaper',
+                dataField: 'windowType',
+                text: 'Type of Window',
+				align: "center",
+				formatter: (cell, row) => {
+					return(
+						<div><b>Window Type: </b>{cell}</div>
+					);
+				}
+			},{
+				dataField: 'ceilingType',
+				text: 'Type of Ceiling',
 				align: 'center',
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Type of wallpaper: </b> {cell} </div>
+						<div><b>Ceiling Type: </b>{cell}</div>
 					);
 				}
 			},{
-                dataField: 'category',
-                text: 'Category',
+                dataField: 'curtainType',
+                text: 'Type of Curtain',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Purchase Price: </b> {emptyFormatter(cell, row)} </div>
+						<div><b>Curtain Type: </b>{cell}</div>
 					);
-				},
-				filterValue: emptyFormatter
+				}
 			},{
-                dataField: 'variant',
-                text: 'List of Variants',
+                dataField: 'points',
+                text: 'HHA Points',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>List of Variants: </b> {emptyFormatter(cell, row)} </div>
+						<div><b>HHA Points: </b>{cell}</div>
 					);
-				},
-				filterValue: emptyFormatter
+				}
 			},{
-                dataField: 'pattern',
-                text: 'List of Patterns',
+                dataField: 'series',
+                text: 'HHA Series',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>List of Patterns: </b> {emptyFormatter(cell, row)} </div>
+						<div className="capitalize"><b>HHA Series: </b>{cell}</div>
 					);
-				},
-				filterValue: emptyFormatter
+				}
+			},{
+                dataField: 'concepts',
+                text: 'Themes',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div className="capitalize"><b>Themes: </b>{cell}</div>
+					);
+				}
+			},{
+                dataField: 'tag',
+                text: 'Tag(s)',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Tag(s): </b>{cell}</div>
+					);
+				}
 			},{
                 dataField: 'id',
                 text: 'ID',
@@ -556,7 +562,7 @@ class Wallpapers extends React.Component {
 				searchable: false
             }
             ]
-        } */
+        }
 	
 		const defaultLabelStyle = {
 		  fontSize: '5px',
@@ -591,23 +597,7 @@ class Wallpapers extends React.Component {
 						/>
 					</BrowserView>
 					
-
-					
-				 </Tab>
-
-				  <Tab eventKey="charts" title="Fun Charts">
-
-				  </Tab>
-				</Tabs>
-			</div>
-        )
-    }
-}
-
-
-export default Wallpapers;
-
-					/* <MobileView>
+					<MobileView>
 						<ToolkitProvider
 						  keyField="id"
 						  data={ wallpapers }
@@ -629,4 +619,19 @@ export default Wallpapers;
 							)
 						  }
 						</ToolkitProvider>
-					</MobileView> */
+					</MobileView>
+					
+				 </Tab>
+
+				  <Tab eventKey="charts" title="Fun Charts">
+
+				  </Tab>
+				</Tabs>
+			</div>
+        )
+    }
+}
+
+
+export default Wallpapers;
+
