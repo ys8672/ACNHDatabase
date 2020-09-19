@@ -7,7 +7,6 @@ import { Helmet } from 'react-helmet'
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css"
 import {BrowserView, MobileView} from "react-device-detect";
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import { PieChart } from 'react-minimal-pie-chart';
 import { Tabs, Tab } from 'react-bootstrap';
 import BubbleChart from '@weknow/react-bubble-chart-d3';
 
@@ -578,12 +577,71 @@ class Wallpapers extends React.Component {
             }
             ]
         }
-	
-		const defaultLabelStyle = {
-		  fontSize: '5px',
-		  fontFamily: 'sans-serif',
-		};
 		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 1. <u>Name:</u> The name of the wallpaper when you select it in your inventory.</h5>
+				<h5 > 2. <u>Image:</u> The image of the wallpaper when seen in your inventory. </h5>
+				<h5 > 3. <u>Visual Effects Type:</u> Some wallpapers may have visual effects that allow that wallpaper
+				to have an animation when you put it on your wall. </h5>
+				<h5 > 4. <u>Purchase Price:</u> The number of bells needed to buy the wallpaper from Nook's Cranny. </h5>
+				<h5 > 5. <u>Selling Price:</u> The number of bells you can sell the wallpaper at Nook's Cranny. </h5>
+				<h5 > 6. <u>Color(s):</u> The main color(s) of the wallpaper. Colorful is used to describe a wide range
+				of colors. </h5>
+				<h5 > 7. <u>Source:</u> Where to acquire the Wallpaper. </h5>
+				<h5 > 8. <u>Type of Window:</u> For some wallpapers, the type of window the wallpaper contains. </h5>
+				<h5 > 9. <u>Type of Ceiling:</u> For some wallpapers, the type of ceiling the wallpaper contains. </h5>
+				<h5 > 10. <u>Type of Curtain:</u> For some wallpapers, the type of curtain the wallpaper contains. </h5>
+				<h5 > 11. <u>HHA Points:</u> The number of points this wallpaper add to your Happy Home Academy Rating you
+				receive in the mail every Sunday. </h5>
+				<h5 > 12. <u>HHA Series:</u> A collection of items, that when the player collects enough items of the 
+				same series, will increase the HHA Rating. </h5>
+				<h5 > 13. <u>Themes:</u> A group of related items, typically decoration. </h5>
+				<h5 > 14. <u>Tags:</u> Search by trying to find certain types of walls the player may want. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Wallpapers are one of the few ways the play can customize the wall in the interior of their house. To do so, simply go into your
+				inventory and select it to apply the wallpaper design. The room the player is currently in should change to that wallpaper's
+				design. You can find most wallpaper from Nook's Cranny or Saharah. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the wallpapers currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the wallpaper
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. The wallpapers page all use bubble charts. Click on the Fun Charts tab above
+				to see the graphs. </h5>
+				<br/>
+			</div>
+			)
+		}
+	
         return (
             <div>
 				<Helmet>
@@ -595,9 +653,20 @@ class Wallpapers extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 				
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">		
-
 					<BrowserView>
 						<BootstrapTable
 							bootstrap4
@@ -639,7 +708,6 @@ class Wallpapers extends React.Component {
 				 </Tab>
 
 				  <Tab eventKey="charts" title="Fun Charts">
-				  
 					<div class="border border-success">
 					  <h3 className='text-center'> Visual Effect Types of Wallpapers </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -898,6 +966,4 @@ class Wallpapers extends React.Component {
     }
 }
 
-
 export default Wallpapers;
-
