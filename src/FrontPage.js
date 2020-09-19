@@ -24,7 +24,7 @@ class FrontPage extends React.Component{
 						or click on any of the links below to learn more about that specific topic. 
 					</h4>
 				</div>	
-				<br/>
+				<hr/>
 				
 				<div>
 					<h1 className='text-center'><b> Search: </b></h1>
@@ -35,7 +35,7 @@ class FrontPage extends React.Component{
 					</div>
 					<br/>
 				</div>
-				<br/>
+				<hr/>
 				
 				<h1 className='text-center'><b> Topics: </b></h1>
 				<div class="card-deck">

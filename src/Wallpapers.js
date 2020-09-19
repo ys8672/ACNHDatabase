@@ -30,25 +30,22 @@ class Wallpapers extends React.Component {
 
     render() {
 		//chart stuff
-		/* let isInteractiveList = data.reduce(function(obj, v) {
-		  obj[v.isInteractive] = (obj[v.isInteractive] || 0) + 1;
-		  return obj;
-		}, {})
+		const data = this.state.wallpapers
 		
-		let sizeChart = data.reduce(function(obj, v) {
-		  obj[v.size] = (obj[v.size] || 0) + 1;
+		let vfxTypeChart = data.reduce(function(obj, v) {
+		  obj[v.vfxType] = (obj[v.vfxType] || 0) + 1;
 		  return obj;
 		}, {})
-		let sizeList = []
-		for (const key in sizeChart) {
-			let tmp = {label: key, value: sizeChart[key]}
-			sizeList.push(tmp)
+		let vfxTypeList = []
+		for (const key in vfxTypeChart) {
+			let tmp = {label: key, value: vfxTypeChart[key]}
+			vfxTypeList.push(tmp)
 		}
 		
 		let sourceChart = data.reduce(function(obj, v) {
-		  obj[v.source] = (obj[v.source] || 0) + 1;
+		  var newSource = (v.source).replace(/\s*\(.*?\)\s*/g, '')
+		  obj[newSource] = (obj[newSource] || 0) + 1;
 		  return obj;
-
 		}, {})
 		let sourceList = []
 		for (const key in sourceChart) {
@@ -56,27 +53,45 @@ class Wallpapers extends React.Component {
 			sourceList.push(tmp)
 		}
 		
-		let categoryChart = data.reduce(function(obj, v) {
-		  obj[v.category] = (obj[v.category] || 0) + 1;
+		let windowTypeChart = data.reduce(function(obj, v) {
+		  obj[v.windowType] = (obj[v.windowType] || 0) + 1;
 		  return obj;
-
 		}, {})
-		let categoryList = []
-		for (const key in categoryChart) {
-			let tmp = {label: key, value: categoryChart[key]}
-			categoryList.push(tmp)
+		let windowTypeList = []
+		for (const key in windowTypeChart) {
+			let tmp = {label: key, value: windowTypeChart[key]}
+			windowTypeList.push(tmp)
 		}
 		
-		let typeofChart = data.reduce(function(obj, v) {
-		  obj[v.typeof] = (obj[v.typeof] || 0) + 1;
+		let ceilingTypeChart = data.reduce(function(obj, v) {
+		  obj[v.ceilingType] = (obj[v.ceilingType] || 0) + 1;
 		  return obj;
-
 		}, {})
-		let typeofList = []
-		for (const key in typeofChart) {
-			let tmp = {label: key, value: typeofChart[key]}
-			typeofList.push(tmp)
-		} */
+		let ceilingTypeList = []
+		for (const key in ceilingTypeChart) {
+			let tmp = {label: key, value: ceilingTypeChart[key]}
+			ceilingTypeList.push(tmp)
+		}
+		
+		let curtainTypeChart = data.reduce(function(obj, v) {
+		  obj[v.curtainType] = (obj[v.curtainType] || 0) + 1;
+		  return obj;
+		}, {})
+		let curtainTypeList = []
+		for (const key in curtainTypeChart) {
+			let tmp = {label: key, value: curtainTypeChart[key]}
+			curtainTypeList.push(tmp)
+		}
+		
+		let tagChart = data.reduce(function(obj, v) {
+		  obj[v.tag] = (obj[v.tag] || 0) + 1;
+		  return obj;
+		}, {})
+		let tagList = []
+		for (const key in tagChart) {
+			let tmp = {label: key, value: tagChart[key]}
+			tagList.push(tmp)
+		}
 		
 		//table stuff
  		function nameFormatter(cell, row) {
@@ -624,7 +639,258 @@ class Wallpapers extends React.Component {
 				 </Tab>
 
 				  <Tab eventKey="charts" title="Fun Charts">
-
+				  
+					<div class="border border-success">
+					  <h3 className='text-center'> Visual Effect Types of Wallpapers </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={800}
+							height={650}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={vfxTypeList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Source of Wallpapers </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={800}
+							height={650}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={sourceList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Window Types of Wallpapers </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={800}
+							height={650}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={windowTypeList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Ceiling Types of Wallpapers </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={800}
+							height={650}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={ceilingTypeList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+					
+					<div class="border border-success">
+					  <h3 className='text-center'> Curtain Types of Wallpapers </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={800}
+							height={650}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={curtainTypeList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
+								
+					<div class="border border-success">
+					  <h3 className='text-center'> Tags of Wallpapers </h3>
+					  <div style={{display: 'flex', justifyContent: 'center'}}>
+							<BrowserView>
+							<BubbleChart 
+							graph={{
+								zoom: 1.0,
+							}}
+							width={1200}
+							height={1100}
+							padding={1} // optional value, number that set the padding between bubbles
+							showLegend={true} // optional value, pass false to disable the legend.
+							legendPercentage={20} // number that represent the % of with that legend going to use.
+							legendFont={{
+								family: 'Arial',
+								size: 12,
+								color: '#000',
+								weight: 'bold',
+							}}
+							valueFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							labelFont={{
+								family: 'Arial',
+								size: 16,
+								color: '#ffffff',
+								weight: 'bold',
+							}}
+							data={tagList}
+							/>
+							</BrowserView>
+							
+							<MobileView>
+								<p className='text-center'> This chart is not viewable on mobile. Please switch to
+									a non-mobile web browser. </p>
+							</MobileView>
+						</div>
+					</div>
 				  </Tab>
 				</Tabs>
 			</div>
