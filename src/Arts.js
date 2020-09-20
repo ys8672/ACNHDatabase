@@ -109,7 +109,7 @@ class Arts extends React.Component {
 				filter: textFilter()
             },{
                 dataField: 'image',
-                text: 'Art Photo',
+                text: 'Art Image',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -170,18 +170,28 @@ class Arts extends React.Component {
                 text: 'Art Name',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Name: <Link to={{pathname: `/art/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Art Name: <Link to={{pathname: `/art/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				},
 				align: "center",
 				headerAlign: 'center'
             },{
                 dataField: 'image',
-                text: 'Art Photo',
+                text: 'Art Image',
                 searchable: false,
                 formatter: imageFormatter,
 				align: "center",
 				headerAlign: 'center'
+			},{
+                dataField: 'hasFake',
+                text: 'Has Fake Version?',
+				align: "center",
+				headerAlign: 'center',
+				formatter: (cell, row) => {
+					return(
+						<div><b>Has Fake Version?: </b> {fakeFormatter(cell, row)} </div>
+					);
+				}
 			},{
                 dataField: 'buyPrice',
                 text: 'Purchase Price',
@@ -221,6 +231,67 @@ class Arts extends React.Component {
             }
             ]
         }
+		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 1. <u>Art Name:</u> The name of the art piece when you select it in your inventory. Please note that although
+				these art pieces are all drawn by real life artists and all have another offical name in real life, the game does not refer 
+				to them as such in the inventory. </h5>
+				<h5 > 2. <u>Art Image:</u> The image of the art piece. </h5>
+				<h5 > 3. <u>Has Fake Version?:</u> When you purchase art pieces from Jolly Redd, some art pieces have fake versions.
+				Fake art pieces cannot be donated to the museum nor sold at Nook's Cranny. These fakes usually have a small difference between 
+				the real versions, and you can take a closer look before purchasing to make sure the art piece is authentic. </h5>
+				<h5 > 4. <u>Purchase Price:</u> The number of bells needed to buy the art piece from Jolly Redd. </h5>
+				<h5 > 5. <u>Sell Price:</u> The number of bells you can sell the art piece in Nook's Cranny. </h5>
+				<h5 > 6. <u>Museum Description:</u> After the art piece is successfully donated to the museum, a description of the 
+				art piece will appear near the art exhibit, and this column will tell you what it says for a certain art piece. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Added on April 23th, 2020 as part of the Earth Day Update (Version 1.2.0), art pieces are either
+				paintings or sculptures that can be purchased from Jolly Redd and donated to Blather's museum. </h5>
+				<h5 className='indent'> When you first meet Redd, he can be found wandering your island, where he will give you an authentic art piece. 
+				Afterwards, Jolly Redd will occasionally appear on your secret northern beach on a boat. He will always sell 4 art pieces and
+				2 pieces of furniture. You can only purchase one art piece per day, and the painting will be sent to your mailbox the next day. Be
+				careful though, the art pieces can be forgeries. Forged art pieces cannot be donated to the museum and cannot be sold. </h5>
+				<h5 className='indent'> Fun Trivia: Villagers can occasionally gift you art pieces in the mail. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the art pieces currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the art pieces
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
 	
         return (
             <div>
@@ -233,9 +304,21 @@ class Arts extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 				
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">		
-
+		
 					<BrowserView>
 
 						<BootstrapTable

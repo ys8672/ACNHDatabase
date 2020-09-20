@@ -635,8 +635,8 @@ class Wallpapers extends React.Component {
 				<h3 className='indent'><b> Fun Charts </b></h3>
 				<hr/>
 				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
-				of each attribute exist in the table. The wallpapers page all use bubble charts. Click on the Fun Charts tab above
-				to see the graphs. </h5>
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
 				<br/>
 			</div>
 			)
