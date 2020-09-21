@@ -35,7 +35,7 @@ class ReactionDetails extends React.Component {
 							<div class="col-md-8">
 								<div class="card-body">
 									<h1 class="card-title capitalize"><b>Name: {reaction.name}</b></h1>
-									<p class="card-text"><b>Where To Acquire:</b> {reaction.source} </p>
+									<p class="card-text"><b>Source:</b> {reaction.source} </p>
 									<p class="card-text"><b>Important Notes:</b> {reaction.sourceNotes} </p>
 								</div>
 							</div>
