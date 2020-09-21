@@ -202,7 +202,7 @@ class Clothes extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Clothing Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
@@ -210,7 +210,7 @@ class Clothes extends React.Component {
 				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'image',
-                text: 'Clothing Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -218,7 +218,7 @@ class Clothes extends React.Component {
 				headerAlign: 'center'
 			},{
                 dataField: 'sourceSheet',
-                text: 'Clothing Type',
+                text: 'Type',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
@@ -316,7 +316,7 @@ class Clothes extends React.Component {
                 text: 'Clothing Name',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Clothing Name: </b> {nameFormatter(cell, row)} </div>
+						<div><b>Name: </b> {nameFormatter(cell, row)} </div>
 					);
 				},
 				align: "center",
@@ -339,7 +339,7 @@ class Clothes extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Clothing Type: </b> {cell} </div>
+						<div><b>Type: </b> {cell} </div>
 					);
 				}
 			},{
@@ -429,12 +429,12 @@ class Clothes extends React.Component {
 		function about2(){
 			return(
 			<div>
-				<h5 > 01. <u>Clothing Name:</u> The name of the clothing as described in the inventory. </h5>
-				<h5 > 02. <u>Clothing Image:</u> The picture of the clothing as seen when the player wears it. (Please note
+				<h5 > 01. <u>Name:</u> The name of the clothing as described in the inventory. </h5>
+				<h5 > 02. <u>Image:</u> The picture of the clothing as seen when the player wears it. (Please note
 				that the different variations of a cloth will be displayed every few seconds, so the picture can change.) </h5>
-				<h5 > 03. <u>Clothing Type:</u> The type of clothing. </h5>
-				<h5 > 04. <u>Purchase Price:</u> The cost of the clothes in bells at Nook's Cranny. </h5>
-				<h5 > 05. <u>Sell Price:</u> The number of bells you receive for selling the item at Nook's Cranny. </h5>
+				<h5 > 03. <u>Type:</u> The type of clothing. </h5>
+				<h5 > 04. <u>Purchase Price:</u> The cost of the cloth in bells at Nook's Cranny. </h5>
+				<h5 > 05. <u>Sell Price:</u> The number of bells you receive for selling the cloth at Nook's Cranny. </h5>
 				<h5 > 06. <u>Source:</u> Where you can find the article of clothing. </h5>
 				<h5 > 07. <u>Seasons Available:</u> The seasons you can find this article of clothing. </h5>
 				<h5 > 08. <u>Villager Wearable?:</u> When the player gifts a villager a clothing item, some clothes can
@@ -552,7 +552,7 @@ class Clothes extends React.Component {
 
 				  <Tab eventKey="charts" title="Fun Charts">
 						<div class="border border-success">
-							<h3 className='text-center'> Can Villagers Wear These Clothes? </h3>
+							<h3 className='text-center'> Clothes By Villager Wearable? </h3>
 							<div style={{display: 'flex', justifyContent: 'center'}}>
 								<PieChart 
 								data={[
@@ -571,7 +571,7 @@ class Clothes extends React.Component {
 						</div>
 
 					<div class="border border-success">
-					  <h3 className='text-center'> Type of Clothing </h3>
+					  <h3 className='text-center'> Clothes By Type </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart
@@ -607,7 +607,7 @@ class Clothes extends React.Component {
 					</div>
 
 					<div class="border border-success">
-					  <h3 className='text-center'> Source of Clothing </h3>
+					  <h3 className='text-center'> Clothes By Source </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 
@@ -649,7 +649,7 @@ class Clothes extends React.Component {
 					</div>
 					
 					<div class="border border-success">
-					  <h3 className='text-center'> Clothing By Seasonal Availability </h3>
+					  <h3 className='text-center'> Clothes By Seasonal Availability </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 

@@ -90,13 +90,13 @@ class ItemDetails extends React.Component {
 									<h1 class="card-title capitalize"><b>Name: {item.name}</b></h1>
 									<p class="card-text"><b>Customization Kit Cost:</b> {kitCostFormatter(item.kitCost)} </p>
 									<p class="card-text"><b>Size: </b> {item.size} </p>
-									<p class="card-text"><b>Where To Find:</b> {item.source} </p>
-									<p class="card-text"><b>Interactable?:</b> {booleanFormatter(item.isInteractive)} </p>
+									<p class="card-text"><b>Source:</b> {item.source} </p>
+									<p class="card-text"><b>Interactability:</b> {booleanFormatter(item.isInteractive)} </p>
 									<p class="card-text"><b>Purchase Price:</b> {buyFormatter(item.buyPrice)} </p>
-									<p class="card-text"><b>Selling Price:</b> {item.sellPrice} </p>
-									<p class="card-text"><b>Type of Item:</b> {item.typeof} </p>
+									<p class="card-text"><b>Sell Price:</b> {item.sellPrice} </p>
+									<p class="card-text"><b>Type:</b> {item.typeof} </p>
 									<p class="card-text"><b>Category:</b> {item.category} </p>
-									<p class="card-text"><b>Variants:</b> {emptyFormatter(item.variant)} </p>
+									<p class="card-text"><b>Variations:</b> {emptyFormatter(item.variant)} </p>
 									<p class="card-text"><b>Patterns:</b> {emptyFormatter(item.pattern)} </p>
 								</div>
 							</div>

@@ -101,7 +101,7 @@ class Arts extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Art Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
@@ -109,7 +109,7 @@ class Arts extends React.Component {
 				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'image',
-                text: 'Art Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -170,17 +170,17 @@ class Arts extends React.Component {
 		const {mobilecolumns} = {
             mobilecolumns: [{
                 dataField: 'name',
-                text: 'Art Name',
+                text: 'Name',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Art Name: <Link to={{pathname: `/art/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Name: <Link to={{pathname: `/art/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				},
 				align: "center",
 				headerAlign: 'center'
             },{
                 dataField: 'image',
-                text: 'Art Image',
+                text: 'Image',
                 searchable: false,
                 formatter: imageFormatter,
 				align: "center",
@@ -239,10 +239,10 @@ class Arts extends React.Component {
 		function about2(){
 			return(
 			<div>
-				<h5 > 1. <u>Art Name:</u> The name of the art piece when you select it in your inventory. Please note that although
+				<h5 > 1. <u>Name:</u> The name of the art piece when you select it in your inventory. Please note that although
 				these art pieces are all drawn by real life artists and all have another offical name in real life, the game does not refer 
 				to them as such in the inventory. </h5>
-				<h5 > 2. <u>Art Image:</u> The image of the art piece. </h5>
+				<h5 > 2. <u>Image:</u> The image of the art piece. </h5>
 				<h5 > 3. <u>Has Fake Version?:</u> When you purchase art pieces from Jolly Redd, some art pieces have fake versions.
 				Fake art pieces cannot be donated to the museum nor sold at Nook's Cranny. These fakes usually have a small difference between 
 				the real versions, and you can take a closer look before purchasing to make sure the art piece is authentic. </h5>

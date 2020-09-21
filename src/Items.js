@@ -283,15 +283,15 @@ class Items extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Item Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'image',
-                text: 'Item Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -305,60 +305,65 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: kitCostFormatter,
 				filter: selectFilter({
-					options: selectKitCost
+					options: selectKitCost,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'size',
-                text: 'Size of Item',
+                text: 'Size',
                 sort: true,
 				sortFunc: sizeSort,
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectSize
+					options: selectSize,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'source',
-                text: 'How to Acquire',
+                text: 'Source',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectSource
+					options: selectSource,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'isInteractive',
-                text: 'Interactable?',
+                text: 'Interactability',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				formatter: booleanFormatter,
 				filter: selectFilter({
-					options: selectBoolean
+					options: selectBoolean,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'buyPrice',
-                text: 'Price to Buy',
+                text: 'Purchase Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: numberFilter(),
+				filter: numberFilter({placeholder: 'Number'}),
 				formatter: buyFormatter
 			},{
                 dataField: 'sellPrice',
-                text: 'Price to Sell',
+                text: 'Sell Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: numberFilter()
+				filter: numberFilter({placeholder: 'Number'})
 			},{
 				dataField: 'typeof',
-				text: 'Type of Item',
+				text: 'Type',
 				sort: true,
 				align: 'center',
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectTypeOf
+					options: selectTypeOf,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'category',
@@ -368,24 +373,25 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: emptyFormatter,
 				filter: selectFilter({
-					options: selectCategory
+					options: selectCategory,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'variant',
-                text: 'List of Variants',
+                text: 'Variations',
                 sort: false,
 				align: "center",
 				headerAlign: 'center',
 				formatter: emptyFormatter,
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
 			},{
                 dataField: 'pattern',
-                text: 'List of Patterns',
+                text: 'Patterns',
                 sort: false,
 				align: "center",
 				headerAlign: 'center',
 				formatter: emptyFormatter,
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
 			},{
                 dataField: 'id',
                 text: 'ID',
@@ -437,7 +443,7 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Size of Item: </b> {cell} </div>
+						<div><b>Size: </b> {cell} </div>
 					);
 				}
 			},{
@@ -458,7 +464,7 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Interactable?: </b> {booleanFormatter(cell, row)} </div>
+						<div><b>Interactability: </b> {booleanFormatter(cell, row)} </div>
 					);
 				},
 				filterValue: booleanFormatter
@@ -480,7 +486,7 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Selling Price: </b> {cell} </div>
+						<div><b>Sell Price: </b> {cell} </div>
 					);
 				}
 			},{
@@ -490,7 +496,7 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Type of Item: </b> {cell} </div>
+						<div><b>Type: </b> {cell} </div>
 					);
 				}
 			},{
@@ -500,7 +506,7 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Purchase Price: </b> {emptyFormatter(cell, row)} </div>
+						<div><b>Category: </b> {emptyFormatter(cell, row)} </div>
 					);
 				},
 				filterValue: emptyFormatter
@@ -511,7 +517,7 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>List of Variants: </b> {emptyFormatter(cell, row)} </div>
+						<div><b>Variations: </b> {emptyFormatter(cell, row)} </div>
 					);
 				},
 				filterValue: emptyFormatter
@@ -522,7 +528,7 @@ class Items extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>List of Patterns: </b> {emptyFormatter(cell, row)} </div>
+						<div><b>Patterns: </b> {emptyFormatter(cell, row)} </div>
 					);
 				},
 				filterValue: emptyFormatter
@@ -541,6 +547,65 @@ class Items extends React.Component {
 		  fontFamily: 'sans-serif',
 		};
 		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 01. <u>Name:</u> The name of the item as described in the inventory. </h5>
+				<h5 > 02. <u>Image:</u> The picture of the item when placed on the island. (Please note for items with different variations,
+				images of the different variations will be displayed every few seconds, so the image can change.) </h5>
+				<h5 > 03. <u>Customization Kit Cost:</u> The number of kits required to customize the item on a DIY table, if the item
+					is customizable. </h5>
+				<h5 > 04. <u>Size:</u> The number of tile space the item will take when placed. </h5>
+				<h5 > 05. <u>Source:</u> Where you can find the item. </h5>
+				<h5 > 06. <u>Interactability:</u> Whether or not the player can interact with the item by pressing A. </h5>
+				<h5 > 07. <u>Purchase Price:</u> The cost of the item in bells at Nook's Cranny. </h5>
+				<h5 > 08. <u>Sell Price:</u> The number of bells you receive for selling the item at Nook's Cranny. </h5>
+				<h5 > 09. <u>Type:</u> The type of item, or in which of the 3 inventory categories the player will find the item. </h5>
+				<h5 > 10. <u>Category:</u> The category the item is classified as.</h5>
+				<h5 > 11. <u>Variations:</u> The different variations that can exist for an item. </h5>
+				<h5 > 12. <u>Patterns:</u> The different patterns of an item. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Items are objects in your inventory you can place on your island. Besides the wall-mounted type
+				of items, all other items can be placed outside of your home, inside your house, and anywhere on the island. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the items currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the items
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
+		
         return (
             <div>
 				<Helmet>
@@ -552,11 +617,21 @@ class Items extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 				
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">		
-
 					<BrowserView>
-
 						<BootstrapTable
 							bootstrap4
 							keyField = "id"
@@ -617,7 +692,7 @@ class Items extends React.Component {
 					</div>
 						
 					<div class="border border-success">
-					  <h3 className='text-center'> Type Of Items </h3>
+					  <h3 className='text-center'> Items By Type </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 
@@ -659,7 +734,7 @@ class Items extends React.Component {
 					</div>
 
 					<div class="border border-success">
-					  <h3 className='text-center'> Items by Size </h3>
+					  <h3 className='text-center'> Items By Size </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart
@@ -695,7 +770,7 @@ class Items extends React.Component {
 					</div>
 
 					<div class="border border-success">
-					  <h3 className='text-center'> Items by Source </h3>
+					  <h3 className='text-center'> Items By Source </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 
@@ -737,7 +812,7 @@ class Items extends React.Component {
 					</div>
 					
 					<div class="border border-success">
-					  <h3 className='text-center'> Items by Category </h3>
+					  <h3 className='text-center'> Items By Category </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 

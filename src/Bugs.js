@@ -332,7 +332,7 @@ class Bugs extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Bug Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
@@ -340,14 +340,14 @@ class Bugs extends React.Component {
 				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'icon',
-                text: 'Bug Icon',
+                text: 'Icon',
                 sort: false,
                 formatter: imageFormatter,
 				align: "center",
 				headerAlign: 'center'
             },  {
                 dataField: 'image',
-                text: 'Bug Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				align: "center",
@@ -377,7 +377,7 @@ class Bugs extends React.Component {
 				headerAlign: 'center'
             }, {
                 dataField: 'location',
-                text: 'Bug Location',
+                text: 'Location',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
@@ -388,7 +388,7 @@ class Bugs extends React.Component {
 				})
             }, {
                 dataField: 'rarity',
-                text: 'Bug Rarity',
+                text: 'Rarity',
                 sort: true,
 				sortFunc: raritySort,
 				align: "center",
@@ -437,7 +437,7 @@ class Bugs extends React.Component {
                 text: 'Bug Name',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Bug Name: <Link to={{pathname: `/bugs/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Name: <Link to={{pathname: `/bugs/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				},
 				align: "center",
@@ -488,7 +488,7 @@ class Bugs extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Bug Location: </b> {cell} </div>
+						<div><b>Location: </b> {cell} </div>
 					);
 				}
             }, {
@@ -498,7 +498,7 @@ class Bugs extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Bug Rarity: </b> {cell} </div>
+						<div><b>Rarity: </b> {cell} </div>
 					);
 				}
             }, {
@@ -545,14 +545,14 @@ class Bugs extends React.Component {
 		function about2(){
 			return(
 			<div>
-				<h5 > 01. <u>Bug Name:</u> The name of the bug as described in the inventory. </h5>
-				<h5 > 02. <u>Bug Icon:</u> The picture of the bug as shown in the inventory. </h5>
-				<h5 > 03. <u>Bug Image:</u> The picture of the bug appearing on your island. </h5>
+				<h5 > 01. <u>Name:</u> The name of the bug as described in the inventory. </h5>
+				<h5 > 02. <u>Icon:</u> The picture of the bug as shown in the inventory. </h5>
+				<h5 > 03. <u>Image:</u> The picture of the bug appearing on your island. </h5>
 				<h5 > 04. <u>Months Available (Northern Hemisphere):</u> The months the bug can be found on your island in the Northern Hemisphere. </h5>
 				<h5 > 05. <u>Months Available (Southern Hemisphere):</u> The months the bug can be found on your island in the Southern Hemisphere. </h5>
 				<h5 > 06. <u>Time Available:</u> The time range of when the bug can be found on your island. </h5>
-				<h5 > 07. <u>Bug Location:</u> Where the bug spawns and can be found. </h5>
-				<h5 > 08. <u>Bug Rarity:</u> How often the player is likely to encounter the bug on their island. </h5>
+				<h5 > 07. <u>Location:</u> Where the bug spawns and can be found. </h5>
+				<h5 > 08. <u>Rarity:</u> How often the player is likely to encounter the bug on their island. </h5>
 				<h5 > 09. <u>Sell Price:</u> The number of bells the bug can be sold at Nook's Cranny. You can also sell the bugs for 1.5x the price
 				by talking to Flick. </h5>
 				<h5 > 10. <u>Catch Phrase:</u> The game phrase that displays when you catch this bug. </h5>
@@ -748,7 +748,7 @@ class Bugs extends React.Component {
 					</div>
 					
 					<div class='border border-success'>
-						<h3 className='text-center'> Bugs Selling Price Box-Plot </h3>
+						<h3 className='text-center'> Bugs Sell Price Box-Plot </h3>
 						<VictoryChart domainPadding={0}>
 						    <VictoryAxis
 							  // tickValues specifies both the number of ticks and where

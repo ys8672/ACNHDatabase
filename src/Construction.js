@@ -103,7 +103,7 @@ class Construction extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Construction Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
@@ -111,7 +111,7 @@ class Construction extends React.Component {
 				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'image',
-                text: 'Construction Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -164,7 +164,7 @@ class Construction extends React.Component {
                 text: 'Construction Name',
 				formatter: (cell, row) => {
 					return(
-						<h5><b>Construction Name: <Link to={{pathname: `/construction/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
+						<h5><b>Name: <Link to={{pathname: `/construction/${row.id}/`}}><div className="capitalize">{cell}</div></Link></b></h5>
 					);
 				},
 				align: "center",
@@ -220,8 +220,8 @@ class Construction extends React.Component {
 		function about2(){
 			return(
 			<div>
-				<h5 > 1. <u>Construction Name:</u> The name of the construction item as described by Tom Nook. </h5>
-				<h5 > 2. <u>Construction Image:</u> The picture of the construction project as it would look on your island. </h5>
+				<h5 > 1. <u>Name:</u> The name of the construction item as described by Tom Nook. </h5>
+				<h5 > 2. <u>Image:</u> The picture of the construction project as it would look on your island. </h5>
 				<h5 > 3. <u>Purchase Price:</u> The number of bells required to build a construction project. Bridge and inclines
 					are paid by talking to Lloid after placing the part on your island. Also, if your house is at the maximum
 					expansion, you can get one free house construction per day. </h5>
@@ -336,7 +336,7 @@ class Construction extends React.Component {
 				<Tab eventKey="charts" title="Fun Charts">	
 					
 					<div class="border border-success">
-					  <h3 className='text-center'> Construction by Source </h3>
+					  <h3 className='text-center'> Construction By Source </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart
@@ -372,7 +372,7 @@ class Construction extends React.Component {
 					</div>
 
 					<div class="border border-success">
-					  <h3 className='text-center'> Construction by Category </h3>
+					  <h3 className='text-center'> Construction By Category </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 

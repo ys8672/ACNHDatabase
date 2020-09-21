@@ -77,8 +77,8 @@ class ClothDetails extends React.Component {
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h1 class="card-title capitalize"><b>Clothing Name: {cloth.name}</b></h1>
-									<p class="card-text"><b>Clothing Type: </b> {cloth.sourceSheet} </p>
+									<h1 class="card-title capitalize"><b>Name: {cloth.name}</b></h1>
+									<p class="card-text"><b>Type: </b> {cloth.sourceSheet} </p>
 									<p class="card-text"><b>Purchase Price: </b> {buyFormatter(cloth.buy)} </p>
 									<p class="card-text"><b>Sell Price: </b> {cloth.sell} </p>
 									<p class="card-text"><b>Source: </b> {cloth.source} </p>
