@@ -160,6 +160,20 @@ class Clothes extends React.Component {
 			'Winter': 'Winter'
 		}
 		
+		const selectTheme = {
+			'comfy': 'Comfy',
+			'everyday': 'Everyday',
+			'fairy tale': 'Fairy Tale',
+			'formal': 'Formal',
+			'goth': 'Goth',
+			'outdoorsy': 'Outdoorsy',
+			'party': 'Party',
+			'sporty': 'Sporty',
+			'theatrical': 'Theatrical',
+			'vacation': 'Vacation',
+			'work': 'Work'
+		}
+		
 		function booleanFormatter(cell, row) {
 			if(cell === true){
 				return ("Yes")
@@ -193,7 +207,7 @@ class Clothes extends React.Component {
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'image',
                 text: 'Clothing Image',
@@ -209,33 +223,35 @@ class Clothes extends React.Component {
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectSourceSheet
+					options: selectSourceSheet,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'buy',
-                text: 'Price to Buy',
+                text: 'Purchase Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				formatter: buyFormatter,
-				filter: numberFilter()
+				filter: numberFilter({placeholder: 'Number'})
 
 			},{
                 dataField: 'sell',
-                text: 'Price to Sell',
+                text: 'Sell Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: numberFilter()
+				filter: numberFilter({placeholder: 'Number'})
 			},{
                 dataField: 'source',
-                text: 'How To Acquire',
+                text: 'Source',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
 					options: selectSource,
-					comparator: Comparator.LIKE // default is Comparator.EQ
+					comparator: Comparator.LIKE,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'seasonal',
@@ -244,7 +260,8 @@ class Clothes extends React.Component {
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectSeasonal
+					options: selectSeasonal,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'villager',
@@ -254,7 +271,8 @@ class Clothes extends React.Component {
 				headerAlign: 'center',
 				formatter: booleanFormatter,
 				filter: selectFilter({
-					options: selectBoolean
+					options: selectBoolean,
+					placeholder: 'All'
 				})
 			},{
                 dataField: 'themes',
@@ -262,7 +280,11 @@ class Clothes extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter(),
+				filter: selectFilter({
+					options: selectTheme,
+					comparator: Comparator.LIKE,
+					placeholder: 'All'
+				}),
 				formatter: (cell, row) => {
 					return(
 						<div className="capitalize"> {cell} </div>
@@ -274,7 +296,7 @@ class Clothes extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter(),
+				filter: textFilter({placeholder: 'Search'}),
 				formatter: variationFormatter,
 				filterValue: variationFormatter
 			},{
@@ -294,7 +316,7 @@ class Clothes extends React.Component {
                 text: 'Clothing Name',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Name: </b> {nameFormatter(cell, row)} </div>
+						<div><b>Clothing Name: </b> {nameFormatter(cell, row)} </div>
 					);
 				},
 				align: "center",
@@ -327,7 +349,7 @@ class Clothes extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Price To Buy: </b> {buyFormatter(cell, row)} </div>
+						<div><b>Purchase Price: </b> {buyFormatter(cell, row)} </div>
 					);
 				},
 				filterValue: buyFormatter
@@ -338,7 +360,7 @@ class Clothes extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Price To Sell: </b> {cell} </div>
+						<div><b>Sell Price: </b> {cell} </div>
 					);
 				}
 			},{
@@ -348,7 +370,7 @@ class Clothes extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>How To Acquire: </b> {cell} </div>
+						<div><b>Source: </b> {cell} </div>
 					);
 				}
 			},{
@@ -402,6 +424,66 @@ class Clothes extends React.Component {
             }
             ]
         }
+		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 01. <u>Clothing Name:</u> The name of the clothing as described in the inventory. </h5>
+				<h5 > 02. <u>Clothing Image:</u> The picture of the clothing as seen when the player wears it. (Please note
+				that the different variations of a cloth will be displayed every few seconds, so the picture can change.) </h5>
+				<h5 > 03. <u>Clothing Type:</u> The type of clothing. </h5>
+				<h5 > 04. <u>Purchase Price:</u> The cost of the clothes in bells at Nook's Cranny. </h5>
+				<h5 > 05. <u>Sell Price:</u> The number of bells you receive for selling the item at Nook's Cranny. </h5>
+				<h5 > 06. <u>Source:</u> Where you can find the article of clothing. </h5>
+				<h5 > 07. <u>Seasons Available:</u> The seasons you can find this article of clothing. </h5>
+				<h5 > 08. <u>Villager Wearable?:</u> When the player gifts a villager a clothing item, some clothes can
+					be worn by the villagers while some cannot. The villager will immediately equip the clothing if they can.</h5>
+				<h5 > 09. <u>Themes:</u> Themes of your clothing that can be useful when Label visits your village and
+					requests you to dress in a certain theme for Label's rewards. </h5>
+				<h5 > 10. <u>Variations:</u> The different types of colors available for this type of cloth. The image column
+					will switch variations of a clothing every few seconds if variations exist.</h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Clothes, or known as Fashion Items in your inventory, are items you can equip to change your
+					villager's outer appearance. The player has 9 slots to equip clothes, and can even make their own cloth design on 
+					the Nook Phone. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the clothes currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the clothes
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
 	
         return (
             <div>
@@ -414,11 +496,21 @@ class Clothes extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 				
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">
-
 					<BrowserView>
-
 						<BootstrapTable
 							bootstrap4
 							keyField = "id"

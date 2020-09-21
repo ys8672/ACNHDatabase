@@ -106,7 +106,7 @@ class Arts extends React.Component {
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'image',
                 text: 'Art Image',
@@ -123,7 +123,8 @@ class Arts extends React.Component {
 				headerAlign: 'center',
 				formatter: fakeFormatter,
 				filter: selectFilter({
-					options: selectFake
+					options: selectFake,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'buyPrice',
@@ -133,7 +134,8 @@ class Arts extends React.Component {
 				headerAlign: 'center',
 				formatter: cell => selectBuyPrice[cell],
 				filter: selectFilter({
-					options: selectBuyPrice
+					options: selectBuyPrice,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'sellPrice',
@@ -143,7 +145,8 @@ class Arts extends React.Component {
 				headerAlign: 'center',
 				formatter: cell => selectSellPrice[cell],
 				filter: selectFilter({
-					options: selectSellPrice
+					options: selectSellPrice,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'museum',
@@ -151,7 +154,7 @@ class Arts extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter(),
+				filter: textFilter({placeholder: 'Search'}),
 				formatter: truncate
             }, {
                 dataField: 'id',

@@ -111,14 +111,14 @@ class BugDetails extends React.Component {
 						<div class="col-md-6">
 							<div class="card-body">
 								<h1 class="card-title capitalize"><b>Name: {bug.name}</b></h1>
-								<p class="card-text"><b>Month(s) Available in the Northern Hemisphere: </b> {monthFormatter(bug.monthNorth)} </p>
-								<p class="card-text"><b>Month(s) Available in the Southern Hemisphere:</b> {monthFormatter(bug.monthSouth)} </p>
+								<p class="card-text"><b>Months Available (Northern Hemisphere): </b> {monthFormatter(bug.monthNorth)} </p>
+								<p class="card-text"><b>Months Available (Southern Hemisphere):</b> {monthFormatter(bug.monthSouth)} </p>
 								<p class="card-text"><b>Time Available:</b> {bug.time} </p>
-								<p class="card-text"><b>Location:</b> {bug.location} </p>
-								<p class="card-text"><b>Rarity:</b> {bug.rarity} </p>
-								<p class="card-text"><b>Selling Price:</b> {bug.price} </p>
+								<p class="card-text"><b>Bug Location:</b> {bug.location} </p>
+								<p class="card-text"><b>Bug Rarity:</b> {bug.rarity} </p>
+								<p class="card-text"><b>Sell Price:</b> {bug.price} </p>
 								<p class="card-text"><b>Catch Phrase:</b> {bug.catchPhrase} </p>
-								<p class="card-text"><b>Museum Phrase:</b> {bug.museumPhrase} </p>
+								<p class="card-text"><b>Museum Description:</b> {bug.museumPhrase} </p>
 							</div>
 						</div>
 						<div class="col-md-3">

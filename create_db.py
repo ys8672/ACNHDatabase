@@ -313,7 +313,7 @@ def create_clothes():
                 # variant = cloth['variations'][0]
                 # image = variant['closetImage']
             if 'variation' in cloth and cloth['variation'] == None:
-                variations = None
+                variations = 'None'
             else:
                 variant_list = []
                 image_list = []

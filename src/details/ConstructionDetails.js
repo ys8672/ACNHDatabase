@@ -37,7 +37,7 @@ class ConstructionDetails extends React.Component {
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h1 class="card-title capitalize"><b>Name: {construction.name}</b></h1>
+									<h1 class="card-title capitalize"><b>Construction Name: {construction.name}</b></h1>
 									<p class="card-text"><b>Purchase Price:</b> {construction.buyPrice} </p>
 									<p class="card-text"><b>Source:</b> {construction.source} </p>
 									<p class="card-text"><b>Category:</b> {construction.category} </p>
