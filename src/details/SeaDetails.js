@@ -105,14 +105,14 @@ class SeaDetails extends React.Component {
 						<div class="col-md-6">
 							<div class="card-body">
 								<h1 class="card-title capitalize"><b>Name: {sea.name}</b></h1>
-								<p class="card-text"><b>Month(s) Available in the Northern Hemisphere: </b> {monthFormatter(sea.monthNorth)} </p>
-								<p class="card-text"><b>Month(s) Available in the Southern Hemisphere:</b> {monthFormatter(sea.monthSouth)} </p>
+								<p class="card-text"><b>Months Available (Northern Hemisphere): </b> {monthFormatter(sea.monthNorth)} </p>
+								<p class="card-text"><b>Months Available (Southern Hemisphere):</b> {monthFormatter(sea.monthSouth)} </p>
 								<p class="card-text"><b>Time Available:</b> {sea.time} </p>
 								<p class="card-text"><b>Movement Speed:</b> {sea.speed} </p>
 								<p class="card-text"><b>Shadow Size:</b> {sea.shadow} </p>
-								<p class="card-text"><b>Selling Price:</b> {sea.price} </p>
+								<p class="card-text"><b>Sell Price:</b> {sea.price} </p>
 								<p class="card-text"><b>Catch Phrase:</b> {sea.catchPhrase} </p>
-								<p class="card-text"><b>Museum Phrase:</b> {sea.museumPhrase} </p>
+								<p class="card-text"><b>Museum Description:</b> {sea.museumPhrase} </p>
 							</div>
 						</div>
 						<div class="col-md-3">

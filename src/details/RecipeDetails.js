@@ -28,13 +28,13 @@ class RecipeDetails extends React.Component {
 					<div class="card-body">
 						<h1 class="card-title capitalize"><b>Name: {recipe.name}</b></h1>
 						<p class="card-text"><b>Purchase Price: </b> {recipe.buyPrice} </p>
-						<p class="card-text"><b>Selling Price:</b> {recipe.sellPrice} </p>
-						<p class="card-text"><b>Where To Find:</b> {recipe.source} </p>
-						<p class="card-text"><b>Number of Recipes Needed To Unlock:</b> {recipe.recipesToUnlock} </p>
+						<p class="card-text"><b>Sell Price:</b> {recipe.sellPrice} </p>
+						<p class="card-text"><b>Source:</b> {recipe.source} </p>
+						<p class="card-text"><b>Recipes Needed To Unlock:</b> {recipe.recipesToUnlock} </p>
 						<p class="card-text"><b>Category:</b> {recipe.category} </p>
-						<p class="card-text capitalize"><b>Recipe Color:</b> {recipe.cardColor} </p>
-						<p class="card-text"><b>Recipe Materials:</b> {recipe.materials} </p>
-						<p class="card-text"><b>Recipe Other Notes:</b> {recipe.sourceNotes} </p>
+						<p class="card-text capitalize"><b>Card Color:</b> {recipe.cardColor} </p>
+						<p class="card-text"><b>Materials:</b> {recipe.materials} </p>
+						<p class="card-text"><b>Important Notes:</b> {recipe.sourceNotes} </p>
 					</div>
 				</div>}
 				{!canShow && <div class="borderdiv">

@@ -221,12 +221,12 @@ class Recipes extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Recipe Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'buyPrice',
                 text: 'Purchase Price',
@@ -235,34 +235,38 @@ class Recipes extends React.Component {
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectBuyPrice
+					options: selectBuyPrice,
+					placeholder: 'All'
 				})
             },  {
                 dataField: 'sellPrice',
-                text: 'Sellling Price',
+                text: 'Sell Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectSellPrice
+					options: selectSellPrice,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'source',
-                text: 'Where To Find?',
+                text: 'Source',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectSource
+					options: selectSource,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'recipesToUnlock',
-                text: 'Number of Recipes Needed to Unlock',
+                text: 'Recipes Needed To Unlock',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectrecipesToUnlock
+					options: selectrecipesToUnlock,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'category',
@@ -271,32 +275,34 @@ class Recipes extends React.Component {
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectCategory
+					options: selectCategory,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'cardColor',
-                text: 'Recipe Card Color',
+                text: 'Card Color',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				filter: selectFilter({
-					options: selectColor
+					options: selectColor,
+					placeholder: 'All'
 				}),
 				formatter: colorFormatter
             }, {
                 dataField: 'materials',
-                text: 'Materials To Craft',
+                text: 'Materials',
                 sort: false,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             }, {
                 dataField: 'sourceNotes',
                 text: 'Important Notes',
                 sort: false,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'id',
                 text: 'ID',
@@ -356,7 +362,7 @@ class Recipes extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Number of recipes to Unlock: </b> {cell} </div>
+						<div><b>Recipes Needed To Unlock: </b> {cell} </div>
 					);
 				}
             }, {
@@ -409,9 +415,63 @@ class Recipes extends React.Component {
             ]
         }
 		
-        return (
-
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 1. <u>Name:</u> The name of the recipe as shown in the inventory. </h5>
+				<h5 > 2. <u>Purchase Price:</u> The number of bells or Nook Mile Tickets needed to buy this recipe.  </h5>
+				<h5 > 3. <u>Sell Price:</u> The number of bells received for selling this recipe at Nook's Cranny. Please note
+					this is not the sell price for the item made from the recipe, but the recipe card itself. </h5>
+				<h5 > 4. <u>Source:</u> Where to acquire the recipe. </h5>
+				<h5 > 5. <u>Recipes Needed To Unlock:</u> Number of recipes needed before you can unlock this recipe. </h5>
+				<h5 > 6. <u>Category:</u> The category of the recipe the item is in the inventory. </h5>
+				<h5 > 7. <u>Card Color:</u> The color of the recipe card. </h5>
+				<h5 > 8. <u>Materials:</u> The materials needed to craft the item as stated in the recipe. </h5>
+				<h5 > 9. <u>Important Notes:</u> Important notes for the recipe. </h5>
+			</div>
+			)
+		}
 		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Recipes are cards that allow your to learn how to craft certain items from certain materials. 
+					Recipes can be acquired mostly from a bottle near the sea, villagers, or balloons. If you open up your inventory,
+					you can select learn and from then on craft the item on the recipe on a DIY bench. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the recipes currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the recipes
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
+		
+        return (
             <div>
 				<Helmet>
 				  <title>{ TITLE }</title>
@@ -422,7 +482,19 @@ class Recipes extends React.Component {
 						style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">		
 					<BrowserView>
 						<BootstrapTable

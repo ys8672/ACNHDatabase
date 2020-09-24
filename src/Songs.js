@@ -89,15 +89,15 @@ class Songs extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Song Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'image',
-                text: 'Song Cover Photo',
+                text: 'Cover Photo',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -105,13 +105,14 @@ class Songs extends React.Component {
 				headerAlign: 'center'
 			},{
                 dataField: 'isOrderable',
-                text: 'Purchasable?',
+                text: 'Orderable?',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectPurchasable[cell],
 				filter: selectFilter({
-					options: selectPurchasable
+					options: selectPurchasable,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'buyPrice',
@@ -121,7 +122,8 @@ class Songs extends React.Component {
 				headerAlign: 'center',
 				formatter: buyPriceFormatter,
 				filter: selectFilter({
-					options: selectBuyPrice
+					options: selectBuyPrice,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'sellPrice',
@@ -131,7 +133,8 @@ class Songs extends React.Component {
 				headerAlign: 'center',
 				formatter: cell => selectSellPrice[cell],
 				filter: selectFilter({
-					options: selectSellPrice
+					options: selectSellPrice,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'music',
@@ -153,7 +156,7 @@ class Songs extends React.Component {
 		function mobileName(cell, row){
 			return (
 				<div>
-					<h5><b>Song Name: <Link to={{pathname: `/songs/${row.id}/`}}>{cell}</Link></b></h5>
+					<h5><b>Name: <Link to={{pathname: `/songs/${row.id}/`}}>{cell}</Link></b></h5>
 				</div>
             );
 		}
@@ -161,7 +164,7 @@ class Songs extends React.Component {
 		function mobileOrderable(cell, row){
 			return (
 				<div>
-					<b>Is Orderable?: </b> {cell}
+					<b>Orderable?: </b> {cell}
 				</div>
             );
 		}
@@ -177,7 +180,7 @@ class Songs extends React.Component {
 		function mobileSellPrice(cell, row){
 			return (
 				<div>
-					<b>Selling Price: </b> {cell}
+					<b>Sell Price: </b> {cell}
 				</div>
             );
 		}
@@ -233,6 +236,62 @@ class Songs extends React.Component {
             }]
 		}; 
 		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 1. <u>Name:</u> The name of the K.K. Slider song. </h5>
+				<h5 > 2. <u>Cover Photo:</u> The photo of the song cover when you put it inside a music player item. </h5>
+				<h5 > 3. <u>Orderable?:</u> Whether or not the song can be bought. </h5>
+				<h5 > 4. <u>Purchase Price:</u> Number of bells needed to buy the song. </h5>
+				<h5 > 5. <u>Sell Price:</u> Number of bells acquired when you sell the song.. </h5>
+				<h5 > 6. <u>Music:</u> Listen to the song. (Please note that some browsers may not support the audio functionality
+				to play the song.) </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Songs are music performed by K.K. Slider. Once the player has gotten their island to a 
+				3-star rating from talking to Isabelle, K.K. Slider will be invited the next day to your island. Afterwards, he will show
+				up every Saturday (or the day after if there is an event Saturday) on the island plaza. You can get an album of the first song
+				you request from him in your inventory and the credits will play with that K.K. Slider song playing. </h5>
+				<h5 className='indent'> Once you have acquired a song from K.K. Slider, you can play that music in a music-player related
+					item. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the songs currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the songs
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
+		
         return (
             <div>
 				<Helmet>
@@ -244,7 +303,19 @@ class Songs extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">		
 				<BrowserView>
 					<BootstrapTable

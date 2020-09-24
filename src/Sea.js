@@ -313,29 +313,29 @@ class Sea extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Sea Creature Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'icon',
-                text: 'Sea Creature Icon',
+                text: 'Icon',
                 sort: false,
                 formatter: imageFormatter,
 				align: "center",
 				headerAlign: 'center'
             },  {
                 dataField: 'image',
-                text: 'Sea Creature Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				align: "center",
 				headerAlign: 'center'
             }, {
                 dataField: 'monthNorth',
-                text: 'Months Available in the Northern Hemisphere',
+                text: 'Months Available (Northern Hemisphere)',
                 sort: true,
 				sortFunc: monthSort,
 				formatter: monthFormatter,
@@ -343,7 +343,7 @@ class Sea extends React.Component {
 				headerAlign: 'center'
             }, {
                 dataField: 'monthSouth',
-                text: 'Months Available in the Southern Hemisphere',
+                text: 'Months Available (Southern Hemisphere)',
                 sort: true,
 				sortFunc: monthSort,
 				formatter: monthFormatter,
@@ -365,40 +365,42 @@ class Sea extends React.Component {
 				headerAlign: 'center',
 				formatter: cell => selectSpeed[cell],
 				filter: selectFilter({
-					options: selectSpeed
+					options: selectSpeed,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'shadow',
-                text: 'Sea Creature Shadow Size',
+                text: 'Shadow Size',
                 sort: true,
 				sortFunc: shadowSort,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectShadow[cell],
 				filter: selectFilter({
-					options: selectShadow
+					options: selectShadow,
+					placeholder: 'All'
 				})
             },{
                 dataField: 'price',
-                text: 'Selling Price',
+                text: 'Sell Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: numberFilter()
+				filter: numberFilter({placeholder: 'Number'})
             },{
                 dataField: 'catchPhrase',
                 text: 'Catch Phrase',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'museumPhrase',
                 text: 'Museum Description',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter(),
+				filter: textFilter({placeholder: 'Search'}),
 				formatter: truncate
             },{
                 dataField: 'id',
@@ -490,7 +492,7 @@ class Sea extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Selling Price: </b> {cell} </div>
+						<div><b>Sell Price: </b> {cell} </div>
 					);
 				}
             },{
@@ -522,6 +524,66 @@ class Sea extends React.Component {
             }
             ]
         }
+		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 01. <u>Name:</u> The name of the sea creature as described in the inventory. </h5>
+				<h5 > 02. <u>Icon:</u> The picture of the sea creature as shown in the inventory. </h5>
+				<h5 > 03. <u>Image:</u> The picture of the sea creature appearing on your island. </h5>
+				<h5 > 04. <u>Months Available (Northern Hemisphere):</u> The months the sea creature can be found on your island in the Northern Hemisphere. </h5>
+				<h5 > 05. <u>Months Available (Southern Hemisphere):</u> The months the sea creature can be found on your island in the Southern Hemisphere. </h5>
+				<h5 > 06. <u>Time Available:</u> The time range of when the sea creature can be found on your island. </h5>
+				<h5 > 07. <u>Movement Speed:</u> How fast the sea creature can move when you approach it.  </h5>
+				<h5 > 08. <u>Shadow Size:</u> The size of the sea creature shadow when it is swimming underwater. </h5>
+				<h5 > 09. <u>Sell Price:</u> The number of bells the sea creature can be sold at Nook's Cranny. You CANNOT sell sea creatures for 1.5x the price
+				by talking to C.J. </h5>
+				<h5 > 10. <u>Catch Phrase:</u> The game phrase that displays when you catch this sea creature. </h5>
+				<h5 > 11. <u>Museum Description:</u> The description of the sea creature in the museum. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Added in Wave 1 of the Summer Update on July 3rd, 2020, sea creatures are collectables 
+				which can be found swimming underwater in the ocean. To obtain sea creatures, the player needs to buy
+				a swim suit from Nook's Cranny, equip the swimsuit, and swim in the ocean. While swimming, you may find certain shadows
+				swimming underwater. You can dive underwater and touch these shadows to catch a deep-sea creature. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the sea creatures currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the sea creatures
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
+		
         return (
             <div>
 				<Helmet>
@@ -533,7 +595,19 @@ class Sea extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">	
 					<BrowserView>
 						<BootstrapTable

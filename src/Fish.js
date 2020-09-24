@@ -594,7 +594,7 @@ class Fish extends React.Component {
 				<h5 > 06. <u>Time Available:</u> The time range of when the fish can be found on your island. </h5>
 				<h5 > 07. <u>Location:</u> What kind of body of water the fish spawns and can be found om. </h5>
 				<h5 > 08. <u>Rarity:</u> How often the player is likely to encounter the fish on their island. </h5>
-				<h5 > 09. <u>Shadow Size:</u> The size of the shadow of the fish when it is swimming underwater. </h5>
+				<h5 > 09. <u>Shadow Size:</u> The size of the fish shadow when it is swimming underwater. </h5>
 				<h5 > 10. <u>Sell Price:</u> The number of bells the fish can be sold at Nook's Cranny. You can also sell the fishs for 1.5x the price
 				by talking to C.J. </h5>
 				<h5 > 11. <u>Catch Phrase:</u> The game phrase that displays when you catch this fish. </h5>
