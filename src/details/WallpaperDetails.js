@@ -49,7 +49,7 @@ class WallpaperDetails extends React.Component {
 										<h1 class="card-title capitalize"><b>Name: {wallpaper.name}</b></h1>
 										<p class="card-text"><b>Visual Effects Type: </b> {wallpaper.vfxType} </p>
 										<p class="card-text"><b>Purchase Price: </b> {buyFormatter(wallpaper.buy)} </p>
-										<p class="card-text"><b>Selling Price: </b> {wallpaper.sell} </p>
+										<p class="card-text"><b>Sell Price: </b> {wallpaper.sell} </p>
 										<p class="card-text"><b>Color(s): </b> {wallpaper.color} </p>
 										<p class="card-text"><b>Source: </b> {wallpaper.source} </p>
 										<p class="card-text"><b>Window Type: </b> {wallpaper.windowType} </p>

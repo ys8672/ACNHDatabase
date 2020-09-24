@@ -318,7 +318,7 @@ class Wallpapers extends React.Component {
 				formatter: buyFormatter
 			},{
                 dataField: 'sell',
-                text: 'Selling Price',
+                text: 'Sell Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
@@ -476,7 +476,7 @@ class Wallpapers extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Selling Price: </b>{cell}</div>
+						<div><b>Sell Price: </b>{cell}</div>
 					);
 				}
 			},{
@@ -587,7 +587,7 @@ class Wallpapers extends React.Component {
 				<h5 > 3. <u>Visual Effects Type:</u> Some wallpapers may have visual effects that allow that wallpaper
 				to have an animation when you put it on your wall. </h5>
 				<h5 > 4. <u>Purchase Price:</u> The number of bells needed to buy the wallpaper from Nook's Cranny. </h5>
-				<h5 > 5. <u>Selling Price:</u> The number of bells you can sell the wallpaper at Nook's Cranny. </h5>
+				<h5 > 5. <u>Sell Price:</u> The number of bells you can sell the wallpaper at Nook's Cranny. </h5>
 				<h5 > 6. <u>Color(s):</u> The main color(s) of the wallpaper. Colorful is used to describe a wide range
 				of colors. </h5>
 				<h5 > 7. <u>Source:</u> Where to acquire the Wallpaper. </h5>
