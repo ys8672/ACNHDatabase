@@ -11,6 +11,8 @@ import Songs from "./Songs";
 import SongDetails from "./details/SongDetails";
 import Sea from "./Sea";
 import SeaDetails from "./details/SeaDetails";
+import Rugs from "./Rugs";
+import RugDetails from "./details/RugDetails";
 import Recipes from "./Recipes";
 import RecipeDetails from "./details/RecipeDetails";
 import Reactions from "./Reactions"
@@ -49,6 +51,8 @@ class App extends React.Component{
 						<Route path="/songs/:id" component={SongDetails}/>
 						<Route exact path="/sea" component={Sea}/>
 						<Route path="/sea/:id" component={SeaDetails}/>
+						<Route exact path="/rugs" component={Rugs}/>
+						<Route path="/rugs:id" component={RugDetails}/>
 						<Route exact path="/recipes" component={Recipes}/>
 						<Route path="/recipes/:id" component={RecipeDetails}/>
 						<Route exact path="/reactions" component={Reactions}/>

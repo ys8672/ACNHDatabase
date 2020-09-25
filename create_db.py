@@ -428,6 +428,8 @@ def create_floors():
             source += ' (' + floor['sourceNotes'] + ')'
         points = floor['hhaBasePoints']
         series = floor['series']
+        if series == None:
+            series = 'None'
         concepts = ', '.join(floor['concepts'])
         tag = floor['tag']
         id = index
@@ -495,7 +497,7 @@ def create_rugs():
         sell = rug['sell']
         color = ", ".join(list(set(rug['colors'])))
         source = ', '.join(rug['source'])
-        size = rug['size']
+        size = rug['size'].replace(" ", "")
         sizecategory = rug['sizeCategory']
         if rug['diy'] == True:
             material_list = []
@@ -506,6 +508,8 @@ def create_rugs():
             source += ' (' + rug['sourceNotes'] + ')'
         points = rug['hhaBasePoints']
         series = rug['series']
+        if series == None:
+            series = 'None'
         concepts = ', '.join(rug['concepts'])
         tag = rug['tag']
         id = index
