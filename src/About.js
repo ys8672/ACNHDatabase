@@ -100,7 +100,7 @@ class About extends React.Component{
 						  <h5 class="card-title" className="text-center"><b>Postman API</b></h5>
 						  <p class="card-text">I have also made a RESTful API for all of the pages. This will include all
 						  the data shown on the tables in JSON format. Feel free to use however you like. </p>
-						  <Button variant="outline-primary mt-auto" size="lg" href="https://www.postman.com/collections/2f87fb9670ad6eb19f90"> Postman API </Button>
+						  <Button variant="outline-primary mt-auto" size="lg" href="https://documenter.getpostman.com/view/12341682/TVKHUFN3"> Postman API </Button>
 						</div>
 					 </div>
 				</div>
