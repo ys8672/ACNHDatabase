@@ -359,7 +359,7 @@ class Floors extends React.Component {
 					);
 				},
 				align: "center",
-				headerAlign: 'center'
+				headerAlign: 'center',
             },{
                 dataField: 'image',
                 text: 'floor Image',
@@ -373,15 +373,16 @@ class Floors extends React.Component {
 				align: "center",
 				headerAlign: 'center'
 			},{
-                dataField: 'vfxType',
+                dataField: 'vfx',
                 text: 'Visual Effects Type',
 				align: "center",
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>VFX Type: </b>{cell}</div>
+						<div><b>VFX Type: </b>{booleanFormatter(cell)}</div>
 					);
-				}
+				},
+				filterValue: booleanFormatter
 			},{
                 dataField: 'buy',
                 text: 'Purchase Price',
@@ -391,7 +392,8 @@ class Floors extends React.Component {
 					return(
 						<div><b>Purchase Price: </b>{buyFormatter(cell)}</div>
 					);
-				}
+				},
+				filterValue: buyFormatter
 			},{
                 dataField: 'sell',
                 text: 'Selling Price',

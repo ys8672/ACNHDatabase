@@ -361,7 +361,8 @@ class Rugs extends React.Component {
 					return(
 						<div><b>Purchase Price: </b>{buyFormatter(cell)}</div>
 					);
-				}
+				},
+				filterValue: buyFormatter
 			},{
                 dataField: 'sell',
                 text: 'Selling Price',

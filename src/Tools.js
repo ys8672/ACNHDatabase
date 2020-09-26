@@ -292,6 +292,7 @@ class Tools extends React.Component {
 						<div><b>Customization Kit Cost: </b> {kitCostFormatter(cell, row)} </div>
 					);
 				},
+				filterValue: kitCostFormatter
 			},{
                 dataField: 'uses',
                 text: 'Uses',
@@ -302,6 +303,7 @@ class Tools extends React.Component {
 						<div><b>Uses: </b> {usesFormatter(cell, row)} </div>
 					);
 				},
+				filterValue: usesFormatter
 			},{
                 dataField: 'stacksize',
                 text: 'Stack Size',
@@ -322,6 +324,7 @@ class Tools extends React.Component {
 						<div><b>Purchase Price: </b> {buyFormatter(cell, row)} </div>
 					);
 				},
+				filterValue: buyFormatter
 			},{
                 dataField: 'sell',
                 text: 'Sell Price',

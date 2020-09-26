@@ -468,7 +468,8 @@ class Wallpapers extends React.Component {
 					return(
 						<div><b>Purchase Price: </b>{buyFormatter(cell)}</div>
 					);
-				}
+				},
+				filterValue: buyFormatter
 			},{
                 dataField: 'sell',
                 text: 'Selling Price',
@@ -582,18 +583,18 @@ class Wallpapers extends React.Component {
 		function about2(){
 			return(
 			<div>
-				<h5 > 1. <u>Name:</u> The name of the wallpaper when you select it in your inventory.</h5>
-				<h5 > 2. <u>Image:</u> The image of the wallpaper when seen in your inventory. </h5>
-				<h5 > 3. <u>Visual Effects Type:</u> Some wallpapers may have visual effects that allow that wallpaper
+				<h5 > 01. <u>Name:</u> The name of the wallpaper when you select it in your inventory.</h5>
+				<h5 > 02. <u>Image:</u> The image of the wallpaper when seen in your inventory. </h5>
+				<h5 > 03. <u>Visual Effects Type:</u> Some wallpapers may have visual effects that allow that wallpaper
 				to have an animation when you put it on your wall. </h5>
-				<h5 > 4. <u>Purchase Price:</u> The number of bells needed to buy the wallpaper from Saharah or Nook's Cranny. 
+				<h5 > 04. <u>Purchase Price:</u> The number of bells needed to buy the wallpaper from Saharah or Nook's Cranny. 
 					Please note that Saharah's wallpapers are random. </h5>
-				<h5 > 5. <u>Sell Price:</u> The number of bells you can sell the wallpaper at Nook's Cranny. </h5>
-				<h5 > 6. <u>Color(s):</u> The main color(s) of the wallpaper. Colorful is used to describe a wide range
+				<h5 > 05. <u>Sell Price:</u> The number of bells you can sell the wallpaper at Nook's Cranny. </h5>
+				<h5 > 06. <u>Color(s):</u> The main color(s) of the wallpaper. Colorful is used to describe a wide range
 				of colors. </h5>
-				<h5 > 7. <u>Source:</u> Where to acquire the Wallpaper. </h5>
-				<h5 > 8. <u>Type of Window:</u> For some wallpapers, the type of window the wallpaper contains. </h5>
-				<h5 > 9. <u>Type of Ceiling:</u> For some wallpapers, the type of ceiling the wallpaper contains. </h5>
+				<h5 > 07. <u>Source:</u> Where to acquire the Wallpaper. </h5>
+				<h5 > 08. <u>Type of Window:</u> For some wallpapers, the type of window the wallpaper contains. </h5>
+				<h5 > 09. <u>Type of Ceiling:</u> For some wallpapers, the type of ceiling the wallpaper contains. </h5>
 				<h5 > 10. <u>Type of Curtain:</u> For some wallpapers, the type of curtain the wallpaper contains. </h5>
 				<h5 > 11. <u>HHA Points:</u> The number of points this wallpaper add to your Happy Home Academy Rating you
 				receive in the mail every Sunday. </h5>
@@ -611,7 +612,7 @@ class Wallpapers extends React.Component {
 				<br/>
 				<h3 className='indent'><b> About </b></h3>
 				<hr/>
-				<h5 className='indent'> Wallpapers are one of the few ways the play can customize the wall in the interior of their house. To do so, simply go into your
+				<h5 className='indent'> Wallpapers are one of the few ways the player can customize the wall in the interior of their house. To do so, simply go into your
 				inventory and select it to apply the wallpaper design. The room the player is currently in should change to that wallpaper's
 				design. You can find most wallpaper from Nook's Cranny or Saharah. </h5>
 				<br/>

@@ -632,7 +632,7 @@ class Search extends React.Component {
 						<h5 className='text-center'>Number of tools: {(this.state.toolsFiltered).length}</h5>
 							{(this.state.toolsFiltered).map((tool, i) =>
 								<div class="borderdiv" key={i}>
-									<h5 className='text-center'><b>
+									<h5 className='text-center capitalize'><b>
 										<Highlighter
 											highlightClassName="YourHighlightClass"
 											searchWords={this.state.searchTextArray}
@@ -653,7 +653,7 @@ class Search extends React.Component {
 						<h5 className='text-center'>Number of wallpapers: {(this.state.wallpapersFiltered).length}</h5>
 							{(this.state.wallpapersFiltered).map((wallpaper, i) =>
 								<div class="borderdiv" key={i}>
-									<h5 className='text-center'><b>
+									<h5 className='text-center capitalize'><b>
 										<Highlighter
 											highlightClassName="YourHighlightClass"
 											searchWords={this.state.searchTextArray}

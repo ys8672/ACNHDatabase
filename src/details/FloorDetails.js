@@ -35,6 +35,13 @@ class FloorDetails extends React.Component {
 			return parseInt(cell)
 		}
 		
+		function booleanFormatter(cell, row){
+			if(cell === true){
+				return "Yes";
+			}
+			return "No";
+		}
+		
 		function card(canShow){
 			return(
 				<div>
@@ -47,7 +54,7 @@ class FloorDetails extends React.Component {
 								<div class="col-md-8">
 									<div class="card-body">
 										<h1 class="card-title capitalize"><b>Name: {floor.name}</b></h1>
-										<p class="card-text"><b>Visual Effects: </b> {floor.vfxType} </p>
+										<p class="card-text"><b>Visual Effects: </b> {booleanFormatter(floor.vfx)} </p>
 										<p class="card-text"><b>Purchase Price: </b> {buyFormatter(floor.buy)} </p>
 										<p class="card-text"><b>Sell Price: </b> {floor.sell} </p>
 										<p class="card-text"><b>Color(s): </b> {floor.color} </p>
