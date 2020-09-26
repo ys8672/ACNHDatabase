@@ -76,13 +76,6 @@ class Tools extends React.Component {
             );
         }
 		
-		function booleanFormatter(cell, row) {
-			if(cell === true){
-				return ("Yes")
-			}
-			return ("No")
-		}
-		
 		function kitCostFormatter(cell, row) {
 			if(cell === -1){
 				return "Not Customizable"

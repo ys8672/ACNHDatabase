@@ -37,7 +37,16 @@ class Search extends React.Component {
 			bugs: [],
 			bugsFiltered: [],
 			art: [],
-			artFiltered: []
+			artFiltered: [],
+			//newest 4
+			wallpapers: [],
+			wallpapersFiltered: [],
+			tools: [],
+			toolsFiltered: [],
+			rugs: [],
+			rugsFiltered: [],
+			floors: [],
+			floorsFiltered: []
 		}
 		this.searchData = this.searchData.bind(this)
 		this.scrollDivArt = React.createRef();
@@ -52,6 +61,10 @@ class Search extends React.Component {
 		this.scrollDivSea = React.createRef();
 		this.scrollDivSongs = React.createRef();
 		this.scrollDivVillagers = React.createRef();
+		this.scrollDivWallpapers = React.createRef();
+		this.scrollDivTools = React.createRef();
+		this.scrollDivRugs = React.createRef();
+		this.scrollDivFloors = React.createRef();
 	}
 	
 	componentDidMount() {
@@ -69,6 +82,11 @@ class Search extends React.Component {
 			let sea2 = []
 			let songs2 = []
 			let villagers2 = []
+			let wallpapers2 = []
+			let rugs2 = []
+			let tools2 = []
+			let floors2 = []
+			
 			var i;
 			for (i = 0; i < search.length; i++) {
 				var cat = search[i].category;
@@ -109,6 +127,18 @@ class Search extends React.Component {
 					case (cat=== 'villagers'):
 						villagers2.push(search[i]);
 						break;
+					case (cat=== 'wallpapers'):
+						wallpapers2.push(search[i]);
+						break;
+					case (cat=== 'tools'):
+						tools2.push(search[i]);
+						break;
+					case (cat=== 'rugs'):
+						rugs2.push(search[i]);
+						break;
+					case (cat=== 'floors'):
+						floors2.push(search[i]);
+						break;
 					default:
 						break;
 				}
@@ -125,6 +155,10 @@ class Search extends React.Component {
 			this.setState({sea: sea2})
 			this.setState({songs: songs2})
 			this.setState({villagers: villagers2})
+			this.setState({wallpapers: wallpapers2})
+			this.setState({tools: tools2})
+			this.setState({rugs: rugs2})
+			this.setState({floors: floors2})
         })
 	}
 	
@@ -173,6 +207,10 @@ class Search extends React.Component {
 			this.setState({clothesFiltered: []})
 			this.setState({bugsFiltered: []})
 			this.setState({artFiltered: []})
+			this.setState({wallpapersFiltered: []})
+			this.setState({toolsFiltered: []})
+			this.setState({rugsFiltered: []})
+			this.setState({floorsFiltered: []})
 		}
 		else{
 			var inputSplit = input.split(" ");
@@ -215,6 +253,15 @@ class Search extends React.Component {
 			//art
 			var artList = this.sortFunc(inputSplit, this.state.art)
 			this.setState({artFiltered: artList})
+			//new 4
+			var wallpaperList = this.sortFunc(inputSplit, this.state.wallpapers)
+			this.setState({wallpapersFiltered: wallpaperList})
+			var toolList = this.sortFunc(inputSplit, this.state.tools)
+			this.setState({toolsFiltered: toolList})
+			var rugList = this.sortFunc(inputSplit, this.state.rugs)
+			this.setState({rugsFiltered: rugList})
+			var floorList = this.sortFunc(inputSplit, this.state.floors)
+			this.setState({floorsFiltered: floorList})
 		}
 	}
 	
@@ -262,6 +309,9 @@ class Search extends React.Component {
 										this.scrollDivFish.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Fish</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivFloors.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Floors</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
 										this.scrollDivFossils.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Fossils</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
@@ -274,14 +324,23 @@ class Search extends React.Component {
 										this.scrollDivRecipes.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Recipes</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivRugs.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Rugs</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
 										this.scrollDivSea.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Sea Creatures</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
 										this.scrollDivSongs.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Songs</button>
 								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivTools.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Tools</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
 										this.scrollDivVillagers.current.scrollIntoView({ behavior: 'smooth' });
 									  }}>Villagers</button>
+								<button type="button" class="btn btn-secondary" onClick={() => {
+										this.scrollDivWallpapers.current.scrollIntoView({ behavior: 'smooth' });
+									  }}>Wallpapers</button>
 							</div>
 						</div>
 					</BrowserView>
@@ -292,7 +351,8 @@ class Search extends React.Component {
 						+ (this.state.songsFiltered).length + (this.state.recipesFiltered).length + (this.state.itemsFiltered).length
 						+ (this.state.fossilsFiltered).length + (this.state.fishFiltered).length + (this.state.constructionFiltered).length
 						+ (this.state.bugsFiltered).length + (this.state.artFiltered).length + (this.state.reactionsFiltered).length
-						+ (this.state.clothesFiltered).length}</h5>
+						+ (this.state.clothesFiltered).length + (this.state.wallpapersFiltered).length + (this.state.toolsFiltered).length
+						+ (this.state.rugsFiltered).length + (this.state.floorsFiltered).length}</h5>
 					<br/>
 
 					<div ref={this.scrollDivArt}>
@@ -400,6 +460,27 @@ class Search extends React.Component {
 					</div>
 					<br/>
 					
+					<div ref={this.scrollDivFloors}>
+						<h3 className='text-center'><b>Floors: </b></h3>
+						<h5 className='text-center'>Number of floors: {(this.state.floorsFiltered).length}</h5>
+							{(this.state.floorsFiltered).map((floor, i) =>
+								<div class="borderdiv" key={i}>
+									<h5 className='text-center capitalize'><b>
+										<Highlighter
+											highlightClassName="YourHighlightClass"
+											searchWords={this.state.searchTextArray}
+											autoEscape={true}
+											textToHighlight={floor.name}
+										/>
+									</b></h5>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/floors/${floor.id}/`}}>More details</Link>
+									</div>
+								</div>
+							)}  
+					</div>
+					<br/>
+					
 					<div ref={this.scrollDivFossils}>
 						<h3 className='text-center'><b>Fossils: </b></h3>
 						<h5 className='text-center'>Number of fossils: {(this.state.fossilsFiltered).length}</h5>
@@ -483,6 +564,27 @@ class Search extends React.Component {
 					</div>
 					<br/>
 					
+					<div ref={this.scrollDivRugs}>
+						<h3 className='text-center'><b>Rugs: </b></h3>
+						<h5 className='text-center'>Number of rugs: {(this.state.rugsFiltered).length}</h5>
+							{(this.state.rugsFiltered).map((rug, i) =>
+								<div class="borderdiv" key={i}>
+									<h5 className='text-center capitalize'><b>
+										<Highlighter
+											highlightClassName="YourHighlightClass"
+											searchWords={this.state.searchTextArray}
+											autoEscape={true}
+											textToHighlight={rug.name}
+										/>
+									</b></h5>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/rugs/${rug.id}/`}}>More details</Link>
+									</div>
+								</div>
+							)}  
+					</div>
+					<br/>
+					
 					<div ref={this.scrollDivSea}>
 						<h3 className='text-center'><b>Sea Creatures:</b></h3>
 						<h5 className='text-center'>Number of sea creatures: {(this.state.seaFiltered).length}</h5>
@@ -525,6 +627,48 @@ class Search extends React.Component {
 					</div>
 					<br/>
 					
+					<div ref={this.scrollDivTools}>
+						<h3 className='text-center'><b>Tools:</b></h3>
+						<h5 className='text-center'>Number of tools: {(this.state.toolsFiltered).length}</h5>
+							{(this.state.toolsFiltered).map((tool, i) =>
+								<div class="borderdiv" key={i}>
+									<h5 className='text-center'><b>
+										<Highlighter
+											highlightClassName="YourHighlightClass"
+											searchWords={this.state.searchTextArray}
+											autoEscape={true}
+											textToHighlight={tool.name}
+										/>
+									</b></h5>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/tools/${tool.id}/`}}>More details</Link>
+									</div> 
+								</div>
+							)}  
+					</div>
+					<br/>
+					
+					<div ref={this.scrollDivWallpapers}>
+						<h3 className='text-center'><b>Wallpapers:</b></h3>
+						<h5 className='text-center'>Number of wallpapers: {(this.state.wallpapersFiltered).length}</h5>
+							{(this.state.wallpapersFiltered).map((wallpaper, i) =>
+								<div class="borderdiv" key={i}>
+									<h5 className='text-center'><b>
+										<Highlighter
+											highlightClassName="YourHighlightClass"
+											searchWords={this.state.searchTextArray}
+											autoEscape={true}
+											textToHighlight={wallpaper.name}
+										/>
+									</b></h5>
+									<div style={{display: 'flex', justifyContent: 'center'}}>
+										<Link to={{pathname: `/wallpapers/${wallpaper.id}/`}}>More details</Link>
+									</div> 
+								</div>
+							)}
+					</div>
+					<br/>
+					
 					<div ref={this.scrollDivVillagers}>
 						<h3 className='text-center'><b>Villagers:</b></h3>
 						<h5 className='text-center'>Number of villagers: {(this.state.villagersFiltered).length}</h5>
@@ -545,6 +689,7 @@ class Search extends React.Component {
 							)}
 					</div>
 					<br/>
+					
 				</div>}
 			</div>
 		)
