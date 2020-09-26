@@ -251,9 +251,9 @@ class Tools(db.Model):
     
     name = db.Column(db.String(64), nullable = False)
     image = db.Column(db.String(8192), nullable = False)
-    variations = db.Column(db.String(256), nullable = True)
-    diy = db.Column(db.String(256), nullable = True)
-    kitcost = db.Column(db.Integer, nullable = True)
+    variations = db.Column(db.String(256), nullable = False)
+    diy = db.Column(db.String(256), nullable = False)
+    kitcost = db.Column(db.Integer, nullable = False)
     uses = db.Column(db.Integer, nullable = False)
     stacksize = db.Column(db.Integer, nullable = False)
     buy = db.Column(db.Integer, nullable = False)

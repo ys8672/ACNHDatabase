@@ -370,7 +370,7 @@ def create_tools():
         if 'image' in tool:
             image = tool['image']
         if 'variation' in tool and tool['variation'] == None:
-            variations = None
+            variations = 'None'
         else:
             variant_list = []
             image_list = []
@@ -379,13 +379,15 @@ def create_tools():
                 image_list.append(str(variant['image']))
             variations = ", ".join(variant_list)
             image = ",".join(image_list)
-        diy = "Not Craftable"
+        diy = "None"
         if tool['diy'] == True:
             material_list = []
             for (key, value) in tool['recipe']['materials'].items():
                 material_list.append(str(value) + " " + key + "(s)")
             diy = ", ".join(material_list)
         kitcost = tool['kitCost']
+        if kitcost == None:
+            kitcost = -1
         uses = ''
         if 'uses' in tool:
             uses = tool['uses']

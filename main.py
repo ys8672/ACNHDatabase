@@ -135,7 +135,7 @@ def tool_by_ID(tool_id):
         dict = {'code': 404, 'message': 'Tool not found'}
     else:
         tool = db.session.query(Tools).filter_by(id=tool_id).one()
-        dict = get_villager_dict(tool)
+        dict = get_tool_dict(tool)
     return dict
 
 #songs

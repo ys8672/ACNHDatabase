@@ -7,6 +7,8 @@ import Wallpapers from "./Wallpapers"
 import WallpaperDetails from "./details/WallpaperDetails"
 import Villagers from "./Villagers";
 import VillagerDetails from "./details/VillagerDetails";
+import Tools from "./Tools";
+import ToolDetails from "./details/ToolDetails";
 import Songs from "./Songs";
 import SongDetails from "./details/SongDetails";
 import Sea from "./Sea";
@@ -21,6 +23,8 @@ import Items from "./Items";
 import ItemDetails from "./details/ItemDetails";
 import Fossils from "./Fossils";
 import FossilDetails from "./details/FossilDetails";
+import Floors from "./Floors";
+import FloorDetails from "./details/FloorDetails";
 import Fish from "./Fish";
 import FishDetails from "./details/FishDetails";
 import Construction from "./Construction";
@@ -47,12 +51,14 @@ class App extends React.Component{
 						<Route path="/wallpapers/:id" component={WallpaperDetails}/>
 						<Route exact path="/villagers" component={Villagers}/>
 						<Route path="/villagers/:id" component={VillagerDetails}/>
+						<Route exact path="/tools" component={Tools}/>
+						<Route path="/tools/:id" component={ToolDetails}/>
 						<Route exact path="/songs" component={Songs}/>
 						<Route path="/songs/:id" component={SongDetails}/>
 						<Route exact path="/sea" component={Sea}/>
 						<Route path="/sea/:id" component={SeaDetails}/>
 						<Route exact path="/rugs" component={Rugs}/>
-						<Route path="/rugs:id" component={RugDetails}/>
+						<Route path="/rugs/:id" component={RugDetails}/>
 						<Route exact path="/recipes" component={Recipes}/>
 						<Route path="/recipes/:id" component={RecipeDetails}/>
 						<Route exact path="/reactions" component={Reactions}/>
@@ -61,6 +67,8 @@ class App extends React.Component{
 						<Route path="/items/:id" component={ItemDetails}/>
 						<Route exact path="/fossils" component={Fossils}/>
 						<Route path="/fossils/:id" component={FossilDetails}/>
+						<Route exact path="/floors" component={Floors}/>
+						<Route path="/floors/:id" component={FloorDetails}/>
 						<Route exact path="/fish" component={Fish}/>
 						<Route path="/fish/:id" component={FishDetails}/>
 						<Route exact path="/construction" component={Construction}/>
