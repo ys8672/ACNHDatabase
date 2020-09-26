@@ -46,7 +46,7 @@ class SongDetails extends React.Component {
 							<div class="col-md-8">
 								<div class="card-body">
 									<h1 class="card-title"><b>Name: {song.name}</b></h1>
-									<p class="card-text"><b>Purchasable?: </b> {song.isOrderable} </p>
+									<p class="card-text"><b>Orderable?: </b> {song.isOrderable} </p>
 									<p class="card-text"><b>Purchase Price:</b> {priceFormatter(song.buyPrice)} </p>
 									<p class="card-text"><b>Sell Price:</b> {song.sellPrice} </p>
 									<audio src={song.music} controls>

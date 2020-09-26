@@ -106,15 +106,15 @@ class FishDetails extends React.Component {
 						<div class="col-md-6">
 							<div class="card-body">
 								<h1 class="card-title capitalize"><b>Name: {fish.name}</b></h1>
-								<p class="card-text"><b>Month(s) Available in the Northern Hemisphere: </b> {monthFormatter(fish.monthNorth)} </p>
-								<p class="card-text"><b>Month(s) Available in the Southern Hemisphere:</b> {monthFormatter(fish.monthSouth)} </p>
+								<p class="card-text"><b>Months Available (Northern Hemisphere):</b> {monthFormatter(fish.monthNorth)} </p>
+								<p class="card-text"><b>Months Available (Southern Hemisphere):</b> {monthFormatter(fish.monthSouth)} </p>
 								<p class="card-text"><b>Time Available:</b> {fish.time} </p>
 								<p class="card-text"><b>Location:</b> {fish.location} </p>
 								<p class="card-text"><b>Rarity:</b> {fish.rarity} </p>
 								<p class="card-text"><b>Shadow Size:</b> {fish.shadow} </p>
-								<p class="card-text"><b>Selling Price:</b> {fish.price} </p>
+								<p class="card-text"><b>Sell Price:</b> {fish.price} </p>
 								<p class="card-text"><b>Catch Phrase:</b> {fish.catchPhrase} </p>
-								<p class="card-text"><b>Museum Phrase:</b> {fish.museumPhrase} </p>
+								<p class="card-text"><b>Museum Description:</b> {fish.museumPhrase} </p>
 							</div>
 						</div>
 						<div class="col-md-3">

@@ -350,29 +350,29 @@ class Fish extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Fish Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'icon',
-                text: 'Fish Icon',
+                text: 'Icon',
                 sort: false,
                 formatter: imageFormatter,
 				align: "center",
 				headerAlign: 'center'
             },  {
                 dataField: 'image',
-                text: 'Fish Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				align: "center",
 				headerAlign: 'center'
             }, {
                 dataField: 'monthNorth',
-                text: 'Months Available in the Northern Hemisphere',
+                text: 'Months Available (Northern Hemisphere)',
                 sort: true,
 				sortFunc: monthSort,
 				formatter: monthFormatter,
@@ -380,7 +380,7 @@ class Fish extends React.Component {
 				headerAlign: 'center'
             }, {
                 dataField: 'monthSouth',
-                text: 'Months Available in the Southern Hemisphere',
+                text: 'Months Available (Southern Hemisphere)',
                 sort: true,
 				sortFunc: monthSort,
 				formatter: monthFormatter,
@@ -395,57 +395,60 @@ class Fish extends React.Component {
 				headerAlign: 'center'
             }, {
                 dataField: 'location',
-                text: 'Fish Location',
+                text: 'Location',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectLocation[cell],
 				filter: selectFilter({
-					options: selectLocation
+					options: selectLocation,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'rarity',
-                text: 'Fish Rarity',
+                text: 'Rarity',
                 sort: true,
 				sortFunc: raritySort,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectRarity[cell],
 				filter: selectFilter({
-					options: selectRarity
+					options: selectRarity,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'shadow',
-                text: 'Fish Shadow Size',
+                text: 'Shadow Size',
                 sort: true,
 				sortFunc: shadowSort,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectShadow[cell],
 				filter: selectFilter({
-					options: selectShadow
+					options: selectShadow,
+					placeholder: 'All'
 				})
             },{
                 dataField: 'price',
-                text: 'Selling Price',
+                text: 'Sell Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: numberFilter()
+				filter: numberFilter({placeholder: 'Number'})
             },{
                 dataField: 'catchPhrase',
                 text: 'Catch Phrase',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'museumPhrase',
                 text: 'Museum Description',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter(),
+				filter: textFilter({placeholder: 'Search'}),
 				formatter: truncate
             },{
                 dataField: 'id',
@@ -545,7 +548,7 @@ class Fish extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Selling Price: </b> {cell} </div>
+						<div><b>Sell Price: </b> {cell} </div>
 					);
 				}
             },{
@@ -566,7 +569,7 @@ class Fish extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Museum Phrase: </b> {cell} </div>
+						<div><b>Museum Description: </b> {cell} </div>
 					);
 				}
             },{
@@ -579,6 +582,65 @@ class Fish extends React.Component {
             ]
         }
 		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 01. <u>Name:</u> The name of the fish as described in the inventory. </h5>
+				<h5 > 02. <u>Icon:</u> The picture of the fish as shown in the inventory. </h5>
+				<h5 > 03. <u>Image:</u> The picture of the fish appearing on your island. </h5>
+				<h5 > 04. <u>Months Available (Northern Hemisphere):</u> The months the fish can be found on your island in the Northern Hemisphere. </h5>
+				<h5 > 05. <u>Months Available (Southern Hemisphere):</u> The months the fish can be found on your island in the Southern Hemisphere. </h5>
+				<h5 > 06. <u>Time Available:</u> The time range of when the fish can be found on your island. </h5>
+				<h5 > 07. <u>Location:</u> What kind of body of water the fish spawns and can be found om. </h5>
+				<h5 > 08. <u>Rarity:</u> How often the player is likely to encounter the fish on their island. </h5>
+				<h5 > 09. <u>Shadow Size:</u> The size of the fish shadow when it is swimming underwater. </h5>
+				<h5 > 10. <u>Sell Price:</u> The number of bells the fish can be sold at Nook's Cranny. You can also sell the fishs for 1.5x the price
+				by talking to C.J. </h5>
+				<h5 > 11. <u>Catch Phrase:</u> The game phrase that displays when you catch this fish. </h5>
+				<h5 > 12. <u>Museum Description:</u> The description of the fish in the museum. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Fish are collectables which can be found swimming around on your island's rivers, ponds, and ocean shores. You can
+					use a fishing rod to catch them. Simply walk near a shadow by a body of water (running may scare fish away), use your rod in front of the shadow,
+					and wait until you hear the sound of a bite. Finally, press A to pull the fish up. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the fish currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the fish
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
+		
         return (
             <div>
 				<Helmet>
@@ -590,7 +652,19 @@ class Fish extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">	
 					<BrowserView>
 						<BootstrapTable
@@ -759,7 +833,7 @@ class Fish extends React.Component {
 					</div>
 					
 					<div class='border border-success'>
-						<h3 className='text-center'> Fish Selling Price Box-Plot </h3>
+						<h3 className='text-center'> Fish Sell Price Box-Plot </h3>
 						<VictoryChart domainPadding={0}>
 						    <VictoryAxis
 							  // tickValues specifies both the number of ticks and where

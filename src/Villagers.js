@@ -226,15 +226,15 @@ class Villagers extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Villager Name',
+                text: 'Name',
                 sort: true,
 				formatter: villagerFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'icon',
-                text: 'Villager Icon',
+                text: 'Icon',
                 sort: false,
                 formatter: imageFormatter2,
 				searchable: false,
@@ -242,7 +242,7 @@ class Villagers extends React.Component {
 				headerAlign: 'center'
             },{
                 dataField: 'image',
-                text: 'Villager Photo',
+                text: 'Photo',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -256,7 +256,8 @@ class Villagers extends React.Component {
 				headerAlign: 'center',
 				formatter: cell => selectSpecies[cell],
 				filter: selectFilter({
-					options: selectSpecies
+					options: selectSpecies,
+					placeholder: 'All'
 				})
             },{
                 dataField: 'personality',
@@ -266,7 +267,8 @@ class Villagers extends React.Component {
 				headerAlign: 'center',
 				formatter: cell => selectPersonality[cell],
 				filter: selectFilter({
-					options: selectPersonality
+					options: selectPersonality,
+					placeholder: 'All'
 				})
             },{
                 dataField: 'gender',
@@ -276,7 +278,8 @@ class Villagers extends React.Component {
 				headerAlign: 'center',
 				formatter: cell => selectGender[cell],
 				filter: selectFilter({
-					options: selectGender
+					options: selectGender,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'birthday',
@@ -284,7 +287,7 @@ class Villagers extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter(),
+				filter: textFilter({placeholder: 'Search'}),
 				filterValue: birthdayFormatter,
 				formatter: birthdayFormatter,
 				sortFunc: birthdaySort
@@ -294,7 +297,7 @@ class Villagers extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             }, {
                 dataField: 'id',
                 text: 'ID',
@@ -412,6 +415,64 @@ class Villagers extends React.Component {
 		  fontSize: '5px',
 		  fontFamily: 'sans-serif',
 		};
+		
+				//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 1. <u>Name:</u> The name of the villager. </h5>
+				<h5 > 2. <u>Icon:</u> The picture of the villager's head, as shown on lists in game and on the Nintendo Switch app. </h5>
+				<h5 > 3. <u>Photo:</u> A picture of the villager. </h5>
+				<h5 > 4. <u>Species:</u> The species of animal the villager belongs to. </h5>
+				<h5 > 5. <u>Personality:</u> The personality of the villager. This affects their dialogue and other minor things. </h5>
+				<h5 > 6. <u>Gender:</u> The gender of the villager. </h5>
+				<h5 > 7. <u>Birthday:</u> The birthday date of the villager. On their birthday, the will have a birthday party inside
+					their house and you can attend and give them a birthday gift. </h5>
+				<h5 > 8. <u>Catch Phrase:</u> The villager's phrase in addressing the player. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Villagers are NPCs who inhabit your island. They live on your island and will randomly
+					wander around your island throughout the day. The player can talk to them, give them gifts, and interact
+					with them. </h5>
+				<h5 className='indent'> There will automatically be two villagers when the player first starts their island, but they
+					could invite more villagers to their island via Amiibo, Nook Mile Secret Islands, inviting them from other people's
+					islands, or talking to them when a villager visits your campsite. The player can have 10 villagers maximum in New Horizons. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the villagers currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the villagers
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
 				
         return (
             <div>
@@ -423,7 +484,19 @@ class Villagers extends React.Component {
 				  <img src={process.env.PUBLIC_URL + '/villagers.png'} class="card-img" alt="Villagers" 
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">		
 					<BrowserView>
 					<BootstrapTable

@@ -48,7 +48,7 @@ class ArtDetails extends React.Component {
 								<h1 class="card-title capitalize"><b>Name: {art.name}</b></h1>
 								<p class="card-text"><b>Has Fake Version?:</b> {booleanFormatter(art.hasFake)} </p>
 								<p class="card-text"><b>Purchase Price: </b> {art.buyPrice} </p>
-								<p class="card-text"><b>Selling Price:</b> {art.sellPrice} </p>
+								<p class="card-text"><b>Sell Price:</b> {art.sellPrice} </p>
 								<p class="card-text"><b>Museum Description:</b> {art.museum} </p>
 							</div>
 						</div>

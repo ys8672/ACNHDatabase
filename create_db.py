@@ -1,7 +1,8 @@
 import json
 from models import app, db, Villagers, Songs, Sea,      \
     Items, Fossils, Fishes, Bugs, Arts, Construction,   \
-    Recipes, Search, Reactions, Clothes
+    Recipes, Search, Reactions, Clothes, Tools, Floors, \
+    Wallpapers, Rugs
     
 #Run this file with 'python create_db.py' to create the database.
 
@@ -216,10 +217,11 @@ def create_items_helper(files):
             pattern = ""
             if pattern_list[0] != None:
                 pattern = ', '.join(pattern_list)
+            typeof = string.split('.')[0].capitalize()
             id = index
             new_item = Items(name = name, kitCost = kitCost, size = size,
                 source = source, isInteractive = isInteractive, buyPrice = buyPrice, sellPrice = sellPrice,
-                image = image, category = category, variant = variant, pattern = pattern, id = id)
+                image = image, category = category, variant = variant, pattern = pattern, typeof = typeof, id = id)
             db.session.add(new_item)
             db.session.commit()
             index += 1       
@@ -311,7 +313,7 @@ def create_clothes():
                 # variant = cloth['variations'][0]
                 # image = variant['closetImage']
             if 'variation' in cloth and cloth['variation'] == None:
-                variations = None
+                variations = 'None'
             else:
                 variant_list = []
                 image_list = []
@@ -355,6 +357,168 @@ def create_clothes():
         new_item = Clothes(name = name, image = image, sourceSheet = sourceSheet, buy = buy, sell = sell,
             source = source, seasonal = seasonal, villager = villager, themes = themes, variations = variations, id = id)
         db.session.add(new_item)
+        db.session.commit()
+        index += 1
+
+def create_tools():
+    db.session.query(Tools).delete()
+    tools = load_json('tools.json')
+    index = 1
+    for tool in tools:
+        name = tool['name']
+        image = ''
+        if 'image' in tool:
+            image = tool['image']
+        if 'variation' in tool and tool['variation'] == None:
+            variations = 'None'
+        else:
+            variant_list = []
+            image_list = []
+            for variant in tool['variations']:
+                variant_list.append(str(variant['variation']))
+                image_list.append(str(variant['image']))
+            variations = ", ".join(variant_list)
+            image = ",".join(image_list)
+        diy = "None"
+        if tool['diy'] == True:
+            material_list = []
+            for (key, value) in tool['recipe']['materials'].items():
+                material_list.append(str(value) + " " + key + "(s)")
+            diy = ", ".join(material_list)
+        kitcost = tool['kitCost']
+        if kitcost == None:
+            kitcost = -1
+        uses = ''
+        if 'uses' in tool:
+            uses = tool['uses']
+        else:
+            uses = tool['variations'][0]['uses']
+        if 'stackSize' in tool:
+            stacksize = tool['stackSize']
+        else:
+            stacksize = tool['variations'][0]['stackSize']
+        buy = tool['buy']
+        sell = tool['sell']
+        source = ', '.join(tool['source']) 
+        if tool['sourceNotes'] != None:
+            source += ' (' + tool['sourceNotes'] + ')'
+        id = index
+        new_tool = Tools(name = name, image = image, variations = variations, diy = diy, kitcost = kitcost, uses = uses,
+            stacksize = stacksize, buy = buy, sell = sell, source = source, id = id)
+        db.session.add(new_tool)
+        db.session.commit()
+        index += 1
+        
+def create_floors():
+    db.session.query(Floors).delete()
+    floors = load_json('floors.json')
+    index = 1
+    for floor in floors:
+        name = floor['name']
+        image = floor['image']
+        vfx = floor['vfx']
+        buy = floor['buy']
+        sell = floor['sell']
+        color = ", ".join(list(set(floor['colors'])))
+        source = ', '.join(floor['source'])
+        if floor['diy'] == True:
+            material_list = []
+            for (key, value) in floor['recipe']['materials'].items():
+                material_list.append(str(value) + " " + key)
+            source += " (Recipe: " + ", ".join(material_list) + ")"
+        if floor['sourceNotes'] != None:
+            source += ' (' + floor['sourceNotes'] + ')'
+        points = floor['hhaBasePoints']
+        series = floor['series']
+        if series == None:
+            series = 'None'
+        concepts = ', '.join(floor['concepts'])
+        tag = floor['tag']
+        id = index
+        new_floor = Floors(name = name, image = image, vfx = vfx, buy = buy, sell = sell, color = color, source = source,
+            points = points, series = series, concepts = concepts, tag = tag, id = id)
+        db.session.add(new_floor)
+        db.session.commit()
+        index += 1
+
+def create_wallpapers():
+    db.session.query(Wallpapers).delete()
+    wallpapers = load_json('wallpapers.json')
+    index = 1
+    for wallpaper in wallpapers:
+        name = wallpaper['name']
+        image = wallpaper['image']
+        vfxtype = wallpaper['vfxType']
+        if vfxtype == None:
+            vfxtype = 'None'
+        if vfxtype == 'LightOff':
+            vfxtype = "Lights Off"
+        buy = wallpaper['buy']
+        sell = wallpaper['sell']
+        color = ", ".join(list(set(wallpaper['colors'])))
+        source = ', '.join(wallpaper['source'])
+        if wallpaper['diy'] == True:
+            material_list = []
+            for (key, value) in wallpaper['recipe']['materials'].items():
+                material_list.append(str(value) + " " + key)
+            source += " (Recipe: " + ", ".join(material_list) + ")"
+        if wallpaper['sourceNotes'] != None:
+            source += ' (' + wallpaper['sourceNotes'] + ')'
+        windowtype = wallpaper['windowType']
+        if windowtype == None:
+            windowtype = 'None'
+        ceilingtype = wallpaper['ceilingType']
+        if ceilingtype == None:
+            ceilingtype = 'None'
+        curtaintype = wallpaper['curtainType']
+        if curtaintype == None:
+            curtaintype = 'None'
+        points = wallpaper['hhaBasePoints']
+        series = wallpaper['series']
+        if series == None:
+            series = 'None'
+        concepts = ', '.join(wallpaper['concepts'])
+        tag = wallpaper['tag']
+        id = index
+        new_wallpaper = Wallpapers(name = name, image = image, vfxtype = vfxtype, buy = buy, 
+            sell = sell, color = color, source = source,
+            windowtype = windowtype, ceilingtype = ceilingtype, curtaintype = curtaintype, 
+            points = points, series = series, concepts = concepts, tag = tag, id = id)
+        db.session.add(new_wallpaper)
+        db.session.commit()
+        index += 1
+    
+def create_rugs():
+    db.session.query(Rugs).delete()
+    rugs = load_json('rugs.json')
+    index = 1
+    for rug in rugs:
+        name = rug['name']
+        image = rug['image']
+        buy = rug['buy']
+        sell = rug['sell']
+        color = ", ".join(list(set(rug['colors'])))
+        source = ', '.join(rug['source'])
+        size = rug['size'].replace(" ", "")
+        sizecategory = rug['sizeCategory']
+        if rug['diy'] == True:
+            material_list = []
+            for (key, value) in rug['recipe']['materials'].items():
+                material_list.append(str(value) + " " + key)
+            source += " (Recipe: " + ", ".join(material_list) + ")"
+        if rug['sourceNotes'] != None:
+            source += ' (' + rug['sourceNotes'] + ')'
+        points = rug['hhaBasePoints']
+        series = rug['series']
+        if series == None:
+            series = 'None'
+        concepts = ', '.join(rug['concepts'])
+        tag = rug['tag']
+        id = index
+        new_rug = Rugs(name = name, image = image, buy = buy, sell = sell, color = color, 
+            size = size, sizecategory = sizecategory, source = source,
+            points = points, series = series, concepts = concepts, tag = tag, id = id)
+        db.session.add(new_rug)
         db.session.commit()
         index += 1
 
@@ -458,8 +622,54 @@ def create_search():
             db.session.commit()
             index += 1
             searchID += 1
-        
-    
+    #tools add
+    tools = load_json('tools.json')
+    index = 1
+    for tool in tools:
+        name = tool['name']
+        category = 'tools'
+        id = index
+        new_tool = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_tool)
+        db.session.commit()
+        index += 1
+        searchID += 1
+    #floor add
+    floors = load_json('floors.json')
+    index = 1
+    for floor in floors:
+        name = floor['name']
+        category = 'floors'
+        id = index
+        new_floor = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_floor)
+        db.session.commit()
+        index += 1
+        searchID += 1
+    #wallpaper add
+    wallpapers = load_json('wallpapers.json')
+    index = 1
+    for wallpaper in wallpapers:
+        name = wallpaper['name']
+        category = 'wallpapers'
+        id = index
+        new_wallpaper = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_wallpaper)
+        db.session.commit()
+        index += 1
+        searchID += 1
+    #rug add
+    rugs = load_json('rugs.json')
+    index = 1
+    for rug in rugs:
+        name = rug['name']
+        category = 'rugs'
+        id = index
+        new_rug = Search(name = name, category = category, id = id, searchID = searchID)
+        db.session.add(new_rug)
+        db.session.commit()
+        index += 1
+        searchID += 1
     
 
 
@@ -477,6 +687,10 @@ def create_database():
     create_recipes()
     create_reactions()
     create_clothes()
+    create_tools()
+    create_floors()
+    create_wallpapers()
+    create_rugs()
     create_search()
 
 create_database()

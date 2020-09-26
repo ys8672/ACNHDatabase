@@ -1,9 +1,7 @@
 #This is just the file I use for debugging stuff. You can ignore.
 
 import json
-from models import app, db, Construction, Recipes, Clothes
-import matplotlib.pyplot as plt 
-import numpy as np 
+
 
 def load_json(filename):
     with open(filename ,encoding='utf-8') as file:
@@ -49,11 +47,15 @@ def load_json(filename):
     # for clothes in clothes_list:
         # construction = load_json('json/' + clothes)
         # for item in construction:  
-            # #source = ', '.join(cloth['source'])         
-            # v = item['seasonalAvailability']
-            # if not v in slist and v != None:
-                # slist.append(v)
+            # #source = ', '.join(cloth['source']) 
+            # if 'variations' in item:
+                # c = item['variations']
+                # for v in c:
+                    # real = v['variation']
+                    # if not real in slist and real != None:
+                        # slist.append(real)
                     
+    # print(slist)
     # slist.sort()
     # real_list = []
     # for i in slist:
@@ -63,14 +65,38 @@ def load_json(filename):
     # print(variant)
 
 # create_cons()
-def buyPrice():
-    price_list = []
-    construction = load_json('json/construction.json')
-    for cons in construction:
-        price_list.append(cons['buy'])
-    print(price_list)  
-    fig = plt.figure(figsize =(10, 7)) 
-    plt.boxplot(price_list) 
-    plt.show() 
 
-buyPrice()
+# create_cons()
+# def buyPrice():
+    # price_list = []
+    # construction = load_json('json/construction.json')
+    # for cons in construction:
+        # price_list.append(cons['buy'])
+    # print(price_list)  
+    # fig = plt.figure(figsize =(10, 7)) 
+    # plt.boxplot(price_list) 
+    # plt.show() 
+
+# buyPrice()
+def color():
+    color_list = []
+    file = load_json('json/tools.json')
+    for w in file:
+        for c in w['source']:
+            if not c in color_list:
+                color_list.append(c)
+                
+        # thing = w['source']
+        # if thing == None:
+            # thing = 'None'
+        # if not thing in color_list:
+            # color_list.append(thing)
+    color_list.sort()
+    real_list = []
+    for i in color_list:
+        real_list.append(("'") + str(i) + str("': '") + str(i) + str("'"))
+    variant = ""
+    variant = ',\n'.join(real_list)
+    print(variant)
+
+color()

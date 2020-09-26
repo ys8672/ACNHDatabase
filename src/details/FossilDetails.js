@@ -38,7 +38,7 @@ class FossilDetails extends React.Component {
 						<div class="col-md-8">
 							<div class="card-body">
 								<h1 class="card-title capitalize"><b>Name: {fossil.name}</b></h1>
-								<p class="card-text"><b>Selling Price:</b> {fossil.price} </p>
+								<p class="card-text"><b>Sell Price:</b> {fossil.price} </p>
 								<p class="card-text"><b>Museum Description:</b> {fossil.museumPhrase} </p>
 
 							</div>

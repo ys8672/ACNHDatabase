@@ -332,29 +332,29 @@ class Bugs extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Bug Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'icon',
-                text: 'Bug Icon',
+                text: 'Icon',
                 sort: false,
                 formatter: imageFormatter,
 				align: "center",
 				headerAlign: 'center'
             },  {
                 dataField: 'image',
-                text: 'Bug Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				align: "center",
 				headerAlign: 'center'
             }, {
                 dataField: 'monthNorth',
-                text: 'Months Available in the Northern Hemisphere',
+                text: 'Months Available (Northern Hemisphere)',
                 sort: true,
 				sortFunc: monthSort,
 				formatter: monthFormatter,
@@ -362,7 +362,7 @@ class Bugs extends React.Component {
 				headerAlign: 'center'
             }, {
                 dataField: 'monthSouth',
-                text: 'Months Available in the Southern Hemisphere',
+                text: 'Months Available (Southern Hemisphere)',
                 sort: true,
 				sortFunc: monthSort,
 				formatter: monthFormatter,
@@ -377,46 +377,48 @@ class Bugs extends React.Component {
 				headerAlign: 'center'
             }, {
                 dataField: 'location',
-                text: 'Bug Location',
+                text: 'Location',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectLocation[cell],
 				filter: selectFilter({
-					options: selectLocation
+					options: selectLocation,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'rarity',
-                text: 'Bug Rarity',
+                text: 'Rarity',
                 sort: true,
 				sortFunc: raritySort,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectRarity[cell],
 				filter: selectFilter({
+					placeholder: 'All',
 					options: selectRarity
 				})
             }, {
                 dataField: 'price',
-                text: 'Selling Price',
+                text: 'Sell Price',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: numberFilter()
+				filter: numberFilter({placeholder: 'Number'})
             },{
                 dataField: 'catchPhrase',
                 text: 'Catch Phrase',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'museumPhrase',
                 text: 'Museum Description',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter(),
+				filter: textFilter({placeholder: 'Search'}),
 				formatter: truncate
             },{
                 dataField: 'id',
@@ -506,7 +508,7 @@ class Bugs extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Selling Price: </b> {cell} </div>
+						<div><b>Sell Price: </b> {cell} </div>
 					);
 				}
             },{
@@ -526,7 +528,7 @@ class Bugs extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Museum Phrase: </b> {cell} </div>
+						<div><b>Museum Description: </b> {cell} </div>
 					);
 				}
             },{
@@ -539,6 +541,63 @@ class Bugs extends React.Component {
             ]
         }
 		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 01. <u>Name:</u> The name of the bug as described in the inventory. </h5>
+				<h5 > 02. <u>Icon:</u> The picture of the bug as shown in the inventory. </h5>
+				<h5 > 03. <u>Image:</u> The picture of the bug appearing on your island. </h5>
+				<h5 > 04. <u>Months Available (Northern Hemisphere):</u> The months the bug can be found on your island in the Northern Hemisphere. </h5>
+				<h5 > 05. <u>Months Available (Southern Hemisphere):</u> The months the bug can be found on your island in the Southern Hemisphere. </h5>
+				<h5 > 06. <u>Time Available:</u> The time range of when the bug can be found on your island. </h5>
+				<h5 > 07. <u>Location:</u> Where the bug spawns and can be found. </h5>
+				<h5 > 08. <u>Rarity:</u> How often the player is likely to encounter the bug on their island. </h5>
+				<h5 > 09. <u>Sell Price:</u> The number of bells the bug can be sold at Nook's Cranny. You can also sell the bugs for 1.5x the price
+				by talking to Flick. </h5>
+				<h5 > 10. <u>Catch Phrase:</u> The game phrase that displays when you catch this bug. </h5>
+				<h5 > 11. <u>Museum Description:</u> The description of the bug in the museum. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Bugs are collectables which can be found scattered around your island. They can be caught
+					using a net. Bugs can be donated to Blather's Museum, sold for bells, or placed as decoration. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the bugs currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the bugs
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
+		
         return (
             <div>
 				<Helmet>
@@ -550,11 +609,21 @@ class Bugs extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 				
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">	
-
-				<BrowserView>
-
+					<BrowserView>
 					<BootstrapTable
 						bootstrap4
 						keyField = "id"
@@ -564,11 +633,10 @@ class Bugs extends React.Component {
 						pagination={ paginationFactory( {sizePerPage: 25} ) }
 						defaultSorted={ defaultSorted } 
 						filter={ filterFactory() }
-						
 					/>
-				</BrowserView>
+					</BrowserView>
 				
-				<MobileView>
+					<MobileView>
 					<ToolkitProvider
 					  keyField="id"
 					  data={ bugs }
@@ -680,7 +748,7 @@ class Bugs extends React.Component {
 					</div>
 					
 					<div class='border border-success'>
-						<h3 className='text-center'> Bugs Selling Price Box-Plot </h3>
+						<h3 className='text-center'> Bugs Sell Price Box-Plot </h3>
 						<VictoryChart domainPadding={0}>
 						    <VictoryAxis
 							  // tickValues specifies both the number of ticks and where

@@ -70,7 +70,7 @@ class Fossils extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Fossil Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
@@ -78,7 +78,7 @@ class Fossils extends React.Component {
 				filter: textFilter()
             },{
                 dataField: 'image',
-                text: 'Fossil Image',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -149,7 +149,7 @@ class Fossils extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Museum Phrase: </b> {cell} </div>
+						<div><b>Museum Description: </b> {cell} </div>
 					);
 				},
             }, {
@@ -161,6 +161,58 @@ class Fossils extends React.Component {
             }
             ]
         }
+		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 1. <u>Name:</u> The name of the fossil as described in the inventory. </h5>
+				<h5 > 2. <u>Image:</u> The picture of the fossil appearing on your island when placed or on display at the museum. </h5>
+				<h5 > 3. <u>Sell Price:</u> The number of bells the fossil can be sold at Nook's Cranny. Please note that you have to get
+				the fossil inspected by Blathers to identify what the fossil is to get the full amount of bells. Selling an unidentified fossil
+				will net you less bells.</h5>
+				<h5 > 4. <u>Museum Description:</u> The description of the fossil in the museum. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Fossils are collectables which can be found scattered around your island. Every day, around 5 new
+					cracks will appear randomly on your island (provided you have the empty space), and you can use a shovel to dig up a fossil in these cracks.
+					Fossils will have to be taken to the museum and identified by Blathers before you actually know what fossil you acquired. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the bugs currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the bugs
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
 	
         return (
             <div>
@@ -173,7 +225,19 @@ class Fossils extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 				
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">	
 					<BrowserView>
 						<BootstrapTable 
@@ -216,7 +280,7 @@ class Fossils extends React.Component {
 				<Tab eventKey="charts" title="Fun Charts">
 
 					<div class='border border-success'>
-						<h3 className='text-center'> Fossil Selling Price Box-Plot </h3>
+						<h3 className='text-center'> Fossils Sell Price Box-Plot </h3>
 						<VictoryChart domainPadding={0}>
 						    <VictoryAxis
 							  // tickValues specifies both the number of ticks and where

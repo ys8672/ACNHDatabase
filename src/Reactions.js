@@ -74,12 +74,12 @@ class Reactions extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Reaction Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder:'Search'})
             },{
                 dataField: 'image',
                 text: 'Image',
@@ -89,13 +89,14 @@ class Reactions extends React.Component {
 				formatter: imageFormatter
             },{
                 dataField: 'source',
-                text: 'Where to Acquire:',
+                text: 'Source:',
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectSource[cell],
 				filter: selectFilter({
-					options: selectSource
+					options: selectSource,
+					placeholer:'All'
 				})
             },{
                 dataField: 'sourceNotes',
@@ -103,7 +104,7 @@ class Reactions extends React.Component {
                 sort: false,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder:'Search'})
             },{
                 dataField: 'id',
                 text: 'ID',
@@ -150,7 +151,7 @@ class Reactions extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>Source Notes: </b> {cell} </div>
+						<div><b>Important Notes: </b> {cell} </div>
 					);
 				}
             },{
@@ -163,6 +164,56 @@ class Reactions extends React.Component {
             ]
         }
 		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 1. <u>Name:</u> The name of the reaction as shown in your list when you press R. </h5>
+				<h5 > 2. <u>Image:</u> The picture of the reaction face as seen in the list. </h5>
+				<h5 > 3. <u>Source:</u> How to get the certain reaction.</h5>
+				<h5 > 4. <u>Important Notes:</u> Important Notes on getting the reaction. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Reactions are face expressions that you can do anytime you want. You learn them from villagers, and 
+					you can use them to show your expression to villagers and they may mimic you. You can also do them to your friends to
+					express your current feelings. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the reactions currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the reactions
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
+		
         return (
             <div>
 				<Helmet>
@@ -174,7 +225,19 @@ class Reactions extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 				
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">		
 
 					<BrowserView>
@@ -217,7 +280,7 @@ class Reactions extends React.Component {
 				</Tab>
 				<Tab eventKey="charts" title="Fun Charts">
 				<div class="border border-success">
-					  <h3 className='text-center'> Reactions Taught By Villager Personalities </h3>
+					  <h3 className='text-center'> Reactions By Source </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 

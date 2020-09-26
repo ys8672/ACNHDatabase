@@ -103,15 +103,15 @@ class Construction extends React.Component {
         const {columns} = {
             columns: [{
                 dataField: 'name',
-                text: 'Construction Name',
+                text: 'Name',
                 sort: true,
 				formatter: nameFormatter,
 				align: "center",
 				headerAlign: 'center',
-				filter: textFilter()
+				filter: textFilter({placeholder: 'Search'})
             },{
                 dataField: 'image',
-                text: 'Construction Photo',
+                text: 'Image',
                 sort: false,
                 formatter: imageFormatter,
 				searchable: false,
@@ -123,17 +123,18 @@ class Construction extends React.Component {
                 sort: true,
 				align: "center",
 				headerAlign: 'center',
-				filter: numberFilter()
+				filter: numberFilter({placeholder: 'Number'})
             }, {
                 dataField: 'source',
-                text: 'How to Acquire',
+                text: 'Source',
                 sort: true,
 				sortFunc: sourceSort,
 				align: "center",
 				headerAlign: 'center',
 				formatter: cell => selectSource[cell],
 				filter: selectFilter({
-					options: selectSource
+					options: selectSource,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'category',
@@ -143,7 +144,8 @@ class Construction extends React.Component {
 				headerAlign: 'center',
 				formatter: cell => selectCategory[cell],
 				filter: selectFilter({
-					options: selectCategory
+					options: selectCategory,
+					placeholder: 'All'
 				})
             }, {
                 dataField: 'id',
@@ -191,7 +193,7 @@ class Construction extends React.Component {
 				headerAlign: 'center',
 				formatter: (cell, row) => {
 					return(
-						<div><b>How To Acquire: </b> {cell} </div>
+						<div><b>Source: </b> {cell} </div>
 					);
 				},
             }, {
@@ -214,6 +216,58 @@ class Construction extends React.Component {
             ]
         }
 		
+		//about
+		function about2(){
+			return(
+			<div>
+				<h5 > 1. <u>Name:</u> The name of the construction item as described by Tom Nook. </h5>
+				<h5 > 2. <u>Image:</u> The picture of the construction project as it would look on your island. </h5>
+				<h5 > 3. <u>Purchase Price:</u> The number of bells required to build a construction project. Bridge and inclines
+					are paid by talking to Lloid after placing the part on your island. Also, if your house is at the maximum
+					expansion, you can get one free house construction per day. </h5>
+				<h5 > 4. <u>Source:</u> Where and/or when to start the construction project. </h5>
+				<h5 > 5. <u>Category:</u> The type of construction project. </h5>
+			</div>
+			)
+		}
+		
+		function about(){
+			return(
+			<div>
+				<br/>
+				<h3 className='indent'><b> About </b></h3>
+				<hr/>
+				<h5 className='indent'> Construction projects are unique projects that can help you spice up your island. These
+					can be constructed by talking to Tom Nook in the Resident Services. </h5>
+				<br/>
+				<h3 className='indent'><b> Table </b></h3>
+				<hr/>
+				<h5 className='indent'> Click on the Table tab above to go see all the construction projects currently available in Animal Crossing: New Horizons. You can sort
+				each column in the table in ascending or descending order, or search/filter each column to better help you find the construction project
+				you want. (Please note that table sorting and filtering by column does not exist
+				on mobile format. However, there is a universal search bar that can search every column instead.)
+				The meaning of each column is explained below. </h5>
+				<br/>
+				    <BrowserView>
+						<div className="indentall">
+							{about2()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about2()}
+					</MobileView>
+				<br/>
+				<h3 className='indent'><b> Fun Charts </b></h3>
+				<hr/>
+				<h5 className='indent'> For certain columns that have common attributes, graphs were made to visualize how many types
+				of each attribute exist in the table. Click on the Fun Charts tab above to see the visualizations. 
+				(Note: some graphs may not be viewable on mobile.) </h5>
+				<br/>
+			</div>
+			)
+		}
+		
         return (
             <div>
 
@@ -225,7 +279,19 @@ class Construction extends React.Component {
 				  <img src={process.env.PUBLIC_URL + '/construction.png'} class="card-img" alt="Construction" 
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
-				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
+				  </Tab>
+				  
 				  <Tab eventKey="table" title="Table">	
 					<BrowserView>
 						<BootstrapTable
@@ -270,7 +336,7 @@ class Construction extends React.Component {
 				<Tab eventKey="charts" title="Fun Charts">	
 					
 					<div class="border border-success">
-					  <h3 className='text-center'> Construction by Source </h3>
+					  <h3 className='text-center'> Construction By Source </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart
@@ -306,7 +372,7 @@ class Construction extends React.Component {
 					</div>
 
 					<div class="border border-success">
-					  <h3 className='text-center'> Construction by Category </h3>
+					  <h3 className='text-center'> Construction By Category </h3>
 					  <div style={{display: 'flex', justifyContent: 'center'}}>
 							<BrowserView>
 							<BubbleChart 

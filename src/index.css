@@ -7,6 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.indent {
+  text-indent: 50px;
+}
+
+.indentall {
+  margin-left: 50px;
+}
+
 .recipepadding {
 	margin: 0;
 	padding: 0% 30%;
@@ -15,6 +23,11 @@ body {
 .frontpagepadding {
 	margin: 0;
 	padding: 0% 15%;
+}
+
+.realfrontpagepadding{
+	margin: 0;
+	padding: 0% 10%;
 }
 .react-bootstrap-table>table>thead>tr>th .filter-label {
   width: 100%

@@ -4,27 +4,26 @@ import {BrowserView, MobileView} from "react-device-detect";
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 
-class ClothDetails extends React.Component {
+class ToolDetails extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            cloth: {},
+            tool: {},
 			canShow: true
         }
     }
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(cloth_by_ID => {
-			this.setState({cloth: cloth_by_ID})
-			if('code' in cloth_by_ID){
+		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(tool_by_ID => {
+			this.setState({tool: tool_by_ID})
+			if('code' in tool_by_ID){
 				this.setState({canShow: false});
 			}
         })
 	}
 	
 	render() {
-		
 		function imageFormatter(image){
 			var cell = String(image)
 			var imageArray = cell.split(',');
@@ -46,25 +45,28 @@ class ClothDetails extends React.Component {
             );
 		}
 		
-		function buyFormatter(cell, row) {
+		function kitCostFormatter(cost) {
+			var cell = parseInt(cost)
 			if(cell === -1){
-				return "Not Buyable"
+				return "Not Customizable"
 			}
 			return parseInt(cell)
 		}
 		
-		function booleanFormatter(cell, row) {
-			if(cell === true){
-				return ("Yes")
+		function usesFormatter(cost) {
+			var cell = parseInt(cost)
+			if(cell === -1){
+				return "Infinite"
 			}
-			return ("No")
+			return parseInt(cell)
 		}
 		
-		function variationFormatter(cell, row) {
-			if(cell === null){
-				return "N/A"
+		function buyFormatter(cost) {
+			var cell = parseInt(cost)
+			if(cell === -1){
+				return "Not Buyable"
 			}
-			return cell
+			return parseInt(cell)
 		}
 		
 		function card(){
@@ -73,33 +75,34 @@ class ClothDetails extends React.Component {
 					{canShow && <div class="borderdiv">
 						<div class="row no-gutters">
 							<div class="col-md-4">
-								{imageFormatter(cloth.image)}
+								{imageFormatter(tool.image)}
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h1 class="card-title capitalize"><b>Name: {cloth.name}</b></h1>
-									<p class="card-text"><b>Type: </b> {cloth.sourceSheet} </p>
-									<p class="card-text"><b>Purchase Price: </b> {buyFormatter(cloth.buy)} </p>
-									<p class="card-text"><b>Sell Price: </b> {cloth.sell} </p>
-									<p class="card-text"><b>Source: </b> {cloth.source} </p>
-									<p class="card-text"><b>Seasons Available: </b> {cloth.seasonal} </p>
-									<p class="card-text"><b>Villager Equippable?: </b> {booleanFormatter(cloth.villager)} </p>
-									<p class="card-text capitalize"><b>Themes: </b> {cloth.themes} </p>
-									<p class="card-text"><b>Variations: </b> {variationFormatter(cloth.variations)} </p>
+									<h1 class="card-title capitalize"><b>Name: {tool.name}</b></h1>
+									<p class="card-text"><b>Recipe:</b> {tool.diy} </p>
+									<p class="card-text"><b>Customization Kit Cost: </b> {kitCostFormatter(tool.kitcost)} </p>
+									<p class="card-text"><b>Uses:</b> {usesFormatter(tool.uses)} </p>
+									<p class="card-text"><b>Stack Size:</b> {tool.stacksize} </p>
+									<p class="card-text"><b>Purchase Price:</b> {buyFormatter(tool.buy)} </p>
+									<p class="card-text"><b>Sell Price:</b> {tool.sell} </p>
+									<p class="card-text"><b>Source:</b> {tool.source} </p>
+									<p class="card-text"><b>Variations:</b> {tool.variations} </p>
+
 								</div>
 							</div>
 						</div>
 					</div>}
 					{!canShow && <div class="borderdiv">
-						<h5 className="text-center">Error Code: {cloth.code} </h5>
-						<p className="text-center">{cloth.message} </p>
+						<h5 className="text-center">Error Code: {tool.code} </h5>
+						<p className="text-center">{tool.message} </p>
 					</div>}
 				</div>
 			)
 		}
 		
-		const title = "ACNH Database: Cloth Details"
-		const cloth = this.state.cloth
+		const title = "ACNH Database: tool Details"
+		const tool = this.state.tool
 		const canShow = this.state.canShow
 		return(
 			<div>
@@ -123,4 +126,4 @@ class ClothDetails extends React.Component {
 	}
 }
 
-export default ClothDetails;
+export default ToolDetails;

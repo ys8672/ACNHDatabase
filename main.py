@@ -3,7 +3,7 @@ from flask_cors import CORS
 import io
 import contextlib
 from create_db import db, Villagers, Songs, Sea, Items, Fossils, Fishes, Bugs, Arts, \
-    Construction, Recipes, Search, Reactions, Clothes
+    Construction, Recipes, Search, Reactions, Clothes, Tools, Floors, Wallpapers, Rugs
 from sqlalchemy.orm.exc import NoResultFound
 import requests
 
@@ -12,13 +12,17 @@ CORS(app)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.route('/')
+@app.route('/wallpapers/')
 @app.route('/villagers/')
+@app.route('/tools/')
 @app.route('/songs/')
 @app.route('/sea/')
+@app.route('/rugs/')
 @app.route('/recipes/')
 @app.route('/reactions/')
 @app.route('/items/')
 @app.route('/fossils/')
+@app.route('/floors/')
 @app.route('/fish/')
 @app.route('/construction/')
 @app.route('/clothes/')
@@ -29,13 +33,17 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 def index():
     return app.send_static_file('index.html')
     
+@app.route('/wallpapers/<int:user_id>/')
 @app.route('/villagers/<int:user_id>/')
+@app.route('/tools/<int:user_id>/')
 @app.route('/songs/<int:user_id>/')
 @app.route('/sea/<int:user_id>/')
+@app.route('/rugs/<int:user_id>/')
 @app.route('/recipes/<int:user_id>/')
 @app.route('/reactions/<int:user_id>/')
 @app.route('/items/<int:user_id>/')
 @app.route('/fossils/<int:user_id>/')
+@app.route('/floors/<int:user_id>/')
 @app.route('/fish/<int:user_id>/')
 @app.route('/construction/<int:user_id>/')
 @app.route('/clothes/<int:user_id>/')
@@ -54,6 +62,32 @@ def search_data():
         response.append(new_one)
     new_list = {'search': response}
     return new_list
+
+#wallpapers
+def get_wallpaper_dict(wallpaper):
+    return {"name": wallpaper.name, "image": wallpaper.image, "vfxType": wallpaper.vfxtype, "buy": wallpaper.buy,
+        "sell": wallpaper.sell, "color": wallpaper.color, "source": wallpaper.source, "windowType": wallpaper.windowtype,
+        "ceilingType": wallpaper.ceilingtype, "curtainType": wallpaper.curtaintype, "points": wallpaper.points,
+        "series": wallpaper.series, "concepts": wallpaper.concepts, "tag": wallpaper.tag, "id": wallpaper.id}
+
+@app.route('/api/wallpapers/')
+def wallpaper_data():
+    response = []
+    wallpapers_list = db.session.query(Wallpapers).all()
+    for wallpaper in wallpapers_list:
+        new_one = get_wallpaper_dict(wallpaper)
+        response.append(new_one)
+    new_list = {'wallpapers': response}
+    return new_list
+    
+@app.route('/api/wallpapers/<int:wallpaper_id>/')
+def wallpaper_by_ID(wallpaper_id):
+    if wallpaper_id <= 0 or wallpaper_id > db.session.query(Wallpapers).count():
+        dict = {'code': 404, 'message': 'Wallpaper not found'}
+    else:
+        wallpaper = db.session.query(Wallpapers).filter_by(id=wallpaper_id).one()
+        dict = get_wallpaper_dict(wallpaper)
+    return dict
     
 #villagers
 def get_villager_dict(villager):
@@ -78,6 +112,30 @@ def villager_by_ID(villager_id):
     else:
         villager = db.session.query(Villagers).filter_by(id=villager_id).one()
         dict = get_villager_dict(villager)
+    return dict
+    
+#tools
+def get_tool_dict(tool):
+    return{"name": tool.name, "image": tool.image, "variations": tool.variations, "diy": tool.diy, "kitcost": tool.kitcost,
+        "uses": tool.uses, "stacksize": tool.stacksize, "buy": tool.buy, "sell": tool.sell, "source": tool.source, "id": tool.id}
+        
+@app.route('/api/tools/')
+def tool_data():
+    response = []
+    tools_list = db.session.query(Tools).all()
+    for tool in tools_list:
+        new_one = get_tool_dict(tool)
+        response.append(new_one)
+    new_list = {'tools': response}
+    return new_list
+    
+@app.route('/api/tools/<int:tool_id>/')
+def tool_by_ID(tool_id):
+    if tool_id <= 0 or tool_id > db.session.query(Tools).count():
+        dict = {'code': 404, 'message': 'Tool not found'}
+    else:
+        tool = db.session.query(Tools).filter_by(id=tool_id).one()
+        dict = get_tool_dict(tool)
     return dict
 
 #songs
@@ -129,6 +187,31 @@ def sea_by_ID(sea_id):
         dict = get_sea_dict(sea)
     return dict
     
+#rugs
+def get_rug_dict(rug):
+    return {"name": rug.name, "image": rug.image, "buy": rug.buy, "sell": rug.sell, "color": rug.color,
+        "size": rug.size, "sizeCategory": rug.sizecategory, "source": rug.source, "points": rug.points,
+        "series": rug.series, "concepts": rug.concepts, "tag": rug.tag, "id": rug.id}
+
+@app.route('/api/rugs/')
+def rug_data():
+    response = []
+    rugs_list = db.session.query(Rugs).all()
+    for rug in rugs_list:
+        new_one = get_rug_dict(rug)
+        response.append(new_one)
+    new_list = {'rugs': response}
+    return new_list
+    
+@app.route('/api/rugs/<int:rug_id>/')
+def rug_by_ID(rug_id):
+    if rug_id <= 0 or rug_id > db.session.query(Rugs).count():
+        dict = {'code': 404, 'message': 'rug not found'}
+    else:
+        rug = db.session.query(Rugs).filter_by(id=rug_id).one()
+        dict = get_rug_dict(rug)
+    return dict
+
 #recipes
 def get_recipe_dict(recipe):
     return {'name': recipe.name, 'buyPrice': recipe.buyPrice, 'sellPrice': recipe.sellPrice, "source": recipe.source,
@@ -182,7 +265,7 @@ def reaction_by_ID(reaction_id):
 def get_item_dict(item):
     return {'name': item.name, 'kitCost': item.kitCost, 'size': item.size, 'source': item.source,
         'isInteractive': item.isInteractive, 'buyPrice': item.buyPrice, 'sellPrice': item.sellPrice, 'image': item.image, 
-        'category': item.category, 'variant': item.variant, 'pattern': item.pattern, 'id': item.id}
+        'category': item.category, 'variant': item.variant, 'pattern': item.pattern, 'typeof': item.typeof, 'id': item.id}
         
 @app.route('/api/items/')
 def item_data():
@@ -226,6 +309,31 @@ def fossil_by_ID(fossil_id):
         fossil = db.session.query(Fossils).filter_by(id=fossil_id).one()
         new_dict = get_fossil_dict(fossil)
     return new_dict
+
+#floors
+def get_floor_dict(floor):
+    return {"name": floor.name, "image": floor.image, "vfx": floor.vfx, "buy": floor.buy, "sell": floor.sell,
+        "color": floor.color, "source": floor.source, "points": floor.points, "series": floor.series,
+        "concepts": floor.concepts, "tag": floor.tag, "id": floor.id}
+
+@app.route('/api/floors/')
+def floor_data():
+    response = []
+    floors_list = db.session.query(Floors).all()
+    for floor in floors_list:
+        new_one = get_floor_dict(floor)
+        response.append(new_one)
+    new_list = {'floors': response}
+    return new_list
+    
+@app.route('/api/floors/<int:floor_id>/')
+def floor_by_ID(floor_id):
+    if floor_id <= 0 or floor_id > db.session.query(Floors).count():
+        dict = {'code': 404, 'message': 'floor not found'}
+    else:
+        floor = db.session.query(Floors).filter_by(id=floor_id).one()
+        dict = get_floor_dict(floor)
+    return dict
 
 #fish
 def get_fish_dict(fish):
