@@ -12,7 +12,7 @@ class SongDetails extends React.Component {
     }
 	
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(song_by_ID => {
+		fetch(`/api${this.props.location.pathname}`).then(r => r.json()).then(song_by_ID => {
 			this.setState({song: song_by_ID})
 			if('code' in song_by_ID){
 				this.setState({canShow: false});

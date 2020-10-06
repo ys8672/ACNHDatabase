@@ -13,7 +13,7 @@ class FloorDetails extends React.Component {
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(floor_by_ID => {
+		fetch(`/api${this.props.location.pathname}`).then(r => r.json()).then(floor_by_ID => {
 			this.setState({floor: floor_by_ID})
 			if('code' in floor_by_ID){
 				this.setState({canShow: false});

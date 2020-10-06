@@ -13,7 +13,7 @@ class WallpaperDetails extends React.Component {
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(wallpaper_by_ID => {
+		fetch(`/api${this.props.location.pathname}`).then(r => r.json()).then(wallpaper_by_ID => {
 			this.setState({wallpaper: wallpaper_by_ID})
 			if('code' in wallpaper_by_ID){
 				this.setState({canShow: false});

@@ -15,7 +15,7 @@ class ClothDetails extends React.Component {
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(cloth_by_ID => {
+		fetch(`/api${this.props.location.pathname}`).then(r => r.json()).then(cloth_by_ID => {
 			this.setState({cloth: cloth_by_ID})
 			if('code' in cloth_by_ID){
 				this.setState({canShow: false});

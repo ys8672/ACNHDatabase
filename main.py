@@ -459,4 +459,5 @@ def art_by_ID(art_id):
     return new_dict
 
 if __name__ == '__main__':
+    #app.run(ssl_context='adhoc')
     app.run()
