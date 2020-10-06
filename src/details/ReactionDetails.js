@@ -13,7 +13,7 @@ class ReactionDetails extends React.Component {
 	
 
 	componentDidMount() {
-		fetch(`/api/${this.props.location.pathname}`).then(r => r.json()).then(reaction_by_ID => {
+		fetch(`/api${this.props.location.pathname}`).then(r => r.json()).then(reaction_by_ID => {
 			this.setState({reaction: reaction_by_ID})
 			if('code' in reaction_by_ID){
 				this.setState({canShow: false});
