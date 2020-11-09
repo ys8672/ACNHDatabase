@@ -655,18 +655,8 @@ class Wallpapers extends React.Component {
 					style={{maxHeight: '300px', maxWidth: '300px'}}/>
 				</div>
 				
-				<Tabs defaultActiveKey="about" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
-				  <Tab eventKey="about" title="About">
-				    <BrowserView>
-						<div className="frontpagepadding">
-							{about()}
-						</div>
-					</BrowserView>
-					
-					<MobileView>
-						{about()}
-					</MobileView>
-				  </Tab>
+				<Tabs defaultActiveKey="table" id="uncontrolled-tab-example" mountOnEnter = 'true' class="nav nav-tabs justify-content-center">
+
 				  
 				  <Tab eventKey="table" title="Table">		
 					<BrowserView>
@@ -961,6 +951,17 @@ class Wallpapers extends React.Component {
 							</MobileView>
 						</div>
 					</div>
+				  </Tab>
+				  				  <Tab eventKey="about" title="About">
+				    <BrowserView>
+						<div className="frontpagepadding">
+							{about()}
+						</div>
+					</BrowserView>
+					
+					<MobileView>
+						{about()}
+					</MobileView>
 				  </Tab>
 				</Tabs>
 			</div>
