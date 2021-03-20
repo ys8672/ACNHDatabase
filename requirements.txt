@@ -2,7 +2,7 @@ Click==7.0
 Flask==1.1.1
 Flask-SQLAlchemy==2.1.0
 flask_cors
-Jinja2==2.10.3
+Jinja2==2.11.3
 pep8==1.7.1
 psycopg2-binary==2.8.4
 requests==2.22.0
