@@ -1,5 +1,5 @@
 Click==7.0
-Flask==1.1.1
+Flask==2.3.2
 Flask-SQLAlchemy==2.1.0
 flask_cors
 Jinja2==2.11.3
